@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarLocadora.Modelo.Clientes
+namespace CarLocadora.Modelo.Models
 {
-    public class ClientesModel
+    public class ClientesModel : EnderecoModel
     {
         [Key]
         [StringLength(14)]
@@ -21,16 +21,7 @@ namespace CarLocadora.Modelo.Clientes
         public string? Telefone { get; set; }
         [StringLength(15)]
         public string Celular { get; set; }
-        [StringLength(50)]
-        public string Logradouro { get; set; }
-        [StringLength(20)]
-        public string Numero { get; set; }
-        [StringLength(50)]
-        public string? Complemento { get; set; }
-        [StringLength(50)]
-        public string Cidade { get; set; }
-        [StringLength(2)]
-        public string Estado { get; set; }
+        
         public bool Ativo { get; set; }
         public DateTime DataInclusao { get; set; }
         public DateTime? DataAlteracao { get; set; }

@@ -5,19 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarLocadora.Modelo.FormasDePagamento
+namespace CarLocadora.Modelo.Models
 {
-    public class FormasDePagamentosModel
+    public class CategoriasModel
     {
-        [Key]
+        [Key]       
         public int Id { get; set; }
-        [StringLength(150)]
+        [StringLength(100)]
         public string Descricao { get; set; }
+        public decimal ValorDiaria { get; set; }
         public bool Ativo { get; set; }
         public DateTime DataInclusao { get; set; }
-        public DateTime? DataAlteracao { get; set; }
-
-
-
+        public DateTime DataAlteracao { get; set; }
     }
 }
