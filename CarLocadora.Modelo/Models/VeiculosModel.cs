@@ -9,6 +9,7 @@ namespace CarLocadora.Modelo.Models
 {
     public class VeiculosModel
     {
+        [Key]
         [StringLength(8)]
         public string Placa { get; set; }
         [StringLength(100)]
