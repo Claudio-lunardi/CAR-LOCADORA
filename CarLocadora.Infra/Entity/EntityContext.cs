@@ -7,21 +7,12 @@ using System.Threading.Tasks;
 
 namespace CarLocadora.Infra.Entity
 {
-    public class Context : DbContext
+    public class EntityContext:DbContext
     {
 
-        public Context(DbContextOptions<Context> options) : base(options)
+        public EntityContext(DbContextOptions<EntityContext> options) : base(options)
         {
 
-
-
-
-
-
-
         }
-
-
-
     }
 }
