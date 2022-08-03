@@ -1,5 +1,8 @@
+using CarLocadora.API.Extencoes;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.ConfigurarServicos();
 // Add services to the container.
 
 builder.Services.AddControllers();
