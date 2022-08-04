@@ -34,7 +34,7 @@ namespace CarLocadora.Controllers.Cliente
             {
 
                 throw;
-            }       
+            }
         }
         #endregion
 
@@ -44,11 +44,12 @@ namespace CarLocadora.Controllers.Cliente
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            
+
             HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroCliente/ObterUmCliente?cpf={valor}").Result;
 
 
-            if (response.IsSuccessStatusCode) {
+            if (response.IsSuccessStatusCode)
+            {
 
                 string conteudo = response.Content.ReadAsStringAsync().Result;
                 return View(JsonConvert.DeserializeObject<ClientesModel>(conteudo));
@@ -59,7 +60,7 @@ namespace CarLocadora.Controllers.Cliente
 
             }
 
-            return View();
+
 
         }
 
@@ -125,14 +126,37 @@ namespace CarLocadora.Controllers.Cliente
 
         #endregion
 
+        #region Create
         public ActionResult Create()
         {
-
-
+            return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([FromForm] ClientesModel clientesModel)
+        {
+            HttpClient Cliente = new HttpClient();
+
+            Cliente.DefaultRequestHeaders.Accept.Clear();
+            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = Cliente.PostAsJsonAsync("https://localhost:7142/api/CadastroCliente", clientesModel).Result;
 
 
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                throw new Exception("aaa");
+            }
+
+           
+        }
+
+        #endregion
 
 
     }
