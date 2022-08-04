@@ -9,26 +9,89 @@ namespace CarLocadora.Controllers.Cliente
     {
         public async Task<ActionResult> Index()
         {
-            HttpClient Cliente = new HttpClient();
+            try
+            {
+                HttpClient Cliente = new HttpClient();
 
+                Cliente.DefaultRequestHeaders.Accept.Clear();
+                Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = Cliente.GetAsync("https://localhost:7142/api/CadastroCliente").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    return View(JsonConvert.DeserializeObject<List<ClientesModel>>(json));
+                }
+                else
+                {
+                    throw new Exception("aaa");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            
+        }
+        public ActionResult Edit(string valor)
+        {
+            HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            
+            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroCliente/ObterUmCliente?cpf={valor}").Result;
 
-            HttpResponseMessage response = Cliente.GetAsync("https://localhost:7142/api/CadastroCliente").Result;
 
+            if (response.IsSuccessStatusCode) {
 
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                return View(JsonConvert.DeserializeObject<List<ClientesModel>>(json));
+                string conteudo = response.Content.ReadAsStringAsync().Result;
+                return View(JsonConvert.DeserializeObject<ClientesModel>(conteudo));
             }
             else
             {
                 throw new Exception("aaa");
+
             }
+
+            return View();
+
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([FromForm] ClientesModel clientesModel)
+        {
+            try
+            {
+                HttpClient Cliente = new HttpClient();
+                Cliente.DefaultRequestHeaders.Accept.Clear();
+                Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                HttpResponseMessage response = Cliente.PutAsJsonAsync("https://localhost:7142/api/CadastroCliente", clientesModel).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    throw new Exception("aaa");
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+
+
+
+        }
 
 
     }
