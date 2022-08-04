@@ -31,9 +31,9 @@ namespace CarLocadora.Negocio.Cliente
            return _entityContext.Clientes.OrderBy(nome => nome.Nome).ToList();
         }
 
-        public List<ClientesModel> ListaUmCliente(string cpf)
+        public ClientesModel ListaUmCliente(string cpf)
         {
-            return _entityContext.Clientes.Where(x => x.CPF.Equals(cpf)).ToList();
+            return _entityContext.Clientes.Single(x => x.CPF.Equals(cpf));
         }
 
     }

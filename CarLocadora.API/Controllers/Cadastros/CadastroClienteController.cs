@@ -24,7 +24,7 @@ namespace CarLocadora.API.Controllers.Cadastros
             return _cliente.ListaClientes();
         }
         [HttpGet("ObterUmCliente")]
-        public List<ClientesModel> ListaUmCliente(string cpf)
+        public ClientesModel ListaUmCliente([FromQuery] string cpf)
         {
 
             return _cliente.ListaUmCliente(cpf);

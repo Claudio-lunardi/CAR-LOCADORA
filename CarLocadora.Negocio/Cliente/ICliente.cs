@@ -10,7 +10,7 @@ namespace CarLocadora.Negocio.Cliente
     public interface ICliente
     {
         List<ClientesModel> ListaClientes();
-        List<ClientesModel> ListaUmCliente(string cpf);
+        ClientesModel ListaUmCliente(string cpf);
         void IncluirCliente(ClientesModel clientesModel);
         void AlterarCliente(ClientesModel clientesModel);
     }
