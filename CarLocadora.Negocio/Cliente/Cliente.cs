@@ -15,13 +15,26 @@ namespace CarLocadora.Negocio.Cliente
         }
         #endregion
 
+        public void AlterarCliente(ClientesModel clientesModel)
+        {
+            _entityContext.Clientes.Update(clientesModel);
+            _entityContext.SaveChanges();
+        }
+
+        public void IncluirCliente(ClientesModel clientesModel)
+        {
+            _entityContext.Clientes.Add(clientesModel);
+            _entityContext.SaveChanges();
+        }  
         public List<ClientesModel> ListaClientes()
         {
            return _entityContext.Clientes.OrderBy(nome => nome.Nome).ToList();
         }
 
-
-
+        public List<ClientesModel> ListaUmCliente(string cpf)
+        {
+            return _entityContext.Clientes.Where(x => x.CPF.Equals(cpf)).ToList();
+        }
 
     }
 }

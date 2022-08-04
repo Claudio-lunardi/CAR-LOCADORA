@@ -9,7 +9,6 @@ namespace CarLocadora.API.Controllers.Cadastros
     [ApiController]
     public class CadastroClienteController : ControllerBase
     {
-
         #region Chamando Interface
         private readonly ICliente _cliente;
 
@@ -19,15 +18,28 @@ namespace CarLocadora.API.Controllers.Cadastros
         }
         #endregion
 
-
         [HttpGet()]
         public async Task<List<ClientesModel>> ListaClientes()
         {
             return _cliente.ListaClientes();
         }
+        [HttpGet("ObterUmCliente")]
+        public List<ClientesModel> ListaUmCliente(string cpf)
+        {
 
+            return _cliente.ListaUmCliente(cpf);
 
+        }
 
-
+        [HttpPost()]
+        public void IncluirCliente([FromBody] ClientesModel clientesModel)
+        {
+            _cliente.IncluirCliente(clientesModel);
+        }
+        [HttpPut()]
+        public void AlterarCliente([FromBody] ClientesModel clientesModel)
+        {
+            _cliente.AlterarCliente(clientesModel);
+        }
     }
 }
