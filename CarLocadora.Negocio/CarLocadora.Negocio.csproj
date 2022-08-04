@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CarLocadora.Infra\CarLocadora.Infra.csproj" />
+  </ItemGroup>
+
 </Project>
