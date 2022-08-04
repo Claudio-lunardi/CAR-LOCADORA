@@ -7,6 +7,8 @@ namespace CarLocadora.Controllers.Cliente
 {
     public class ClienteController : Controller
     {
+
+        #region Index
         public async Task<ActionResult> Index()
         {
             try
@@ -32,10 +34,11 @@ namespace CarLocadora.Controllers.Cliente
             {
 
                 throw;
-            }
-
-            
+            }       
         }
+        #endregion
+
+        #region Edit
         public ActionResult Edit(string valor)
         {
             HttpClient Cliente = new HttpClient();
@@ -92,6 +95,44 @@ namespace CarLocadora.Controllers.Cliente
 
 
         }
+        #endregion
+
+        #region Details
+        public ActionResult Details(string valor)
+        {
+
+            HttpClient Cliente = new HttpClient();
+            Cliente.DefaultRequestHeaders.Accept.Clear();
+            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroCliente/ObterUmCliente?cpf={valor}").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string conteudo = response.Content.ReadAsStringAsync().Result;
+                return View(JsonConvert.DeserializeObject<ClientesModel>(conteudo));
+            }
+            else
+            {
+                throw new Exception("aaa");
+            }
+
+
+
+
+        }
+
+
+        #endregion
+
+        public ActionResult Create()
+        {
+
+
+        }
+
+
+
 
 
     }
