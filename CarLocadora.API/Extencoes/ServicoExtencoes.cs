@@ -1,4 +1,5 @@
 ﻿using CarLocadora.Infra.Entity;
+using CarLocadora.Negocio.Cliente;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarLocadora.API.Extencoes
@@ -10,7 +11,7 @@ namespace CarLocadora.API.Extencoes
             string connectionString = "Data Source=localhost,1434;User ID=sa;Password=senha@1234xxxY;Initial Catalog=DBCarLocadora;";
 
             services.AddDbContext<EntityContext>(item => item.UseSqlServer(connectionString));
-
+            services.AddScoped<ICliente, Cliente>();
         }
     }
 }
