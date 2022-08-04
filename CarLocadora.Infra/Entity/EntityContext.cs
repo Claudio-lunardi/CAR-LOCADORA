@@ -8,6 +8,7 @@ namespace CarLocadora.Infra.Entity
         public EntityContext(DbContextOptions<EntityContext> options) : base(options)
         {
         }
+
         public DbSet<CategoriasModel> Categorias { get; set; }
         public DbSet<ClientesModel> Clientes { get; set; }
         public DbSet<FormasDePagamentosModel> FormasDePagamento{ get; set; }
