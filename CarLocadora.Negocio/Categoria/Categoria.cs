@@ -29,16 +29,11 @@ namespace CarLocadora.Negocio.Categoria
         public CategoriasModel ListaUmaCategoria(int valor)
         {
             return _entityContext.Categorias.Single(x => x.Id.Equals(valor));
+            
         }
         public void AlterarCategoria(CategoriasModel categoriasModel)
         {
             _entityContext.Categorias.Update(categoriasModel);
-            _entityContext.SaveChanges();
-        }
-        public void ExcluirCategoria(string valor)
-        {
-            var id = _entityContext.Categorias.Single(id => id.Id.Equals(valor));
-            _entityContext.Categorias.Remove(id);
             _entityContext.SaveChanges();
         }
         public void IncluirCategoria(CategoriasModel categoriasModel)
@@ -46,17 +41,12 @@ namespace CarLocadora.Negocio.Categoria
             _entityContext.Categorias.Add(categoriasModel);
             _entityContext.SaveChanges();
         }
-        
 
-
-
-
-
-
-
-
-
-
-
+        public void ExcluirCategoria(int valor)
+        {
+            var id = _entityContext.Categorias.Single(id => id.Id.Equals(valor));
+            _entityContext.Categorias.Remove(id);
+            _entityContext.SaveChanges();
+        }
     }
 }

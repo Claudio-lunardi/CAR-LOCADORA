@@ -40,7 +40,7 @@ namespace CarLocadora.API.Controllers.Cadastros
             _Categoria.AlterarCategoria(categoriasModel);
         }
         [HttpDelete()]
-        public void DeletarCategoria(string valor)
+        public void DeletarCategoria(int valor)
         {
             _Categoria.ExcluirCategoria(valor);
         }
