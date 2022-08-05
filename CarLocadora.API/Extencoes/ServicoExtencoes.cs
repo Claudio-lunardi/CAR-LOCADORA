@@ -17,6 +17,7 @@ namespace CarLocadora.API.Extencoes
             services.AddScoped<ICliente, Cliente>();
             services.AddScoped<ICategoria, Categoria>();
             services.AddScoped<IVeiculo, Veiculo>();
+            services.AddScoped<IFormaPagamento, FormaPagamento>();
         }
     }
 }

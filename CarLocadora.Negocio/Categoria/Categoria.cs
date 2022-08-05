@@ -26,7 +26,7 @@ namespace CarLocadora.Negocio.Categoria
         {
             return _entityContext.Categorias.OrderBy(id => id.Id).ToList();
         }
-        public CategoriasModel ListaUmaCategoria(string valor)
+        public CategoriasModel ListaUmaCategoria(int valor)
         {
             return _entityContext.Categorias.Single(x => x.Id.Equals(valor));
         }
