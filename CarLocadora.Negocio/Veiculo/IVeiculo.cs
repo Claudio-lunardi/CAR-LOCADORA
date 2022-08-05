@@ -10,8 +10,8 @@ namespace CarLocadora.Negocio.Veiculo
     public interface IVeiculo
     {
         List<VeiculosModel> ListaVeiculos();
-        VeiculosModel ListaUmVeiculos(string cpf);
-        void IncluirVeiculos(VeiculosModel clientesModel);
-        void AlterarVeiculos(VeiculosModel clientesModel);
+        VeiculosModel ListaUmVeiculo(string valor);
+        void IncluirVeiculos(VeiculosModel veiculosModel);
+        void AlterarVeiculos(VeiculosModel veiculosModel);
     }
 }

@@ -11,8 +11,8 @@ namespace CarLocadora.Negocio.Categoria
     {
 
 
-        List<CategoriasModel> ListaCategoria();
-        CategoriasModel ListaUmaCategoria();
+        List<CategoriasModel> ListaCategorias();
+        CategoriasModel ListaUmaCategoria(string valor);
         void AlterarCategoria(CategoriasModel categoriasModel);
         void IncluirCategoria(CategoriasModel categoriasModel);
         void ExcluirCategoria(string valor);
