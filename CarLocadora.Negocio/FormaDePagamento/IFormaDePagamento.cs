@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarLocadora.Negocio.FormaDePagamento
 {
-    public interface IFormaDePagamento
+    public interface IVeiculos
     {
     }
 }

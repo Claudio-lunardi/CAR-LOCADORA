@@ -2,6 +2,7 @@
 using CarLocadora.Negocio.Categoria;
 using CarLocadora.Negocio.Cliente;
 using CarLocadora.Negocio.FormaDePagamento;
+using CarLocadora.Negocio.Veiculo;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarLocadora.API.Extencoes
@@ -15,7 +16,7 @@ namespace CarLocadora.API.Extencoes
             services.AddDbContext<EntityContext>(item => item.UseSqlServer(connectionString));
             services.AddScoped<ICliente, Cliente>();
             services.AddScoped<ICategoria, Categoria>();
-            //services.AddScoped<IFormaDePagamento, FormaDePagamento>();
+            services.AddScoped<IVeiculo, Veiculo>();
         }
     }
 }
