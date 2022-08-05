@@ -38,18 +38,18 @@ namespace CarLocadora.Controllers.Categoria
         }
 
         // GET: CategoriaController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int valor)
         {
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroCategoria/ObterUmaCategoria?valor={id}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroCategoria/ObterUmaCategoria?valor={valor}").Result;
 
             if (response.IsSuccessStatusCode)
             {
                 string conteudo = response.Content.ReadAsStringAsync().Result;
-                return View(JsonConvert.DeserializeObject<ClientesModel>(conteudo));
+                return View(JsonConvert.DeserializeObject<CategoriasModel>(conteudo));
             }
             else
             {
@@ -66,14 +66,14 @@ namespace CarLocadora.Controllers.Categoria
         // POST: CategoriaController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromForm] ClientesModel clientesModel)
+        public ActionResult Create([FromForm] CategoriasModel categoriasModel)
         {
             HttpClient Cliente = new HttpClient();
 
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.PostAsJsonAsync("https://localhost:7142/api/CadastroCategoria", clientesModel).Result;
+            HttpResponseMessage response = Cliente.PostAsJsonAsync("https://localhost:7142/api/CadastroCategoria", categoriasModel).Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -91,18 +91,18 @@ namespace CarLocadora.Controllers.Categoria
 
 
         // GET: CategoriaController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int valor)
         {
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroCategoria/ObterUmaCategoria?valor={id}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroCategoria/ObterUmaCategoria?valor={valor}").Result;
 
             if (response.IsSuccessStatusCode)
             {
                 string conteudo = response.Content.ReadAsStringAsync().Result;
-                return View(JsonConvert.DeserializeObject<ClientesModel>(conteudo));
+                return View(JsonConvert.DeserializeObject<CategoriasModel>(conteudo));
             }
             else
             {
@@ -113,7 +113,7 @@ namespace CarLocadora.Controllers.Categoria
         // POST: CategoriaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([FromForm]VeiculosModel veiculosModel)
+        public ActionResult Edit([FromForm] CategoriasModel categoriasModel)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace CarLocadora.Controllers.Categoria
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.PutAsJsonAsync("https://localhost:7142/api/CadastroCategoria", veiculosModel).Result;
+                HttpResponseMessage response = Cliente.PutAsJsonAsync("https://localhost:7142/api/CadastroCategoria", categoriasModel).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -139,8 +139,8 @@ namespace CarLocadora.Controllers.Categoria
             }
         }
 
-        
-        
+
+
         public ActionResult Delete(int valor)
         {
             try

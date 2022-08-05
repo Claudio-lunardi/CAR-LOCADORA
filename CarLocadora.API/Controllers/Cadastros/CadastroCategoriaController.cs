@@ -23,7 +23,7 @@ namespace CarLocadora.API.Controllers.Cadastros
             return _Categoria.ListaCategorias();
         }
         [HttpGet("ObterUmaCategoria")]
-        public CategoriasModel ListaUmaCategoria([FromQuery] int valor)
+        public CategoriasModel ListaUmaCategoria(int valor)
         {
             return _Categoria.ListaUmaCategoria(valor);
         }
