@@ -115,8 +115,6 @@ namespace CarLocadora.Controllers.FormaPagamento
 
             }
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([FromForm]FormasDePagamentosModel formasDePagamentosModel)
@@ -143,9 +141,6 @@ namespace CarLocadora.Controllers.FormaPagamento
             {
                 throw;
             }
-
-
         }
-
     }
 }

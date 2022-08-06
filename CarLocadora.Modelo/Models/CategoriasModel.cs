@@ -18,6 +18,6 @@ namespace CarLocadora.Modelo.Models
         public decimal ValorDiaria { get; set; }
         public bool Ativo { get; set; }
         public DateTime DataInclusao { get; set; }
-        public DateTime DataAlteracao { get; set; }
+        public DateTime? DataAlteracao { get; set; }
     }
 }

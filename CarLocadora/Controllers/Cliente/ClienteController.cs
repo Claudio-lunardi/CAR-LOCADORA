@@ -59,9 +59,6 @@ namespace CarLocadora.Controllers.Cliente
                 throw new Exception("aaa");
 
             }
-
-
-
         }
 
         [HttpPost]
@@ -90,11 +87,6 @@ namespace CarLocadora.Controllers.Cliente
             {
                 throw;
             }
-
-
-
-
-
         }
         #endregion
 
@@ -117,13 +109,7 @@ namespace CarLocadora.Controllers.Cliente
             {
                 throw new Exception("aaa");
             }
-
-
-
-
         }
-
-
         #endregion
 
         #region Create
@@ -151,9 +137,7 @@ namespace CarLocadora.Controllers.Cliente
             else
             {
                 throw new Exception("aaa");
-            }
-
-           
+            }   
         }
 
         #endregion

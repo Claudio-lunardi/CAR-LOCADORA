@@ -38,7 +38,6 @@ namespace CarLocadora.Controllers.Veiculo
         }
         #endregion
 
-        // GET: VeiculoController/Details/5
         public ActionResult Details(string valor)
         {
             HttpClient Cliente = new HttpClient();
@@ -58,7 +57,6 @@ namespace CarLocadora.Controllers.Veiculo
             }
         }
 
-        // GET: VeiculoController/Create
         public ActionResult Create()
         {
             return View();
@@ -85,7 +83,6 @@ namespace CarLocadora.Controllers.Veiculo
             }
         }
 
-        // GET: VeiculoController/Edit/5
         public ActionResult Edit(string valor)
         {
             HttpClient Cliente = new HttpClient();
@@ -104,8 +101,6 @@ namespace CarLocadora.Controllers.Veiculo
                 throw new Exception("aaa");
             }
         }
-
-        // POST: VeiculoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([FromForm] VeiculosModel veiculosModel)
@@ -133,10 +128,6 @@ namespace CarLocadora.Controllers.Veiculo
                 throw;
             }
 
-        }
-
-
-      
-        
+        }     
     }
 }

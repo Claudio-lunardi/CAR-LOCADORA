@@ -88,9 +88,6 @@ namespace CarLocadora.Controllers.Categoria
 
         }
 
-
-
-        // GET: CategoriaController/Edit/5
         public ActionResult Edit(int valor)
         {
             HttpClient Cliente = new HttpClient();
@@ -109,8 +106,6 @@ namespace CarLocadora.Controllers.Categoria
                 throw new Exception("aaa");
             }
         }
-
-        // POST: CategoriaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([FromForm] CategoriasModel categoriasModel)
@@ -138,9 +133,6 @@ namespace CarLocadora.Controllers.Categoria
                 throw;
             }
         }
-
-
-
         public ActionResult Delete(int valor)
         {
             try
