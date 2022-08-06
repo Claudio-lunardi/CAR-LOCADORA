@@ -5,5 +5,5 @@
 
     $('.maskCPF').inputmask({ mask: ['999.999.999-99'] });
     $('.maskCNPJ').inputmask({ mask: ['99.999.999/9999-99'] });
-
+     
 })
