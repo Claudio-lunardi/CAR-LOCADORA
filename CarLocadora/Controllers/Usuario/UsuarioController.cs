@@ -8,7 +8,6 @@ namespace CarLocadora.Controllers.Usuario
 {
     public class UsuarioController : Controller
     {
-        // GET: UsuarioController
         #region Index
         public async Task<ActionResult> Index()
         {
@@ -38,8 +37,6 @@ namespace CarLocadora.Controllers.Usuario
             }
         }
         #endregion
-
-        // GET: UsuarioController/Details/5
         public ActionResult Details(string valor)
         {
             HttpClient Cliente = new HttpClient();
@@ -59,13 +56,11 @@ namespace CarLocadora.Controllers.Usuario
             }
         }
 
-        // GET: UsuarioController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UsuarioController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([FromForm] UsuariosModel usuariosModel)
@@ -87,8 +82,6 @@ namespace CarLocadora.Controllers.Usuario
                 throw new Exception("aaa");
             }
         }
-
-        // GET: UsuarioController/Edit/5
         public ActionResult Edit(string valor)
         {
             HttpClient Cliente = new HttpClient();
@@ -110,8 +103,7 @@ namespace CarLocadora.Controllers.Usuario
 
             }
         }
-
-        // POST: UsuarioController/Edit/5
+   
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([FromForm] UsuariosModel usuariosModel)
@@ -139,7 +131,5 @@ namespace CarLocadora.Controllers.Usuario
                 throw;
             }
         }
-
-     
     }
 }
