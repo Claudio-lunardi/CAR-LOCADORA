@@ -111,7 +111,7 @@ namespace CarLocadora.Controllers.Veiculo
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.PutAsJsonAsync("https://localhost:7142/api/CadastroCliente", veiculosModel).Result;
+                HttpResponseMessage response = Cliente.PutAsJsonAsync("https://localhost:7142/api/CadastroVeiculo", veiculosModel).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
