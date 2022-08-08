@@ -24,9 +24,9 @@ namespace CarLocadora.Modelo.Models
         public string Celular { get; set; }
         
         public bool Ativo { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        
         public DateTime DataInclusao { get; set; } = DateTime.Now;
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+       
         public DateTime? DataAlteracao { get; set; } = DateTime.Now;
     }
 }
