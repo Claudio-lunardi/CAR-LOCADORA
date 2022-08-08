@@ -11,17 +11,21 @@ namespace CarLocadora.Modelo.Models
     public class UsuariosModel : EnderecoModel
     {
         [Key]
-        [StringLength(14)]
+        [Required(ErrorMessage = "CPF é obrigatório!")]
+        [StringLength(14, MinimumLength = 14, ErrorMessage = "Este campo deve ter no mínimo 14 caracteres.")]
         public string CPF { get; set; }
-        [StringLength(50)]
+        [Required(ErrorMessage = "CPF é obrigatório!")]
+        [StringLength(50, MinimumLength = 8, ErrorMessage = "Este campo deve ter no mínimo 8 caracteres.")]
         public string RG { get; set; }
-        [StringLength(150)]
+        [Required(ErrorMessage = "CPF é obrigatório!")]
+        [StringLength(150, MinimumLength = 3, ErrorMessage = "Este campo deve ter no mínimo 3 caracteres.")]
         public string Nome { get; set; }
         [Display(Name = "Data de nascimento")]
         public DateTime DataNascimento { get; set; }
         [StringLength(15)]
         public string? Telefone { get; set; }
-        [StringLength(15)]
+        [Required(ErrorMessage = "CPF é obrigatório!")]
+        [StringLength(15, MinimumLength = 15, ErrorMessage = "Este campo deve ter no mínimo 15 caracteres.")]
         public string Celular { get; set; }     
         public string? Senha { get; set; }
         public bool Ativo { get; set; }

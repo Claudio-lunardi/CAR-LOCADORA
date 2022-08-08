@@ -13,8 +13,10 @@ namespace CarLocadora.Modelo.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [StringLength(150)]
+        
         [Display(Name = "Descrição")]
+        [Required(ErrorMessage = "Descricao é obrigatório!")]
+        [StringLength(150, MinimumLength = 5, ErrorMessage = "Este campo deve ter no mínimo 5 caracteres.")]
         public string Descricao { get; set; }
         public bool Ativo { get; set; }
         [Display(Name = "Data Inclusão")]
