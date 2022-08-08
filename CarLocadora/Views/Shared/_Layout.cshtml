@@ -60,25 +60,35 @@
 
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
             </div>
         </nav>
     </header>
+
+
+     <div class="alert alert-success alert-dismissible fade show" id="alertaSucesso">
+        <strong>Successo!</strong> @TempData["sucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" id="alertaErro">
+        <strong>Erro!</strong> @TempData["erro"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+
+
+
+
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+
+
+
+
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -91,5 +101,31 @@
     <script src="~/lib/inputmask/jquery.inputmask.bundle.min.js"> </script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+
+      <script>
+        $(function() {
+            document.getElementById('alertaErro').style.display = 'none';
+            document.getElementById('alertaSucesso').style.display = 'none';
+
+            if ("@TempData["sucesso"]") {
+                document.getElementById('alertaSucesso').style.display = 'block';
+            }
+            else if ("@TempData["erro"]") {
+                document.getElementById('alertaErro').style.display = 'block';
+            };
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

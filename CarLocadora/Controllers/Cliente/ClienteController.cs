@@ -20,10 +20,15 @@ namespace CarLocadora.Controllers.Cliente
 
 
         #region Index
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
         {
             try
             {
+                if (sucesso)
+                    TempData["sucesso"] = mensagem;
+                else
+                    TempData["erro"] = mensagem;
+
                 HttpClient Cliente = new HttpClient();
 
                 Cliente.DefaultRequestHeaders.Accept.Clear();
@@ -72,31 +77,46 @@ namespace CarLocadora.Controllers.Cliente
             }
         }
 
+
+
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([FromForm] ClientesModel clientesModel)
         {
             try
             {
-                HttpClient Cliente = new HttpClient();
-                Cliente.DefaultRequestHeaders.Accept.Clear();
-                Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel).Result;
-
-                if (response.IsSuccessStatusCode)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction(nameof(Index));
+                    HttpClient Cliente = new HttpClient();
+                    Cliente.DefaultRequestHeaders.Accept.Clear();
+                    Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index), new { mensagem = "Registro editado", sucesso = true });
+                    }
+                    else
+                    {
+                        throw new Exception("aaa");
+                    }
                 }
                 else
                 {
-                    throw new Exception("aaa");
-                }
 
+                    TempData["erro"] = "Algum campo deve estar faltando preenchimento";
+                    return View();
+
+                }
             }
-            catch (Exception)
+            catch (Exception z)
             {
-                throw;
+                TempData["erro"] = "Algum erro aconteceu - " + z.Message;
+                return View();
             }
         }
         #endregion
@@ -104,7 +124,6 @@ namespace CarLocadora.Controllers.Cliente
         #region Details
         public ActionResult Details(string valor)
         {
-
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -133,26 +152,39 @@ namespace CarLocadora.Controllers.Cliente
         [ValidateAntiForgeryToken]
         public ActionResult Create([FromForm] ClientesModel clientesModel)
         {
-            HttpClient Cliente = new HttpClient();
-
-            Cliente.DefaultRequestHeaders.Accept.Clear();
-            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel).Result;
-
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    HttpClient Cliente = new HttpClient();
+
+                    Cliente.DefaultRequestHeaders.Accept.Clear();
+                    Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel).Result;
+
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index), new { mensagem = "Registro Salvo!", sucesso = true });
+                    }
+                    else
+                    {
+                        throw new Exception("aaa");
+                    }
+                }
+                else
+                {
+                    TempData["erro"] = "Algum campo deve estar faltando preenchimento";
+                    return View();
+                }
             }
-            else
+            catch (Exception z)
             {
-                throw new Exception("aaa");
-            }   
+                TempData["erro"] = "Algum erro aconteceu - " + z.Message;
+                return View();
+            }
         }
-
         #endregion
-
-
     }
 }

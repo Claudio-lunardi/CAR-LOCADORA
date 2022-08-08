@@ -16,8 +16,18 @@ namespace CarLocadora.Controllers.Categoria
             _UrlApi = urlApi;
         }
 
-        public async Task<ActionResult> Index()
+
+
+
+
+
+
+        public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
         {
+            if (sucesso)
+                TempData["sucesso"] = mensagem;
+            else
+                TempData["erro"] = mensagem;
             try
             {
                 HttpClient Cliente = new HttpClient();
@@ -44,7 +54,15 @@ namespace CarLocadora.Controllers.Categoria
             }
         }
 
-        // GET: CategoriaController/Details/5
+        
+
+
+
+
+
+
+
+
         public ActionResult Details(int valor)
         {
             HttpClient Cliente = new HttpClient();
@@ -64,36 +82,63 @@ namespace CarLocadora.Controllers.Categoria
             }
         }
 
-        // GET: CategoriaController/Create
+        
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CategoriaController/Create
+        
+
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([FromForm] CategoriasModel categoriasModel)
         {
-            HttpClient Cliente = new HttpClient();
-
-            Cliente.DefaultRequestHeaders.Accept.Clear();
-            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel).Result;
-
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    HttpClient Cliente = new HttpClient();
+
+                    Cliente.DefaultRequestHeaders.Accept.Clear();
+                    Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel).Result;
+
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index), new { mensagem = "Registro salvo!", sucesso = true });
+                    }
+                    else
+                    {
+                        throw new Exception("aaa");
+                    }
+                }
+                else
+                {
+                    TempData["erro"] = "Algum campo deve estar faltando preenchimento";
+                    return View();
+                }
             }
-            else
+            catch (Exception z)
             {
-                throw new Exception("aaa");
+                TempData["erro"] = "Algum erro aconteceu - " + z.Message;
+                return View();
             }
-
-
         }
+
+
+
+
+
+
+
+
+
 
         public ActionResult Edit(int valor)
         {
@@ -113,33 +158,58 @@ namespace CarLocadora.Controllers.Categoria
                 throw new Exception("aaa");
             }
         }
+
+
+
+
+
+
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([FromForm] CategoriasModel categoriasModel)
         {
             try
             {
-                HttpClient Cliente = new HttpClient();
-                Cliente.DefaultRequestHeaders.Accept.Clear();
-                Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel).Result;
-
-                if (response.IsSuccessStatusCode)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction(nameof(Index));
+                    HttpClient Cliente = new HttpClient();
+                    Cliente.DefaultRequestHeaders.Accept.Clear();
+                    Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index), new { mensagem = "Registro editado", sucesso = true });
+                    }
+                    else
+                    {
+                        throw new Exception("aaa");
+                    }
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    TempData["erro"] = "Algum campo deve estar faltando preenchimento";
+                    return View();
                 }
-
             }
-            catch (Exception)
+            catch (Exception z)
             {
-                throw;
+                TempData["erro"] = "Algum erro aconteceu - " + z.Message;
+                return View();
             }
         }
+
+
+
+
+
+
+
+
         public ActionResult Delete(int valor)
         {
             try
