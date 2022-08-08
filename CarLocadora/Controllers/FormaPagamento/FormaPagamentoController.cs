@@ -1,6 +1,7 @@
 ﻿using CarLocadora.Modelo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
@@ -8,6 +9,17 @@ namespace CarLocadora.Controllers.FormaPagamento
 {
     public class FormaPagamentoController : Controller
     {
+        private readonly IOptions<WebConfigUrl> _UrlApi;
+
+        public FormaPagamentoController(IOptions<WebConfigUrl> urlApi)
+        {
+            _UrlApi = urlApi;
+        }
+
+
+
+
+
         // GET: FormaPagamentoController
         #region Index
         public async Task<ActionResult> Index()
@@ -19,7 +31,7 @@ namespace CarLocadora.Controllers.FormaPagamento
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.GetAsync("https://localhost:7142/api/CadastroFormaPagamento").Result;
+                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -46,7 +58,7 @@ namespace CarLocadora.Controllers.FormaPagamento
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}").Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -78,7 +90,7 @@ namespace CarLocadora.Controllers.FormaPagamento
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.PostAsJsonAsync("https://localhost:7142/api/CadastroFormaPagamento", formasDePagamentosModel).Result;
+            HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel).Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -100,7 +112,7 @@ namespace CarLocadora.Controllers.FormaPagamento
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}").Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -125,7 +137,7 @@ namespace CarLocadora.Controllers.FormaPagamento
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.PutAsJsonAsync("https://localhost:7142/api/CadastroCliente", formasDePagamentosModel).Result;
+                HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", formasDePagamentosModel).Result;
 
                 if (response.IsSuccessStatusCode)
                 {

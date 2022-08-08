@@ -1,6 +1,7 @@
 ﻿using CarLocadora.Modelo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
@@ -8,6 +9,17 @@ namespace CarLocadora.Controllers.Usuario
 {
     public class UsuarioController : Controller
     {
+        private readonly IOptions<WebConfigUrl> _UrlApi;
+
+        public UsuarioController(IOptions<WebConfigUrl> urlApi)
+        {
+            _UrlApi = urlApi;
+        }
+
+
+
+
+
         #region Index
         public async Task<ActionResult> Index()
         {
@@ -18,7 +30,7 @@ namespace CarLocadora.Controllers.Usuario
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.GetAsync("https://localhost:7142/api/CadastroUsuarios").Result;
+                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -43,7 +55,7 @@ namespace CarLocadora.Controllers.Usuario
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroUsuarios/ObterUmUsuario?cpf={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios/ObterUmUsuario?cpf={valor}").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -70,7 +82,7 @@ namespace CarLocadora.Controllers.Usuario
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.PostAsJsonAsync("https://localhost:7142/api/CadastroUsuarios", usuariosModel).Result;
+            HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios", usuariosModel).Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -88,7 +100,7 @@ namespace CarLocadora.Controllers.Usuario
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroUsuarios/ObterUmUsuario?cpf={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios/ObterUmUsuario?cpf={valor}").Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -114,7 +126,7 @@ namespace CarLocadora.Controllers.Usuario
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.PutAsJsonAsync("https://localhost:7142/api/CadastroUsuarios", usuariosModel).Result;
+                HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios", usuariosModel).Result;
 
                 if (response.IsSuccessStatusCode)
                 {

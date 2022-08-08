@@ -1,7 +1,16 @@
+using CarLocadora.Modelo.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.Configure<WebConfigUrl>(builder.Configuration.GetSection("WebConfigUrl"));
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
 
 var app = builder.Build();
 

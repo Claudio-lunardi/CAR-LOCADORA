@@ -1,6 +1,7 @@
 ﻿using CarLocadora.Modelo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
@@ -8,7 +9,13 @@ namespace CarLocadora.Controllers.Categoria
 {
     public class CategoriaController : Controller
     {
-        // GET: CategoriaController
+        private readonly IOptions<WebConfigUrl> _UrlApi;
+
+        public CategoriaController(IOptions<WebConfigUrl> urlApi)
+        {
+            _UrlApi = urlApi;
+        }
+
         public async Task<ActionResult> Index()
         {
             try
@@ -18,7 +25,7 @@ namespace CarLocadora.Controllers.Categoria
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.GetAsync("https://localhost:7142/api/CadastroCategoria").Result;
+                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -44,7 +51,7 @@ namespace CarLocadora.Controllers.Categoria
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroCategoria/ObterUmaCategoria?valor={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -73,7 +80,7 @@ namespace CarLocadora.Controllers.Categoria
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.PostAsJsonAsync("https://localhost:7142/api/CadastroCategoria", categoriasModel).Result;
+            HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel).Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -94,7 +101,7 @@ namespace CarLocadora.Controllers.Categoria
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroCategoria/ObterUmaCategoria?valor={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -116,7 +123,7 @@ namespace CarLocadora.Controllers.Categoria
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.PutAsJsonAsync("https://localhost:7142/api/CadastroCategoria", categoriasModel).Result;
+                HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -141,7 +148,7 @@ namespace CarLocadora.Controllers.Categoria
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.DeleteAsync($"https://localhost:7142/api/CadastroCategoria?valor={valor}").Result;
+                HttpResponseMessage response = Cliente.DeleteAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria?valor={valor}").Result;
 
                 if (response.IsSuccessStatusCode)
                 {

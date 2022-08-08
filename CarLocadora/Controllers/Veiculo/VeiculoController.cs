@@ -1,6 +1,7 @@
 ﻿using CarLocadora.Modelo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
@@ -8,6 +9,14 @@ namespace CarLocadora.Controllers.Veiculo
 {
     public class VeiculoController : Controller
     {
+        private readonly IOptions<WebConfigUrl> _UrlApi;
+
+        public VeiculoController(IOptions<WebConfigUrl> urlApi)
+        {
+            _UrlApi = urlApi;
+        }
+
+
         #region Index
         public async Task<ActionResult> Index()
         {
@@ -18,7 +27,7 @@ namespace CarLocadora.Controllers.Veiculo
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.GetAsync("https://localhost:7142/api/CadastroVeiculo").Result;
+                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVeiculo").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -44,7 +53,7 @@ namespace CarLocadora.Controllers.Veiculo
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroVeiculo/ObterUmVeiculo?valor={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVeiculo/ObterUmVeiculo?valor={valor}").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -71,7 +80,7 @@ namespace CarLocadora.Controllers.Veiculo
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.PostAsJsonAsync("https://localhost:7142/api/CadastroVeiculo", veiculosModel).Result;
+            HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVeiculo", veiculosModel).Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -89,7 +98,7 @@ namespace CarLocadora.Controllers.Veiculo
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = Cliente.GetAsync($"https://localhost:7142/api/CadastroVeiculo/ObterUmVeiculo?valor={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVeiculo/ObterUmVeiculo?valor={valor}").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -111,7 +120,7 @@ namespace CarLocadora.Controllers.Veiculo
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.PutAsJsonAsync("https://localhost:7142/api/CadastroVeiculo", veiculosModel).Result;
+                HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVeiculo", veiculosModel).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
