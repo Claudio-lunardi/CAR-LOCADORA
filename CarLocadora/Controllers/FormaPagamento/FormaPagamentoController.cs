@@ -137,7 +137,7 @@ namespace CarLocadora.Controllers.FormaPagamento
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", formasDePagamentosModel).Result;
+                HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
