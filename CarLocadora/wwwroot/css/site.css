@@ -14,5 +14,14 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: hsl(0, 0%, 96%)
+}
+.nav-item:hover {
+    background-color: #007bff !important;
+    transition: 0.5s;
+    
+}
+.nav-link:hover{
+    color:white;
 }
