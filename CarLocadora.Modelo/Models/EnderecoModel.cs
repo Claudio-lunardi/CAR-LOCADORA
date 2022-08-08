@@ -12,6 +12,7 @@ namespace CarLocadora.Modelo.Models
         [StringLength(50)]
         public string Logradouro { get; set; }
         [StringLength(20)]
+        [Display(Name = "Número")]
         public string Numero { get; set; }
         [StringLength(50)]
         public string? Complemento { get; set; }

@@ -26,9 +26,9 @@ namespace CarLocadora.Modelo.Models
         [StringLength(2000)]
         public string? Opcionais { get; set; }
         public bool Ativo { get; set; }
-        
+        [Display(Name = "Data Inclusão")]
         public DateTime DataInclusao { get; set; } = DateTime.Now;
-        
+        [Display(Name = "Data Alteração")]
         public DateTime? DataAlteracao { get; set; } = DateTime.Now;
     }
 }

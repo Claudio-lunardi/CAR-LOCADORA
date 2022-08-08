@@ -15,9 +15,12 @@ namespace CarLocadora.Modelo.Models
         public int Id { get; set; }
         [StringLength(100)]
         public string Descricao { get; set; }
+        [Display(Name = "Valor Diária")]
         public decimal ValorDiaria { get; set; }
-        public bool Ativo { get; set; }     
-        public DateTime DataInclusao { get; set; } = DateTime.Now;   
+        public bool Ativo { get; set; }
+        [Display(Name = "Data Inclusão")]
+        public DateTime DataInclusao { get; set; } = DateTime.Now;
+        [Display(Name = "Data Alteração")]
         public DateTime? DataAlteracao { get; set; } = DateTime.Now;
     }
 }

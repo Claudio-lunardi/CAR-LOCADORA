@@ -17,14 +17,17 @@ namespace CarLocadora.Modelo.Models
         public string RG { get; set; }
         [StringLength(150)]
         public string Nome { get; set; }
+        [Display(Name = "Data de nascimento")]
         public DateTime DataNascimento { get; set; }
         [StringLength(15)]
         public string? Telefone { get; set; }
         [StringLength(15)]
         public string Celular { get; set; }     
         public string? Senha { get; set; }
-        public bool Ativo { get; set; }       
-        public DateTime DataInclusao { get; set; } = DateTime.Now;      
+        public bool Ativo { get; set; }
+        [Display(Name = "Data Inclusão")]
+        public DateTime DataInclusao { get; set; } = DateTime.Now;
+        [Display(Name = "Data Alteração")]
         public DateTime? DataAlteracao { get; set; } = DateTime.Now;
     }
 }
