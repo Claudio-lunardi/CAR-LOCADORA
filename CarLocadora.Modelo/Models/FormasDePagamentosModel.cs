@@ -16,8 +16,10 @@ namespace CarLocadora.Modelo.Models
         [StringLength(150)]
         public string Descricao { get; set; }
         public bool Ativo { get; set; }
-        public DateTime DataInclusao { get; set; }
-        public DateTime? DataAlteracao { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime DataInclusao { get; set; } = DateTime.Now;
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? DataAlteracao { get; set; } = DateTime.Now;
 
 
 

@@ -17,7 +17,9 @@ namespace CarLocadora.Modelo.Models
         public string Descricao { get; set; }
         public decimal ValorDiaria { get; set; }
         public bool Ativo { get; set; }
-        public DateTime DataInclusao { get; set; }
-        public DateTime? DataAlteracao { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime DataInclusao { get; set; } = DateTime.Now;
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? DataAlteracao { get; set; } = DateTime.Now;
     }
 }

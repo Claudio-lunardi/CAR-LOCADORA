@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,9 @@ namespace CarLocadora.Modelo.Models
         public string Celular { get; set; }     
         public string? Senha { get; set; }
         public bool Ativo { get; set; }
-        public DateTime DataInclusao { get; set; }
-        public DateTime? DataAlteracao { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime DataInclusao { get; set; } = DateTime.Now;
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? DataAlteracao { get; set; } = DateTime.Now;
     }
 }
