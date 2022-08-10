@@ -16,13 +16,15 @@ namespace CarLocadora.Modelo.Models
         
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "Descricao é obrigatório!")]
-        [StringLength(150, MinimumLength = 5, ErrorMessage = "Este campo deve ter no mínimo 5 caracteres.")]
+        [StringLength(150, MinimumLength = 5, ErrorMessage = "Este campo deve ter no mínimo 5 a 150 caracteres.")]
         public string Descricao { get; set; }
+
+        [Required(ErrorMessage = "Ativo é obrigatório!")]
         public bool Ativo { get; set; }
         [Display(Name = "Data Inclusão")]
-        public DateTime DataInclusao { get; set; } = DateTime.Now;
+        public DateTime DataInclusao { get; set; } 
         [Display(Name = "Data Alteração")]
-        public DateTime? DataAlteracao { get; set; } = DateTime.Now;
+        public DateTime? DataAlteracao { get; set; } 
 
 
 

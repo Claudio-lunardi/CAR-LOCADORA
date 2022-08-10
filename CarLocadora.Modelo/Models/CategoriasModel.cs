@@ -13,15 +13,17 @@ namespace CarLocadora.Modelo.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Celular é obrigatório!")]
-        [StringLength(10, MinimumLength = 5, ErrorMessage = "Este campo deve ter no mínimo 5 caracteres.")]
+
+        [Required(ErrorMessage = "Descricao é obrigatório!")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "Este campo deve ter no mínimo 5 caracteres.")]
         public string Descricao { get; set; }
+
         [Display(Name = "Valor Diária")]
         public decimal ValorDiaria { get; set; }
         public bool Ativo { get; set; }
         [Display(Name = "Data Inclusão")]
-        public DateTime DataInclusao { get; set; } = DateTime.Now;
+        public DateTime DataInclusao { get; set; } 
         [Display(Name = "Data Alteração")]
-        public DateTime? DataAlteracao { get; set; } = DateTime.Now;
+        public DateTime? DataAlteracao { get; set; } 
     }
 }

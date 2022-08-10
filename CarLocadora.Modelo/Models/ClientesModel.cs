@@ -12,29 +12,31 @@ namespace CarLocadora.Modelo.Models
     {
         [Key]       
         [Required(ErrorMessage = "CPF é obrigatório!")]
-        [StringLength(14, MinimumLength = 14, ErrorMessage = "Este campo deve ter no mínimo 14 caracteres.")]
+        [StringLength(14, MinimumLength = 14, ErrorMessage = "Este campo deve ter 14 caracteres")]
         public string CPF { get; set; }
 
         [Required(ErrorMessage = "CNH é obrigatório!")]
-        [StringLength(12, MinimumLength = 12, ErrorMessage = "Este campo deve ter no mínimo 12 caracteres.")]
+        [StringLength(12, MinimumLength = 12, ErrorMessage = "Este campo deve ter 12 caracteres")]
         public string CNH { get; set; }
 
         [Required(ErrorMessage = "Nome é obrigatório!")]
-        [StringLength(150, MinimumLength = 3, ErrorMessage = "Este campo deve ter no mínimo 3 caracteres.")]
+        [StringLength(150, MinimumLength = 5, ErrorMessage = "Este campo deve ter de 5 a 150 caractéres")]
         public string Nome { get; set; }
+
         [Display(Name = "Data de nascimento")]
         public DateTime DataNascimento { get; set; }
         
         [Required(ErrorMessage = "Telefone é obrigatório!")]
         [StringLength(15, MinimumLength = 15, ErrorMessage = "Este campo deve ter no mínimo 15 caracteres.")]
         public string? Telefone { get; set; }
+
         [Required(ErrorMessage = "Celular é obrigatório!")]
         [StringLength(15, MinimumLength = 15, ErrorMessage = "Este campo deve ter no mínimo 15 caracteres.")]
         public string Celular { get; set; }      
         public bool Ativo { get; set; }
         [Display(Name = "Data Inclusão")]
-        public DateTime DataInclusao { get; set; } = DateTime.Now;
+        public DateTime DataInclusao { get; set; } 
         [Display(Name = "Data Alteração")]
-        public DateTime? DataAlteracao { get; set; } = DateTime.Now;
+        public DateTime? DataAlteracao { get; set; } 
     }
 }
