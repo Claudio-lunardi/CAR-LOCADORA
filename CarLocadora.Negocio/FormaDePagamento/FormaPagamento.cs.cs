@@ -19,12 +19,14 @@ namespace CarLocadora.Negocio.FormaDePagamento
 
         public void AlterarFormaPagamento(FormasDePagamentosModel formasDePagamentosModel)
         {
+            formasDePagamentosModel.DataAlteracao = DateTime.Now;
             _entityContext.FormasDePagamento.Update(formasDePagamentosModel);
             _entityContext.SaveChanges();
         }
 
         public void IncluirFormaPagamento(FormasDePagamentosModel formasDePagamentosModel)
         {
+            formasDePagamentosModel.DataAlteracao = DateTime.Now;
             _entityContext.FormasDePagamento.Add(formasDePagamentosModel);
             _entityContext.SaveChanges();
         }

@@ -19,12 +19,14 @@ namespace CarLocadora.Negocio.Usuario
 
         public void AlterarUsuario(UsuariosModel usuariosModel)
         {
+            usuariosModel.DataAlteracao = DateTime.Now;
             _entityContext.Usuarios.Update(usuariosModel);
             _entityContext.SaveChanges();
         }
 
         public void IncluirUsuario(UsuariosModel usuariosModel)
         {
+            usuariosModel.DataInclusao = DateTime.Now;
             _entityContext.Usuarios.Add(usuariosModel);
             _entityContext.SaveChanges();
         }

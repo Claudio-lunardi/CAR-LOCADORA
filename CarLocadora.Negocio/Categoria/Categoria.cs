@@ -33,11 +33,13 @@ namespace CarLocadora.Negocio.Categoria
         }
         public void AlterarCategoria(CategoriasModel categoriasModel)
         {
+            categoriasModel.DataAlteracao = DateTime.Now;
             _entityContext.Categorias.Update(categoriasModel);
             _entityContext.SaveChanges();
         }
         public void IncluirCategoria(CategoriasModel categoriasModel)
         {
+            categoriasModel.DataInclusao = DateTime.Now;
             _entityContext.Categorias.Add(categoriasModel);
             _entityContext.SaveChanges();
         }

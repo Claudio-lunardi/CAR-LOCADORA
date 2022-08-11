@@ -17,12 +17,14 @@ namespace CarLocadora.Negocio.Cliente
 
         public void AlterarCliente(ClientesModel clientesModel)
         {
+            clientesModel.DataAlteracao = DateTime.Now;
             _entityContext.Clientes.Update(clientesModel);
             _entityContext.SaveChanges();
         }
 
         public void IncluirCliente(ClientesModel clientesModel)
         {
+            clientesModel.DataInclusao = DateTime.Now;
             _entityContext.Clientes.Add(clientesModel);
             _entityContext.SaveChanges();
         }  

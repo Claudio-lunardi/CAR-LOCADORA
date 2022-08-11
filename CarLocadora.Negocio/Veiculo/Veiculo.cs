@@ -19,12 +19,14 @@ namespace CarLocadora.Negocio.Veiculo
 
         public void AlterarVeiculos(VeiculosModel veiculosModel)
         {
+            veiculosModel.DataAlteracao = DateTime.Now;
             _entityContext.Veiculos.Update(veiculosModel);
             _entityContext.SaveChanges();
         }
 
         public void IncluirVeiculos(VeiculosModel veiculosModel)
         {
+            veiculosModel.DataInclusao = DateTime.Now;
             _entityContext.Veiculos.Add(veiculosModel);
             _entityContext.SaveChanges();
         }
