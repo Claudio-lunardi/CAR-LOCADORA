@@ -9,7 +9,6 @@ namespace CarLocadora.Negocio.Login
         public async Task<LoginRespostaModel> Login (LoginRequisicaoModel loginRequisicaoModel)
         {
             LoginRespostaModel loginRespostaModel = new LoginRespostaModel();
-
             loginRespostaModel.Autenticado = false;
             loginRespostaModel.Usuario = loginRequisicaoModel.Usuario;
             loginRespostaModel.Token = "";

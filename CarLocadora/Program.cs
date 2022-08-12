@@ -1,10 +1,10 @@
+using CarLocadora.Modelo.Models;
 using CarLocadora.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.Configure<WebConfigUrl>(builder.Configuration.GetSection("WebConfigUrl"));
-
+builder.Services.AddSingleton<LoginRespostaModel>();
 
 
 // Add services to the container.
