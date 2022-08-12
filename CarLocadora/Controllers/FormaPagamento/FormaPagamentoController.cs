@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Modelo.Models;
 using CarLocadora.Models;
+using CarLocadora.Servico;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -11,10 +12,12 @@ namespace CarLocadora.Controllers.FormaPagamento
     public class FormaPagamentoController : Controller
     {
         private readonly IOptions<WebConfigUrl> _UrlApi;
+        private readonly IOptions<LoginRespostaModel> _LoginRespostaModel;
 
-        public FormaPagamentoController(IOptions<WebConfigUrl> urlApi)
+        public FormaPagamentoController(IOptions<WebConfigUrl> urlApi, IOptions<LoginRespostaModel> loginRespostaModel)
         {
             _UrlApi = urlApi;
+            _LoginRespostaModel = loginRespostaModel;
         }
 
 
@@ -32,7 +35,8 @@ namespace CarLocadora.Controllers.FormaPagamento
 
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
                 HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento").Result;
 
                 if (response.IsSuccessStatusCode)
@@ -59,7 +63,8 @@ namespace CarLocadora.Controllers.FormaPagamento
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
             HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}").Result;
 
 
@@ -95,7 +100,8 @@ namespace CarLocadora.Controllers.FormaPagamento
 
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
                     HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel).Result;
 
 
@@ -132,7 +138,8 @@ namespace CarLocadora.Controllers.FormaPagamento
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
             HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}").Result;
 
 
@@ -160,7 +167,8 @@ namespace CarLocadora.Controllers.FormaPagamento
                     HttpClient Cliente = new HttpClient();
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
                     HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel).Result;
 
                     if (response.IsSuccessStatusCode)

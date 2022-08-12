@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Modelo.Models;
 using CarLocadora.Models;
+using CarLocadora.Servico;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -10,10 +11,12 @@ namespace CarLocadora.Controllers.Cliente
     public class ClienteController : Controller
     {
         private readonly IOptions<WebConfigUrl> _UrlApi;
+        private readonly IOptions<LoginRespostaModel> _LoginRespostaModel;
 
-        public ClienteController(IOptions<WebConfigUrl> urlApi)
+        public ClienteController(IOptions<WebConfigUrl> urlApi, IOptions<LoginRespostaModel> loginRespostaModel)
         {
             _UrlApi = urlApi;
+            _LoginRespostaModel = loginRespostaModel;
         }
 
 
@@ -34,7 +37,8 @@ namespace CarLocadora.Controllers.Cliente
 
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
                 HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente").Result;
 
                 if (response.IsSuccessStatusCode)
@@ -61,7 +65,8 @@ namespace CarLocadora.Controllers.Cliente
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                            new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
             HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente/ObterUmCliente?cpf={valor}").Result;
 
 
@@ -94,7 +99,8 @@ namespace CarLocadora.Controllers.Cliente
                     HttpClient Cliente = new HttpClient();
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                                    new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
                     HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel).Result;
 
                     if (response.IsSuccessStatusCode)
@@ -128,7 +134,8 @@ namespace CarLocadora.Controllers.Cliente
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                            new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
             HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente/ObterUmCliente?cpf={valor}").Result;
 
             if (response.IsSuccessStatusCode)
@@ -161,7 +168,8 @@ namespace CarLocadora.Controllers.Cliente
 
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                                    new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
                     HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel).Result;
 
 

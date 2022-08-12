@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Modelo.Models;
 using CarLocadora.Models;
+using CarLocadora.Servico;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -11,17 +12,14 @@ namespace CarLocadora.Controllers.Categoria
     public class CategoriaController : Controller
     {
         private readonly IOptions<WebConfigUrl> _UrlApi;
+        private readonly IOptions<LoginRespostaModel> _LoginRespostaModel;
+  
 
-        public CategoriaController(IOptions<WebConfigUrl> urlApi)
+        public CategoriaController(IOptions<WebConfigUrl> urlApi, IOptions<LoginRespostaModel> loginRespostaModel)
         {
             _UrlApi = urlApi;
+            _LoginRespostaModel = loginRespostaModel;
         }
-
-
-
-
-
-
 
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
         {
@@ -35,6 +33,9 @@ namespace CarLocadora.Controllers.Categoria
 
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
 
                 HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria").Result;
 
@@ -69,6 +70,9 @@ namespace CarLocadora.Controllers.Categoria
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
 
             HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}").Result;
 
@@ -106,7 +110,8 @@ namespace CarLocadora.Controllers.Categoria
 
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
                     HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel).Result;
 
 

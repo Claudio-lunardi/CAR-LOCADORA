@@ -1,4 +1,4 @@
-using CarLocadora.Modelo.Models;
+using CarLocadora.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,7 +1,8 @@
 using CarLocadora.API.Extencoes;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.ConfigurarJwt();
+builder.Services.ConfigurarSwagger();
 builder.Services.ConfigurarServicos();
 // Add services to the container.
 
