@@ -25,7 +25,6 @@ namespace CarLocadora.Servico
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-
             LoginRequisicaoModel loginRequisicaoModel = new LoginRequisicaoModel();
             loginRequisicaoModel.Usuario = "UsuarioDevPratica";
             loginRequisicaoModel.Senha = "SenhaDevPratica";
@@ -60,7 +59,6 @@ namespace CarLocadora.Servico
 
         public string Obter()
         {
-
             if (_LoginRespostaModel.Value.Autenticado == false)
             {
                 ObterToken();
