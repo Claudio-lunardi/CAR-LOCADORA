@@ -5,6 +5,7 @@ using CarLocadora.Negocio.Cliente;
 using CarLocadora.Negocio.FormaDePagamento;
 using CarLocadora.Negocio.Usuario;
 using CarLocadora.Negocio.Veiculo;
+using CarLocadora.Servico;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -118,7 +119,7 @@ namespace CarLocadora.API.Extencoes
             services.AddScoped<ICategoria, Categoria>();
             services.AddScoped<IVeiculo, Veiculo>();
             services.AddScoped<IFormaPagamento, FormaPagamento>();
-            services.AddScoped<IUsuario, Usuario>();
+            services.AddScoped<IUsuario, Usuario>();           
         }
     }
 }

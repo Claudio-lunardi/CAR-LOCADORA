@@ -1,6 +1,8 @@
 ﻿
+
+using CarLocadora.API.Login;
 using CarLocadora.Modelo.Models;
-using CarLocadora.Negocio.Login;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

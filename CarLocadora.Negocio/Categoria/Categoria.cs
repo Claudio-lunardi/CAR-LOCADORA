@@ -21,7 +21,6 @@ namespace CarLocadora.Negocio.Categoria
         }
         #endregion
 
-
         public List<CategoriasModel> ListaCategorias()
         {
             return _entityContext.Categorias.OrderBy(id => id.Id).ToList();
@@ -49,6 +48,7 @@ namespace CarLocadora.Negocio.Categoria
             var id = _entityContext.Categorias.Single(id => id.Id.Equals(valor));
             _entityContext.Categorias.Remove(id);
             _entityContext.SaveChanges();
+
         }
     }
 }

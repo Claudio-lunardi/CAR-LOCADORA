@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace CarLocadora.Negocio.Login
+namespace CarLocadora.API.Login
 {
     public class GeradorToken
     {
@@ -16,7 +16,7 @@ namespace CarLocadora.Negocio.Login
             _secreto = Environment.GetEnvironmentVariable("JWT_SECRETO");
         }
 
-        public LoginRespostaModel GerarToken(LoginRespostaModel loginRespostaModel)       
+        public LoginRespostaModel GerarToken(LoginRespostaModel loginRespostaModel)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Convert.FromBase64String(_secreto);

@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 
 namespace CarLocadora.Servico
 {
-    public class ApiToken
+    public class ApiToken : IApiToken
     {
 
         private readonly IOptions<WebConfigUrl> _UrlApi;
@@ -18,6 +18,7 @@ namespace CarLocadora.Servico
             _UrlApi = urlApi;
             _LoginRespostaModel = loginRespostaModel;
         }
+
 
         private void ObterToken()
         {
@@ -31,7 +32,6 @@ namespace CarLocadora.Servico
 
             HttpResponseMessage response = client.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}Login", loginRequisicaoModel).Result;
 
-
             if (response.IsSuccessStatusCode)
             {
                 string conteudo = response.Content.ReadAsStringAsync().Result;
@@ -40,23 +40,19 @@ namespace CarLocadora.Servico
 
                 if (loginRespostaModel.Autenticado == true)
                 {
-
                     _LoginRespostaModel.Value.Autenticado = loginRespostaModel.Autenticado;
                     _LoginRespostaModel.Value.Usuario = loginRespostaModel.Usuario;
                     _LoginRespostaModel.Value.DataExpiracao = loginRespostaModel.DataExpiracao;
                     _LoginRespostaModel.Value.Token = loginRespostaModel.Token;
-
                 }
-
             }
+
             else
             {
                 throw new Exception("DEU ZIKA");
             }
 
         }
-
-
         public string Obter()
         {
             if (_LoginRespostaModel.Value.Autenticado == false)
@@ -71,8 +67,6 @@ namespace CarLocadora.Servico
                 }
             }
             return _LoginRespostaModel.Value.Token;
-
         }
-
     }
 }

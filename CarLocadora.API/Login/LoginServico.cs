@@ -2,11 +2,11 @@
 
 using CarLocadora.Modelo.Models;
 
-namespace CarLocadora.Negocio.Login
+namespace CarLocadora.API.Login
 {
     public class LoginServico
     {
-        public async Task<LoginRespostaModel> Login (LoginRequisicaoModel loginRequisicaoModel)
+        public async Task<LoginRespostaModel> Login(LoginRequisicaoModel loginRequisicaoModel)
         {
             LoginRespostaModel loginRespostaModel = new LoginRespostaModel();
             loginRespostaModel.Autenticado = false;

@@ -12,17 +12,13 @@ namespace CarLocadora.Controllers.Usuario
     public class UsuarioController : Controller
     {
         private readonly IOptions<WebConfigUrl> _UrlApi;
-        private readonly IOptions<LoginRespostaModel> _LoginRespostaModel;
+        private readonly IApiToken _IApiToken;
 
-        public UsuarioController(IOptions<WebConfigUrl> urlApi, IOptions<LoginRespostaModel> loginRespostaModel)
+        public UsuarioController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken)
         {
             _UrlApi = urlApi;
-            _LoginRespostaModel = loginRespostaModel;
+            _IApiToken = iApiToken;
         }
-
-
-
-
 
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -38,8 +34,7 @@ namespace CarLocadora.Controllers.Usuario
 
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
-                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
+                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
                 HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios").Result;
 
                 if (response.IsSuccessStatusCode)
@@ -64,8 +59,7 @@ namespace CarLocadora.Controllers.Usuario
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
-                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
             HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios/ObterUmUsuario?cpf={valor}").Result;
 
             if (response.IsSuccessStatusCode)
@@ -95,8 +89,7 @@ namespace CarLocadora.Controllers.Usuario
                     HttpClient Cliente = new HttpClient();
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
-                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
                     HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios", usuariosModel).Result;
 
 
@@ -130,8 +123,7 @@ namespace CarLocadora.Controllers.Usuario
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
-                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
             HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios/ObterUmUsuario?cpf={valor}").Result;
 
 
@@ -159,8 +151,7 @@ namespace CarLocadora.Controllers.Usuario
                     HttpClient Cliente = new HttpClient();
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
-                new ApiToken(_UrlApi, _LoginRespostaModel).Obter());
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
                     HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroUsuarios", usuariosModel).Result;
 
                     if (response.IsSuccessStatusCode)

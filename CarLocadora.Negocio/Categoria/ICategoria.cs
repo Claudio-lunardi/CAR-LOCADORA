@@ -9,17 +9,10 @@ namespace CarLocadora.Negocio.Categoria
 {
     public interface ICategoria
     {
-
-
         List<CategoriasModel> ListaCategorias();
         CategoriasModel ListaUmaCategoria(int valor);
         void AlterarCategoria(CategoriasModel categoriasModel);
         void IncluirCategoria(CategoriasModel categoriasModel);
         void ExcluirCategoria(int valor);
-        
-
-
-
-
     }
 }
