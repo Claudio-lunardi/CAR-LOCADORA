@@ -18,21 +18,18 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
             _veiculo = veiculo;
         }
-        #endregion
 
+        #endregion
         [HttpGet()]
         public async Task<List<VeiculosModel>> ListaVeiculos()
         {
             return _veiculo.ListaVeiculos();
         }
 
-
         [HttpGet("ObterUmVeiculo")]
         public VeiculosModel ListaUmCliente([FromQuery] string valor)
         {
-
             return _veiculo.ListaUmVeiculo(valor);
-
         }
 
         [HttpPost()]
@@ -40,6 +37,7 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
             _veiculo.IncluirVeiculos(veiculosModel);
         }
+
         [HttpPut()]
         public void AlterarVeiculo([FromBody] VeiculosModel veiculosModel)
         {

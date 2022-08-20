@@ -5,7 +5,6 @@ using CarLocadora.Servico;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IApiToken, ApiToken>();
-
 builder.Services.Configure<WebConfigUrl>(builder.Configuration.GetSection("WebConfigUrl"));
 builder.Services.AddSingleton<LoginRespostaModel>();
 

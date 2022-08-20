@@ -120,11 +120,6 @@ namespace CarLocadora.Controllers.Veiculo
 
         }
 
-
-
-
-
-
         public ActionResult Edit(string valor)
         {
             HttpClient Cliente = new HttpClient();
