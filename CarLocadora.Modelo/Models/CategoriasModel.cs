@@ -19,6 +19,7 @@ namespace CarLocadora.Modelo.Models
         public string Descricao { get; set; }
 
         [Display(Name = "Valor Diária")]
+        [Required(ErrorMessage = "Valor Diária é obrigatório!")]
         public decimal ValorDiaria { get; set; }
         public bool Ativo { get; set; }
         [Display(Name = "Data Inclusão")]

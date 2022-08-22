@@ -24,6 +24,7 @@ namespace CarLocadora.Modelo.Models
         public string Nome { get; set; }
 
         [Display(Name = "Data de nascimento")]
+        [Required(ErrorMessage = "Data de nascimento é obrigatório!")]
         public DateTime DataNascimento { get; set; }
         
         [Required(ErrorMessage = "Telefone é obrigatório!")]
