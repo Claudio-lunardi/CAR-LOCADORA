@@ -89,7 +89,7 @@ namespace CarLocadora.Controllers.Cliente
         {
             try
             {
-                clientesModel.DataAlteracao = DateTime.Now;
+                
                 if (ModelState.IsValid)
                 {
                     HttpClient Cliente = new HttpClient();

@@ -144,7 +144,7 @@ namespace CarLocadora.Controllers.Veiculo
         {
             try
             {
-                veiculosModel.DataAlteracao = DateTime.Now;
+                
                 if (ModelState.IsValid)
                 {
                     HttpClient Cliente = new HttpClient();

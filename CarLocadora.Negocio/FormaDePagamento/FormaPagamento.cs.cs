@@ -26,7 +26,7 @@ namespace CarLocadora.Negocio.FormaDePagamento
 
         public void IncluirFormaPagamento(FormasDePagamentosModel formasDePagamentosModel)
         {
-            formasDePagamentosModel.DataAlteracao = DateTime.Now;
+            formasDePagamentosModel.DataInclusao = DateTime.Now;
             _entityContext.FormasDePagamento.Add(formasDePagamentosModel);
             _entityContext.SaveChanges();
         }

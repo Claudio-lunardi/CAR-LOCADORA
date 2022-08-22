@@ -157,7 +157,7 @@ namespace CarLocadora.Controllers.Categoria
         {
             try
             {
-                categoriasModel.DataAlteracao = DateTime.Now;
+                
 
                 if (ModelState.IsValid)
                 {

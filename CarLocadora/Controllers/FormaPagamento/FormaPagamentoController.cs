@@ -158,8 +158,7 @@ namespace CarLocadora.Controllers.FormaPagamento
             try
             {
 
-                formasDePagamentosModel.DataAlteracao = DateTime.Now; 
-
+                
                 if (ModelState.IsValid)
                 {
 
