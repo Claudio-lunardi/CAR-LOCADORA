@@ -12,12 +12,14 @@
     <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            
+
             <partial name="_Formulario" />
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
-                </label>
-            </div>
+
+
+
             <hr />
             <div class="form-group">
                 <button type="button" class="btn btn-primary">

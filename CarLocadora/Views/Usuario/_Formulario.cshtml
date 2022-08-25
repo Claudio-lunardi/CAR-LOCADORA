@@ -1,5 +1,7 @@
 ﻿@model CarLocadora.Modelo.Models.UsuariosModel
 
+
+
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
@@ -8,16 +10,10 @@
             <span asp-validation-for="Nome" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label asp-for="CPF" class="control-label"></label>
-            <input asp-for="CPF" class="form-control maskCPF"  />
-            <span asp-validation-for="CPF" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
 
+   
+    <div class="col-md-2">
+        <div class="form-group">
             <label asp-for="DataNascimento" class="control-label"></label>
             <input asp-for="DataNascimento" class="form-control" />
             <span asp-validation-for="DataNascimento" class="text-danger"></span>
@@ -50,21 +46,8 @@
             <span asp-validation-for="RG" class="text-danger"></span>
         </div>
     </div>
+ 
 
-    <div class="col-md-2">
-        <div class="form-group">
-            <label asp-for="DataInclusao" class="control-label"></label>
-            <input asp-for="DataInclusao" class="form-control" readonly/>
-            <span asp-validation-for="DataInclusao" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label asp-for="DataAlteracao" class="control-label"></label>
-            <input asp-for="DataAlteracao" class="form-control" readonly/>
-            <span asp-validation-for="DataAlteracao" class="text-danger"></span>
-        </div>
-    </div>
     <div class="col-md-6">
         <div class="form-group">
             <label asp-for="Logradouro" class="control-label"></label>

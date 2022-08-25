@@ -12,91 +12,20 @@
     <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="Placa" class="control-label"></label>
-                        <input asp-for="Placa" class="form-control maskPlaca" readonly />
-                        <span asp-validation-for="Placa" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="Modelo" class="control-label"></label>
-                        <input asp-for="Modelo" class="form-control" />
-                        <span asp-validation-for="Modelo" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="Marca" class="control-label"></label>
-                        <input asp-for="Marca" class="form-control" />
-                        <span asp-validation-for="Marca" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="Cor" class="control-label"></label>
-                        <input asp-for="Cor" class="form-control" />
-                        <span asp-validation-for="Cor" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="Combustivel" class="control-label"></label>
-                        <input asp-for="Combustivel" class="form-control" />
-                        <span asp-validation-for="Combustivel" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="Chassi" class="control-label"></label>
-                        <input asp-for="Chassi" class="form-control" />
-                        <span asp-validation-for="Chassi" class="text-danger"></span>
-                    </div>
-                </div>
+            <input asp-for="DataAlteracao" type="hidden" class="form-control" readonly />
+<input asp-for="DataInclusao" type="hidden" class="form-control" readonly />
+            <div class="row"> 
 
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label asp-for="Placa" class="control-label"></label>
+                    <input asp-for="Placa" class="form-control maskPlaca" readonly />
+                    <span asp-validation-for="Placa" class="text-danger"></span>
+                </div>
             </div>
 
+            <partial name="_Formulario" />
 
-            <div class="form-group">
-                <label asp-for="Opcionais" class="control-label"></label>
-                <textarea asp-for="Opcionais" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="Opcionais" class="text-danger"></span>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label asp-for="DataInclusao" class="control-label"></label>
-                        <input asp-for="DataInclusao" class="form-control" readonly />
-                        <span asp-validation-for="DataInclusao" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label asp-for="DataAlteracao" class="control-label"></label>
-                        <input asp-for="DataAlteracao" class="form-control" readonly />
-                        <span asp-validation-for="DataAlteracao" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-				<div class="form-group">
-					<label>Categoria do Veículo</label>
-					<select asp-for="CategoriaId" asp-items="ViewBag.CategoriaDeVeiculos" class="form-control text-uppercase">
-					</select>
-				</div>
-			</div>
-
-
-
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
-                </label>
-            </div>
             <hr />
             <div class="form-group">
                 <button type="button" class="btn btn-primary">
@@ -109,8 +38,6 @@
                         <path fill-rule="evenodd" d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.5a.5.5 0 0 1 1 0V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0zm-.354 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V11h-1v3.293l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z" />
                     </svg>
                 </button>
-
-
             </div>
         </form>
     </div>

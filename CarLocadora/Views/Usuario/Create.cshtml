@@ -13,109 +13,15 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            @*<partial name="_Formulario" />*@
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="Nome" class="control-label"></label>
-                        <input asp-for="Nome" class="form-control" />
-                        <span asp-validation-for="Nome" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="CPF" class="control-label"></label>
-                        <input asp-for="CPF" class="form-control maskCPF" />
-                        <span asp-validation-for="CPF" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-
-                        <label asp-for="DataNascimento" class="control-label"></label>
-                        <input asp-for="DataNascimento" class="form-control" />
-                        <span asp-validation-for="DataNascimento" class="text-danger"></span>
-                    </div>
-                </div>
-
-
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="Telefone" class="control-label"></label>
-                        <input asp-for="Telefone" class="form-control maskTelefone" />
-                        <span asp-validation-for="Telefone" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="Celular" class="control-label"></label>
-                        <input asp-for="Celular" class="form-control maskCelular" />
-                        <span asp-validation-for="Celular" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-
-
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label asp-for="RG" class="control-label"></label>
-                        <input asp-for="RG" class="form-control" />
-                        <span asp-validation-for="RG" class="text-danger"></span>
-                    </div>
-                </div>
-
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label asp-for="Logradouro" class="control-label"></label>
-                        <input asp-for="Logradouro" class="form-control" />
-                        <span asp-validation-for="Logradouro" class="text-danger"></span>
-                    </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label asp-for="CPF" class="control-label"></label>
+                    <input asp-for="CPF" class="form-control maskCPF" />
+                    <span asp-validation-for="CPF" class="text-danger"></span>
                 </div>
             </div>
 
-            <div class="row">
-
-                <div class="col-md-1">
-                    <div class="form-group">
-                        <label asp-for="Numero" class="control-label"></label>
-                        <input asp-for="Numero" class="form-control" />
-                        <span asp-validation-for="Numero" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label asp-for="Complemento" class="control-label"></label>
-                        <input asp-for="Complemento" class="form-control" />
-                        <span asp-validation-for="Complemento" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label asp-for="Cidade" class="control-label"></label>
-                        <input asp-for="Cidade" class="form-control" />
-                        <span asp-validation-for="Cidade" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-1">
-                    <div class="form-group">
-                        <label asp-for="Estado" class="control-label"></label>
-                        <input asp-for="Estado" class="form-control" />
-                        <span asp-validation-for="Estado" class="text-danger"></span>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
-                </label>
-            </div>
-
-           
+            <partial name="_Formulario" />
 
             <hr />
             <div class="form-group">

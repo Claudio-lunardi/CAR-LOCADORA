@@ -76,25 +76,26 @@ namespace CarLocadora.Controllers.Veiculo
             }
         }
 
-        public ActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            //ViewBag.CategoriaDeVeiculos = CarregarCategoriasDeVeiculos();
+            ViewBag.Veiculos = await CarregarCategoriaVeiculos();
             return View();
         }
 
 
 
 
-        private List<SelectListItem> CarregarCategoriasDeVeiculos()
+        private async Task<List<SelectListItem>> CarregarCategoriaVeiculos()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
 
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+            HttpClient Cliente = new HttpClient();
 
-            HttpResponseMessage response = client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}​CadastroCategoria").Result;
+            Cliente.DefaultRequestHeaders.Accept.Clear();
+            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -160,7 +161,7 @@ namespace CarLocadora.Controllers.Veiculo
 
         }
 
-        public ActionResult Edit(string valor)
+        public async Task<ActionResult> Edit(string valor)
         {
 
 
@@ -172,7 +173,7 @@ namespace CarLocadora.Controllers.Veiculo
 
             if (response.IsSuccessStatusCode)
             {
-                ViewBag.CategoriaDeVeiculos = CarregarCategoriasDeVeiculos();
+                ViewBag.Veiculos = await CarregarCategoriaVeiculos();
 
                 string conteudo = response.Content.ReadAsStringAsync().Result;
                 return View(JsonConvert.DeserializeObject<VeiculosModel>(conteudo));

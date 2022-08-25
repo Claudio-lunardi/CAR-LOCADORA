@@ -14,30 +14,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <input asp-for="Id" class="form-control" type="hidden" />
+<input asp-for="DataAlteracao" type="hidden" class="form-control" readonly />
+<input asp-for="DataInclusao" type="hidden" class="form-control" readonly />
 
             <partial name="_Formulario" />
 
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label asp-for="DataInclusao" class="control-label"></label>
-                        <input asp-for="DataInclusao" class="form-control" readonly />
-                        <span asp-validation-for="DataInclusao" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label asp-for="DataAlteracao" class="control-label"></label>
-                        <input asp-for="DataAlteracao" class="form-control" readonly />
-                        <span asp-validation-for="DataAlteracao" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
-                </label>
-            </div>
+        
 
             <hr />
             <div class="form-group">
