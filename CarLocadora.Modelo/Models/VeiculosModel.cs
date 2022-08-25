@@ -32,9 +32,16 @@ namespace CarLocadora.Modelo.Models
         public string? Opcionais { get; set; }
         [Required(ErrorMessage = "Ativo é obrigatório!")]
         public bool Ativo { get; set; }
+
         [Display(Name = "Data Inclusão")]
         public DateTime DataInclusao { get; set; } 
         [Display(Name = "Data Alteração")]
-        public DateTime? DataAlteracao { get; set; } 
+        public DateTime? DataAlteracao { get; set; }
+
+        public int? CategoriaId { get; set; }
+
+        public CategoriasModel? Categoria { get; set; }
+
+
     }
 }

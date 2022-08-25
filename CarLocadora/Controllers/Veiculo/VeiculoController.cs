@@ -3,6 +3,7 @@ using CarLocadora.Models;
 using CarLocadora.Servico;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -77,15 +78,54 @@ namespace CarLocadora.Controllers.Veiculo
 
         public ActionResult Create()
         {
+            //ViewBag.CategoriaDeVeiculos = CarregarCategoriasDeVeiculos();
             return View();
         }
+
+
+
+
+        private List<SelectListItem> CarregarCategoriasDeVeiculos()
+        {
+            List<SelectListItem> lista = new List<SelectListItem>();
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+
+            HttpResponseMessage response = client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}​CadastroCategoria").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string conteudo = response.Content.ReadAsStringAsync().Result;
+                List<CategoriasModel> categorias = JsonConvert.DeserializeObject<List<CategoriasModel>>(conteudo);
+
+                foreach (var linha in categorias)
+                {
+                    lista.Add(new SelectListItem()
+                    {
+                        Value = linha.Id.ToString(),
+                        Text = linha.Descricao,
+                        Selected = false,
+                    });
+                }
+
+                return lista;
+            }
+            else
+            {
+                throw new Exception(response.ReasonPhrase);
+            }
+        }
+
+
 
         // POST: VeiculoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([FromForm] VeiculosModel veiculosModel)
         {
-
             try
             {
                 if (ModelState.IsValid)
@@ -122,6 +162,8 @@ namespace CarLocadora.Controllers.Veiculo
 
         public ActionResult Edit(string valor)
         {
+
+
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -130,6 +172,8 @@ namespace CarLocadora.Controllers.Veiculo
 
             if (response.IsSuccessStatusCode)
             {
+                ViewBag.CategoriaDeVeiculos = CarregarCategoriasDeVeiculos();
+
                 string conteudo = response.Content.ReadAsStringAsync().Result;
                 return View(JsonConvert.DeserializeObject<VeiculosModel>(conteudo));
             }

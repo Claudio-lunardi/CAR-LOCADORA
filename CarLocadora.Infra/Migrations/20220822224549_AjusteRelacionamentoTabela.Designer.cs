@@ -4,6 +4,7 @@ using CarLocadora.Infra.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarLocadora.Infra.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    partial class EntityContextModelSnapshot : ModelSnapshot
+    [Migration("20220822224549_AjusteRelacionamentoTabela")]
+    partial class AjusteRelacionamentoTabela
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,45 +148,6 @@ namespace CarLocadora.Infra.Migrations
                     b.ToTable("FormasDePagamento");
                 });
 
-            modelBuilder.Entity("CarLocadora.Modelo.Models.ManutencaoVeiculoModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataInclusao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataServico")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<int>("Garantia")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("ValorServico")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("VeiculoPlaca")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(8)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VeiculoPlaca");
-
-                    b.ToTable("ManutencaoVeiculo");
-                });
-
             modelBuilder.Entity("CarLocadora.Modelo.Models.UsuariosModel", b =>
                 {
                     b.Property<string>("CPF")
@@ -305,17 +268,6 @@ namespace CarLocadora.Infra.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.ToTable("Veiculos");
-                });
-
-            modelBuilder.Entity("CarLocadora.Modelo.Models.ManutencaoVeiculoModel", b =>
-                {
-                    b.HasOne("CarLocadora.Modelo.Models.VeiculosModel", "Veiculo")
-                        .WithMany()
-                        .HasForeignKey("VeiculoPlaca")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Veiculo");
                 });
 
             modelBuilder.Entity("CarLocadora.Modelo.Models.VeiculosModel", b =>
