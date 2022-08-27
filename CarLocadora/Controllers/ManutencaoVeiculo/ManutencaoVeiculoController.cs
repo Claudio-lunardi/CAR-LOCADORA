@@ -21,10 +21,43 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
             _IApiToken = iApiToken;
         }
 
-        public IActionResult Index()
+
+
+        #region Index
+        public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
         {
-            return View();
+            try
+            {
+                if (sucesso)
+                    TempData["sucesso"] = mensagem;
+                else
+                    TempData["erro"] = mensagem;
+                 
+                HttpClient Cliente = new HttpClient();
+
+                Cliente.DefaultRequestHeaders.Accept.Clear();
+                Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    return View(JsonConvert.DeserializeObject<List<ClientesModel>>(json));
+                }
+                else
+                {
+                    throw new Exception("aaa");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
+        #endregion
+
 
 
         public async Task<IActionResult> Create()
