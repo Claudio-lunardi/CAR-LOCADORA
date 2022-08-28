@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarLocadora.Modelo.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
 {
     public interface IManutencaoVeiculo
     {
+        List<ImanutencaoVeiculosModel> ListaManutencaoVeiculo();
+        void IncluirManutencaoVeiculo(ImanutencaoVeiculosModel manutencaoVeiculoModel);
     }
 }

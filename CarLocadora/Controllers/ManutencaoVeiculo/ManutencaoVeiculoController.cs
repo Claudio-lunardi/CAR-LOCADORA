@@ -32,13 +32,13 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                     TempData["sucesso"] = mensagem;
                 else
                     TempData["erro"] = mensagem;
-                 
+
                 HttpClient Cliente = new HttpClient();
 
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
-                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente").Result;
+                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroManutencaoVeiculo").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -65,6 +65,50 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
             ViewBag.Veiculos = await CarregarVeiculos();
             return View();
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([FromForm] ImanutencaoVeiculosModel manutencaoVeiculoModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    HttpClient Cliente = new HttpClient();
+                    Cliente.DefaultRequestHeaders.Accept.Clear();
+                    Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+                    HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroManutencaoVeiculo", manutencaoVeiculoModel).Result;
+
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index), new { mensagem = "Registro Salvo!", sucesso = true });
+                    }
+                    else
+                    {
+                        throw new Exception("aaa");
+                    }
+                }
+                else
+                {
+                    TempData["erro"] = "Algum campo deve estar faltando preenchimento";
+                    return View();
+                }
+            }
+            catch (Exception z)
+            {
+                TempData["erro"] = "Algum erro aconteceu - " + z.Message;
+                return View();
+            }
+
+
+
+
+
+        }
+
 
         private async Task<List<SelectListItem>> CarregarVeiculos()
         {

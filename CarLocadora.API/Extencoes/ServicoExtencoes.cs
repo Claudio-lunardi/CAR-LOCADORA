@@ -1,8 +1,10 @@
 ﻿using AspNetCoreRateLimit;
 using CarLocadora.Infra.Entity;
+using CarLocadora.Modelo.Models;
 using CarLocadora.Negocio.Categoria;
 using CarLocadora.Negocio.Cliente;
 using CarLocadora.Negocio.FormaDePagamento;
+using CarLocadora.Negocio.ManutencaoVeiculo;
 using CarLocadora.Negocio.Usuario;
 using CarLocadora.Negocio.Veiculo;
 using CarLocadora.Servico;
@@ -119,7 +121,8 @@ namespace CarLocadora.API.Extencoes
             services.AddScoped<ICategoria, Categoria>();
             services.AddScoped<IVeiculo, Veiculo>();
             services.AddScoped<IFormaPagamento, FormaPagamento>();
-            services.AddScoped<IUsuario, Usuario>();           
+            services.AddScoped<IUsuario, Usuario>();
+            services.AddScoped<IManutencaoVeiculo,ManutencaoVeiculo>();
         }
     }
 }

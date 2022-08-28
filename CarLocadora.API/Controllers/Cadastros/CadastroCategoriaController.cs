@@ -8,7 +8,7 @@ namespace CarLocadora.API.Controllers.Cadastros
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CadastroCategoriaController : ControllerBase
     {
         #region Chamando Interface
@@ -20,7 +20,7 @@ namespace CarLocadora.API.Controllers.Cadastros
         #endregion
 
         [HttpGet()]
-        public async Task<List<CategoriasModel>> ListaCategoria()
+        public List<CategoriasModel> ListaCategoria()
         {
             return _Categoria.ListaCategorias();
         }

@@ -84,11 +84,6 @@ namespace CarLocadora.Controllers.Veiculo
 
 
 
-
-
-
-
-
         // POST: VeiculoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -191,7 +186,6 @@ namespace CarLocadora.Controllers.Veiculo
 
 
 
-
         private List<SelectListItem> CarregarCategoriasDeVeiculos()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
@@ -201,8 +195,7 @@ namespace CarLocadora.Controllers.Veiculo
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
 
-
-            HttpResponseMessage response = client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}​CadastroCategoria").Result;
+            HttpResponseMessage response = client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria").Result;
 
             if (response.IsSuccessStatusCode)
             {

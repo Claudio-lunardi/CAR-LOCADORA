@@ -13,6 +13,6 @@ namespace CarLocadora.Infra.Entity
         public DbSet<FormasDePagamentosModel> FormasDePagamento{ get; set; }
         public DbSet<UsuariosModel> Usuarios { get; set; }
         public DbSet<VeiculosModel> Veiculos { get; set; }
-        public DbSet<ManutencaoVeiculoModel> ManutencaoVeiculo { get; set; }
+        public DbSet<ImanutencaoVeiculosModel> ManutencaoVeiculo { get; set; }
     }
 }
