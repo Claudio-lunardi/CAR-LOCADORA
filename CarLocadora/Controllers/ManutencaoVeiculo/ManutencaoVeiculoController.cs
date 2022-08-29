@@ -59,6 +59,27 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
         #endregion
 
 
+        public ActionResult Details(int valor)
+        {
+            HttpClient Cliente = new HttpClient();
+            Cliente.DefaultRequestHeaders.Accept.Clear();
+            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroManutencaoVeiculo/ObterUmaMnutencaoVeiculo?valor={valor}").Result;
+
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string conteudo = response.Content.ReadAsStringAsync().Result;
+                return View(JsonConvert.DeserializeObject<ManutencaoVeiculoModel>(conteudo));
+            }
+            else
+            {
+                throw new Exception("aaa");
+
+            }
+        }
 
         public async Task<IActionResult> Create()
         {
@@ -109,18 +130,18 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
 
         }
 
-        public ActionResult Edit(int valor)
+        public async Task<ActionResult> Edit(int valor)
         {
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
-            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroManutencaoVeiculo/ObterUmaMnutencaoVeiculo?valor={valor}").Result;
 
 
             if (response.IsSuccessStatusCode)
             {
-
+                ViewBag.Veiculos = await CarregarVeiculos();
                 string conteudo = response.Content.ReadAsStringAsync().Result;
                 return View(JsonConvert.DeserializeObject<ManutencaoVeiculoModel>(conteudo));
             }
@@ -136,8 +157,6 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
         {
             try
             {
-
-
                 if (ModelState.IsValid)
                 {
 
@@ -145,7 +164,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
-                    HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel).Result;
+                    HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroManutencaoVeiculo", formasDePagamentosModel).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -169,6 +188,53 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                 return View();
             }
         }
+
+
+        public ActionResult Delete(int valor)
+        {
+            try
+            {
+                HttpClient Cliente = new HttpClient();
+                Cliente.DefaultRequestHeaders.Accept.Clear();
+                Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+
+                HttpResponseMessage response = Cliente.DeleteAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroManutencaoVeiculo?valor={valor}").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    throw new Exception("aaa");
+                }
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
         private async Task<List<SelectListItem>> CarregarVeiculos()
         {

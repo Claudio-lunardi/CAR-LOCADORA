@@ -23,6 +23,14 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
             _entityContext.SaveChanges();
         }
 
+        public void DeletarManutencaoVeiculo(int valor)
+        {
+           var id = _entityContext.ManutencaoVeiculo.Single(x => x.Id.Equals(valor));
+            _entityContext.ManutencaoVeiculo.Remove(id);
+            _entityContext.SaveChanges();
+
+        }
+
         public void IncluirManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel)
         {
              _entityContext.ManutencaoVeiculo.Add(manutencaoVeiculoModel);
@@ -33,6 +41,18 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
         {
             return _entityContext.ManutencaoVeiculo.ToList();
         }
+
+        public ManutencaoVeiculoModel ObterUmManutencaoVeiculo(int valor)
+        {
+            return _entityContext.ManutencaoVeiculo.Single(x => x.Id.Equals(valor));
+           
+        }
+
+
+
+
+
+
 
     }
 }
