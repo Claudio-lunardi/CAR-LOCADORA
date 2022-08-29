@@ -17,13 +17,19 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
             _entityContext = entityContext;
         }
 
-        public void IncluirManutencaoVeiculo(ImanutencaoVeiculosModel manutencaoVeiculoModel)
+        public void AlterarManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel)
+        {
+            _entityContext.ManutencaoVeiculo.Update(manutencaoVeiculoModel);
+            _entityContext.SaveChanges();
+        }
+
+        public void IncluirManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel)
         {
              _entityContext.ManutencaoVeiculo.Add(manutencaoVeiculoModel);
             _entityContext.SaveChanges();
         }
 
-        public List<ImanutencaoVeiculosModel> ListaManutencaoVeiculo()
+        public List<ManutencaoVeiculoModel> ListaManutencaoVeiculo()
         {
             return _entityContext.ManutencaoVeiculo.ToList();
         }

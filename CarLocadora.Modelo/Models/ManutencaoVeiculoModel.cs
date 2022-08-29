@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarLocadora.Modelo.Models
 {
-    public class ImanutencaoVeiculosModel
+    public class ManutencaoVeiculoModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

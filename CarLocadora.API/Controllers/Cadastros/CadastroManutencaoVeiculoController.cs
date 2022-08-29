@@ -18,13 +18,13 @@ namespace CarLocadora.API.Controllers.Cadastros
         }
 
         [HttpGet]
-        public List<ImanutencaoVeiculosModel> ListaManutencaoModels()
+        public List<ManutencaoVeiculoModel> ListaManutencaoModels()
         {
             return _ManutencaoVeiculo.ListaManutencaoVeiculo();
         }
 
         [HttpPost]
-        public void IncluirManutencaoVeiculo(ImanutencaoVeiculosModel manutencaoVeiculoModel)
+        public void IncluirManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel)
         {
             _ManutencaoVeiculo.IncluirManutencaoVeiculo(manutencaoVeiculoModel);
 

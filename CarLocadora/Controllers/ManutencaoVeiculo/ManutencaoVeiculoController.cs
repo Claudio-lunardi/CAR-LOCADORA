@@ -43,7 +43,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    return View(JsonConvert.DeserializeObject<List<ClientesModel>>(json));
+                    return View(JsonConvert.DeserializeObject<List<ManutencaoVeiculoModel>>(json));
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromForm] ImanutencaoVeiculosModel manutencaoVeiculoModel)
+        public ActionResult Create([FromForm] ManutencaoVeiculoModel manutencaoVeiculoModel)
         {
             try
             {
@@ -109,6 +109,66 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
 
         }
 
+        public ActionResult Edit(int valor)
+        {
+            HttpClient Cliente = new HttpClient();
+            Cliente.DefaultRequestHeaders.Accept.Clear();
+            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}").Result;
+
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string conteudo = response.Content.ReadAsStringAsync().Result;
+                return View(JsonConvert.DeserializeObject<ManutencaoVeiculoModel>(conteudo));
+            }
+            else
+            {
+                throw new Exception("aaa");
+
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([FromForm] ManutencaoVeiculoModel formasDePagamentosModel)
+        {
+            try
+            {
+
+
+                if (ModelState.IsValid)
+                {
+
+                    HttpClient Cliente = new HttpClient();
+                    Cliente.DefaultRequestHeaders.Accept.Clear();
+                    Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+                    HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index), new { mensagem = "Registro editado", sucesso = true });
+                    }
+                    else
+                    {
+                        throw new Exception("aaa");
+                    }
+                }
+                else
+                {
+                    TempData["erro"] = "Algum campo deve estar faltando preenchimento";
+                    return View();
+                }
+
+            }
+            catch (Exception z)
+            {
+                TempData["erro"] = "Algum erro aconteceu - " + z.Message;
+                return View();
+            }
+        }
 
         private async Task<List<SelectListItem>> CarregarVeiculos()
         {

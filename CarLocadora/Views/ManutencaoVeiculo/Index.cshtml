@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarLocadora.Modelo.Models.ImanutencaoVeiculosModel>
+﻿@model IEnumerable<CarLocadora.Modelo.Models.ManutencaoVeiculoModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,30 +12,21 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
+           <th>
+                @Html.DisplayNameFor(model => model.VeiculoPlaca)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Descricao)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataServico)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.Garantia)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ValorServico)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataInclusao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataAlteracao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VeiculoPlaca)
-            </th>
+       
+           
             <th></th>
         </tr>
     </thead>
@@ -43,29 +34,20 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.VeiculoPlaca)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descricao)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataServico)
-            </td>
+          
             <td>
                 @Html.DisplayFor(modelItem => item.Garantia)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ValorServico)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInclusao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataAlteracao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VeiculoPlaca)
-            </td>
+  
+         
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |

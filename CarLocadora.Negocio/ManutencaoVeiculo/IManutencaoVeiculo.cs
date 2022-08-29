@@ -9,7 +9,9 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
 {
     public interface IManutencaoVeiculo
     {
-        List<ImanutencaoVeiculosModel> ListaManutencaoVeiculo();
-        void IncluirManutencaoVeiculo(ImanutencaoVeiculosModel manutencaoVeiculoModel);
+        List<ManutencaoVeiculoModel> ListaManutencaoVeiculo();
+        void IncluirManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel);
+
+        void AlterarManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel);
     }
 }
