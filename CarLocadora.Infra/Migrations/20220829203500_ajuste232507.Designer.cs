@@ -4,6 +4,7 @@ using CarLocadora.Infra.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarLocadora.Infra.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    partial class EntityContextModelSnapshot : ModelSnapshot
+    [Migration("20220829203500_ajuste232507")]
+    partial class ajuste232507
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +182,11 @@ namespace CarLocadora.Infra.Migrations
                     b.Property<int>("FormaPagamentoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("VeiculoPlaca")
+                    b.Property<int?>("VeiculosPlaca")
+                        .HasMaxLength(8)
+                        .HasColumnType("int");
+
+                    b.Property<string>("VeiculosPlaca1")
                         .HasColumnType("nvarchar(8)");
 
                     b.HasKey("Id");
@@ -191,7 +197,7 @@ namespace CarLocadora.Infra.Migrations
 
                     b.HasIndex("FormaPagamentoId");
 
-                    b.HasIndex("VeiculoPlaca");
+                    b.HasIndex("VeiculosPlaca1");
 
                     b.ToTable("Locacoes");
                 });
@@ -431,9 +437,9 @@ namespace CarLocadora.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarLocadora.Modelo.Models.VeiculosModel", "Veiculo")
+                    b.HasOne("CarLocadora.Modelo.Models.VeiculosModel", "Veiculos")
                         .WithMany()
-                        .HasForeignKey("VeiculoPlaca");
+                        .HasForeignKey("VeiculosPlaca1");
 
                     b.Navigation("Categoria");
 
@@ -441,7 +447,7 @@ namespace CarLocadora.Infra.Migrations
 
                     b.Navigation("FormaPagamento");
 
-                    b.Navigation("Veiculo");
+                    b.Navigation("Veiculos");
                 });
 
             modelBuilder.Entity("CarLocadora.Modelo.Models.ManutencaoVeiculoModel", b =>

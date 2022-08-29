@@ -14,6 +14,7 @@ namespace CarLocadora.Modelo.Models
         [Required(ErrorMessage = "Placa é obrigatório!")]
         [StringLength(8, MinimumLength = 7, ErrorMessage = "Este campo deve ter no mínimo 7 a 8 caracteres.")]
         public string Placa { get; set; }
+
         [StringLength(100)]
         public string? Chassi { get; set; }
         [StringLength(100)]

@@ -8,7 +8,7 @@ namespace CarLocadora.API.Controllers.Cadastros
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CadastroFormaPagamentoController : ControllerBase
     {
         #region Chamando Interface

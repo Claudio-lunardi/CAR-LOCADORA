@@ -4,6 +4,7 @@ using CarLocadora.Infra.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarLocadora.Infra.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    partial class EntityContextModelSnapshot : ModelSnapshot
+    [Migration("20220829220337_testesss333")]
+    partial class testesss333
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,9 +182,6 @@ namespace CarLocadora.Infra.Migrations
                     b.Property<int>("FormaPagamentoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("VeiculoPlaca")
-                        .HasColumnType("nvarchar(8)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
@@ -190,8 +189,6 @@ namespace CarLocadora.Infra.Migrations
                     b.HasIndex("ClienteCPF");
 
                     b.HasIndex("FormaPagamentoId");
-
-                    b.HasIndex("VeiculoPlaca");
 
                     b.ToTable("Locacoes");
                 });
@@ -431,17 +428,11 @@ namespace CarLocadora.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarLocadora.Modelo.Models.VeiculosModel", "Veiculo")
-                        .WithMany()
-                        .HasForeignKey("VeiculoPlaca");
-
                     b.Navigation("Categoria");
 
                     b.Navigation("Cliente");
 
                     b.Navigation("FormaPagamento");
-
-                    b.Navigation("Veiculo");
                 });
 
             modelBuilder.Entity("CarLocadora.Modelo.Models.ManutencaoVeiculoModel", b =>
