@@ -9,6 +9,11 @@ namespace CarLocadora.Negocio.Locacao
 {
     public interface Ilocacao
     {
+
+        List<LocacoesModel> ListaLocacoes();
+
+        LocacoesModel ObterUmaLocacoes(int valor);
+
         void IncluirLocacao(LocacoesModel locacoesModel);
 
         void AlterarLocacao(LocacoesModel locacoesModel);

@@ -1,47 +1,50 @@
 ﻿using CarLocadora.Modelo.Models;
 using CarLocadora.Models;
+using CarLocadora.Negocio.Vistoria;
 using CarLocadora.Servico;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
-namespace CarLocadora.Controllers.Categoria
+namespace CarLocadora.Controllers.Vistoria
 {
-    public class CategoriaController : Controller
+    public class VistoriaController : Controller
     {
-        private readonly IOptions<LoginRespostaModel> _loginRespostaModel;
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
 
-        public CategoriaController(IOptions<LoginRespostaModel> loginRespostaModel, IOptions<WebConfigUrl> urlApi, IApiToken iApiToken)
+        public VistoriaController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken)
         {
-            _loginRespostaModel = loginRespostaModel;
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
         }
 
+
+
+        #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
         {
-            if (sucesso)
-                TempData["sucesso"] = mensagem;
-            else
-                TempData["erro"] = mensagem;
             try
             {
+                if (sucesso)
+                    TempData["sucesso"] = mensagem;
+                else
+                    TempData["erro"] = mensagem;
+
                 HttpClient Cliente = new HttpClient();
 
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",  _IApiToken.Obter());
-
-                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria").Result;
+                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    return View(JsonConvert.DeserializeObject<List<CategoriasModel>>(json));
+                    return View(JsonConvert.DeserializeObject<List<VistoriaModel>>(json));
                 }
                 else
                 {
@@ -54,38 +57,25 @@ namespace CarLocadora.Controllers.Categoria
                 throw;
             }
         }
+        #endregion
 
-
-
-        public ActionResult Details(int valor)
-        {
-            HttpClient Cliente = new HttpClient();
-            Cliente.DefaultRequestHeaders.Accept.Clear();
-            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
-
-            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}").Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                string conteudo = response.Content.ReadAsStringAsync().Result;
-                return View(JsonConvert.DeserializeObject<CategoriasModel>(conteudo));
-            }
-            else
-            {
-                throw new Exception("aaa");
-            }
-        }
-
-        public ActionResult Create()
+        // GET: VistoriaController/Details/5
+        public ActionResult Details(int id)
         {
             return View();
         }
 
+        // GET: VistoriaController/Create
+        public ActionResult Create()
+        {
+            ViewBag.CarregarLocacao = CarregarLocacao();
+            return View();
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromForm] CategoriasModel categoriasModel)
+        public ActionResult Create([FromForm] VistoriaModel vistoriaModel)
         {
             try
             {
@@ -96,12 +86,12 @@ namespace CarLocadora.Controllers.Categoria
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
-                    HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel).Result;
+                    HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria", vistoriaModel).Result;
 
 
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction(nameof(Index), new { mensagem = "Registro salvo!", sucesso = true });
+                        return RedirectToAction(nameof(Index), new { mensagem = "Registro Salvo!", sucesso = true });
                     }
                     else
                     {
@@ -121,7 +111,7 @@ namespace CarLocadora.Controllers.Categoria
             }
         }
 
-
+        // GET: VistoriaController/Edit/5
         public ActionResult Edit(int valor)
         {
             HttpClient Cliente = new HttpClient();
@@ -130,12 +120,13 @@ namespace CarLocadora.Controllers.Categoria
 
             Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
 
-            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}").Result;
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria/ObterUmaVistoria?valor={valor}").Result;
 
             if (response.IsSuccessStatusCode)
             {
+                ViewBag.CarregarLocacao = CarregarLocacao();
                 string conteudo = response.Content.ReadAsStringAsync().Result;
-                return View(JsonConvert.DeserializeObject<CategoriasModel>(conteudo));
+                return View(JsonConvert.DeserializeObject<VistoriaModel>(conteudo));
             }
             else
             {
@@ -143,13 +134,15 @@ namespace CarLocadora.Controllers.Categoria
             }
         }
 
+
+        // POST: VistoriaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([FromForm] CategoriasModel categoriasModel)
+        public ActionResult Edit([FromForm]VistoriaModel vistoriaModel)
         {
             try
             {
-                
+
 
                 if (ModelState.IsValid)
                 {
@@ -159,7 +152,7 @@ namespace CarLocadora.Controllers.Categoria
 
                     Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
 
-                    HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel).Result;
+                    HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria", vistoriaModel).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -184,32 +177,67 @@ namespace CarLocadora.Controllers.Categoria
         }
 
 
-        public ActionResult Delete(int valor)
+
+
+
+
+
+        private List<SelectListItem> CarregarLocacao()
         {
-            try
+            List<SelectListItem> lista = new List<SelectListItem>();
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+
+            HttpResponseMessage response = client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroLocacao").Result;
+
+            if (response.IsSuccessStatusCode)
             {
-                HttpClient Cliente = new HttpClient();
-                Cliente.DefaultRequestHeaders.Accept.Clear();
-                Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                string conteudo = response.Content.ReadAsStringAsync().Result;
+                List<LocacoesModel> locacao = JsonConvert.DeserializeObject<List<LocacoesModel>>(conteudo);
 
-                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
-
-                HttpResponseMessage response = Cliente.DeleteAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria?valor={valor}").Result;
-
-                if (response.IsSuccessStatusCode)
+                foreach (var linha in locacao)
                 {
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    throw new Exception("aaa");
+                    lista.Add(new SelectListItem()
+                    {
+                        Value = linha.Id.ToString(),
+                        Text = linha.ClienteCPF,
+                        Selected = false,
+                    });
                 }
 
+                return lista;
             }
-            catch
+            else
             {
-                return View();
+                throw new Exception(response.ReasonPhrase);
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

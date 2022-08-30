@@ -28,6 +28,14 @@ namespace CarLocadora.Negocio.Vistoria
             _entityContext.SaveChanges();
         }
 
+        public List<VistoriaModel> ListaVistoriaModel()
+        {
+            return _entityContext.Vistorias.ToList();
+        }
 
+        public VistoriaModel ObterUmaVistoria(int valor)
+        {
+            return _entityContext.Vistorias.Single(x => x.Id.Equals(valor));
+        }
     }
 }

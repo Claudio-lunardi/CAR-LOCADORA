@@ -17,7 +17,7 @@ namespace CarLocadora.Negocio.Vistoria
         public int Id { get; set; }
 
         public int LocacoesId { get; set; }
-        public LocacoesModel Locacoes { get; set; }
+        public LocacoesModel? Locacoes { get; set; }
 
         [Required(ErrorMessage = "KM Saida é obrigatorio")]
         [Display(Name = "KM de saida")]

@@ -1,0 +1,49 @@
+﻿@model CarLocadora.Modelo.Models.ManutencaoVeiculoModel
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="VeiculoPlaca" class="control-label"></label>
+            <select asp-for="VeiculoPlaca" asp-items="ViewBag.Veiculos" class="form-control text-uppercase">
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="Descricao" class="control-label"></label>
+            <input asp-for="Descricao" class="form-control" />
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="DataServico" class="control-label"></label>
+            <input asp-for="DataServico" class="form-control" />
+            <span asp-validation-for="DataServico" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+<div class="col-md-2">
+    <div class="form-group">
+        <label asp-for="Garantia" class="control-label"></label>
+        <input asp-for="Garantia" class="form-control" />
+        <span asp-validation-for="Garantia" class="text-danger"></span>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="form-group">
+        <label asp-for="ValorServico" class="control-label"></label>
+        <input asp-for="ValorServico" class="form-control" />
+        <span asp-validation-for="ValorServico" class="text-danger"></span>
+    </div>
+</div>
+
+ </div>
+
+
+
+

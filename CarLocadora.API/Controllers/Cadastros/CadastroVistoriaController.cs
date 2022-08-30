@@ -17,6 +17,18 @@ namespace CarLocadora.API.Controllers.Cadastros
             _vistoria = vistoria;
         }
 
+        [HttpGet]
+        public List<VistoriaModel> ListaVistoria()
+        {
+            return _vistoria.ListaVistoriaModel();
+        }
+        [HttpGet("ObterUmaVistoria")]
+        public VistoriaModel ObterUmaVistoria(int valor)
+        {
+            return _vistoria.ObterUmaVistoria(valor);
+        }
+
+
         [HttpPost]
         public void IncluirVistoria([FromBody] VistoriaModel vistoriaModel)
         {

@@ -19,19 +19,29 @@ namespace CarLocadora.Negocio.Locacao
             _entityContext = entityContext;
         }
 
+        #endregion
+
         public void AlterarLocacao(LocacoesModel locacoesModel)
         {
             _entityContext.Locacoes.Update(locacoesModel);
             _entityContext.SaveChanges();
         }
 
-        #endregion
-
 
         public void IncluirLocacao(LocacoesModel locacoesModel)
         {
             _entityContext.Locacoes.Add(locacoesModel);
             _entityContext.SaveChanges();
+        }
+
+        public List<LocacoesModel> ListaLocacoes()
+        {
+          return _entityContext.Locacoes.ToList();
+        }
+
+        public LocacoesModel ObterUmaLocacoes(int valor)
+        {
+            return _entityContext.Locacoes.Single(x => x.Id.Equals(valor));
         }
     }
 }

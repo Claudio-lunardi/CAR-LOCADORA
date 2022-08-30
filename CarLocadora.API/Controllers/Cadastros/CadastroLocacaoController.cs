@@ -16,6 +16,25 @@ namespace CarLocadora.API.Controllers.Cadastros
             _locacao = locacao;
         }
 
+        [HttpGet]
+        public List<LocacoesModel> ListaLocacoes()
+        {
+
+          return _locacao.ListaLocacoes();
+
+
+        }
+        [HttpGet("ObterUmalocacao")]
+        public LocacoesModel ObterUmalocacao(int valor)
+        {
+
+            return _locacao.ObterUmaLocacoes(valor);
+
+        }
+
+
+
+
         [HttpPost]
         public void IncluirLocacao([FromBody]LocacoesModel locacoesModel)
         {

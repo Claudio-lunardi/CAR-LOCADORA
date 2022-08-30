@@ -8,6 +8,10 @@ namespace CarLocadora.Negocio.Vistoria
 {
     public interface IVistoria
     {
+
+        List<VistoriaModel> ListaVistoriaModel();
+
+        VistoriaModel ObterUmaVistoria(int valor);
         void IncluirVistoria(VistoriaModel vistoriaModel);
         void AlterarLocacao(VistoriaModel vistoriaModel);
 

@@ -1,24 +1,24 @@
-﻿@model CarLocadora.Modelo.Models.ManutencaoVeiculoModel
+﻿@model CarLocadora.Modelo.Models.LocacoesModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editar manutenção veiculo</h1>
+<h1>Editar locações</h1>
+
 
 <hr />
 <div class="row">
     <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    
+<input asp-for="Id" type="hidden" class="form-control" />
+<input asp-for="DataInclusao" type="hidden" class="form-control" />
+<input asp-for="DataAlteracao" type="hidden" class="form-control" />
+            <partial name="_Formulario" /> 
 
-            <input asp-for="DataInclusao"  type="hidden" class="form-control" />  
-            <input asp-for="DataAlteracao" type="hidden" class="form-control" />
-            <input asp-for="Id" type="hidden" class="form-control" />
- 
-           <partial name="_Formulario" />
-
-          <hr />
+         <hr />
             <div class="form-group">
                 <button type="button" class="btn btn-primary">
                     <a class="text-white text-decoration-none fw-bold " asp-action="Index">Voltar a lista</a>   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-left-circle-fill" viewBox="0 0 16 16">
