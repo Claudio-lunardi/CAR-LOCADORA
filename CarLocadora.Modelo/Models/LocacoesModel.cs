@@ -21,26 +21,19 @@ namespace CarLocadora.Modelo.Models
         public string ClienteCPF { get; set; }
         public ClientesModel? Cliente { get; set; }
 
-
-
         [Required(ErrorMessage = "Forma de pagamento é obrigatório.")]
         [Display(Name = "Forma de pagamento")]
         public int FormaPagamentoId { get; set; }
         public FormasDePagamentosModel? FormaPagamento { get; set; }
-
 
         [Display(Name = "Categoria")]
         [Required(ErrorMessage = "categoria é obrigatório.")]
         public int CategoriaId { get; set; }
         public CategoriasModel? Categoria { get; set; }
 
-
-
-
         [Display(Name = "Placa do veiculo")]
         public string? VeiculoPlaca { get; set; }
         public VeiculosModel? Veiculo { get; set; }
-
 
         [Required(ErrorMessage = "Data da reserva é obrigatório.")]
         [Display(Name = " Data da reserva")]

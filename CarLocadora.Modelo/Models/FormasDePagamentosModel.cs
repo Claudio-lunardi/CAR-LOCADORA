@@ -16,7 +16,7 @@ namespace CarLocadora.Modelo.Models
         
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "Descricao é obrigatório!")]
-        [StringLength(150, MinimumLength = 5, ErrorMessage = "Este campo deve ter no mínimo 5 a 150 caracteres.")]
+        [StringLength(150, ErrorMessage = "Este campo pode ter no máximo 150 caracteres.")]
         public string Descricao { get; set; }
 
         [Required(ErrorMessage = "Ativo é obrigatório!")]
