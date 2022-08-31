@@ -4,17 +4,13 @@
     ViewData["Title"] = "Index";
 }
 <div class="container">
-    <div class="col-md-12">
-
-        
+    <div class="col-md-12">   
         <h1>Cadastro Categoria</h1>
         
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Id)
-                        </th>
+                    
                         <th>
                             @Html.DisplayNameFor(model => model.Descricao)
                         </th>
@@ -34,17 +30,13 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Id)
-                            </td>
+                        
                             <td>
                                 @Html.DisplayFor(modelItem => item.Descricao)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.ValorDiaria)
                             </td>
-
-
                             <td>
                                 @Html.DisplayFor(modelItem => item.Ativo)
                             </td>

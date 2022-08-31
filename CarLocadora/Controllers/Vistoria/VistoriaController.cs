@@ -60,9 +60,26 @@ namespace CarLocadora.Controllers.Vistoria
         #endregion
 
         // GET: VistoriaController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int valor)
         {
-            return View();
+            HttpClient Cliente = new HttpClient();
+            Cliente.DefaultRequestHeaders.Accept.Clear();
+            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria/ObterUmaVistoria?valor={valor}").Result;
+
+            if (response.IsSuccessStatusCode)
+            {              
+                string conteudo = response.Content.ReadAsStringAsync().Result;
+                return View(JsonConvert.DeserializeObject<VistoriaModel>(conteudo));
+            }
+            else
+            {
+                throw new Exception("aaa");
+            }
+            
         }
 
         // GET: VistoriaController/Create
@@ -100,6 +117,7 @@ namespace CarLocadora.Controllers.Vistoria
                 }
                 else
                 {
+                    ViewBag.CarregarLocacao = CarregarLocacao();
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
                 }
@@ -165,6 +183,7 @@ namespace CarLocadora.Controllers.Vistoria
                 }
                 else
                 {
+                    ViewBag.CarregarLocacao = CarregarLocacao();
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
                 }
@@ -203,7 +222,7 @@ namespace CarLocadora.Controllers.Vistoria
                     lista.Add(new SelectListItem()
                     {
                         Value = linha.Id.ToString(),
-                        Text = linha.ClienteCPF,
+                        Text = linha.Id.ToString(),
                         Selected = false,
                     });
                 }

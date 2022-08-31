@@ -90,7 +90,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromForm] ManutencaoVeiculoModel manutencaoVeiculoModel)
+        public async Task<ActionResult> Create([FromForm] ManutencaoVeiculoModel manutencaoVeiculoModel)
         {
             try
             {
@@ -114,6 +114,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                 }
                 else
                 {
+                    ViewBag.Veiculos = await CarregarVeiculos();
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
                 }
@@ -153,7 +154,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([FromForm] ManutencaoVeiculoModel formasDePagamentosModel)
+        public async Task<ActionResult> Edit([FromForm] ManutencaoVeiculoModel formasDePagamentosModel)
         {
             try
             {
@@ -177,6 +178,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                 }
                 else
                 {
+                    ViewBag.Veiculos = await CarregarVeiculos();
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
                 }

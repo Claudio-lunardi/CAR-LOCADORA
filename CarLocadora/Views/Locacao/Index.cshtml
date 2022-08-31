@@ -4,24 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Cadastro Vistoria</h1>
+<h1>Cadastro Locação</h1>
 
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+       
             <th>
                 @Html.DisplayNameFor(model => model.ClienteCPF)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FormaPagamentoId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoriaId)
-            </th>
+        
+       
             <th>
                 @Html.DisplayNameFor(model => model.VeiculoPlaca)
             </th>
@@ -32,18 +26,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
+       
             <td>
                 @Html.DisplayFor(modelItem => item.ClienteCPF)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FormaPagamentoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoriaId)
-            </td>
+      
+        
             <td>
                 @Html.DisplayFor(modelItem => item.VeiculoPlaca)
             </td>

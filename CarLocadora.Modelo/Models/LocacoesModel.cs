@@ -17,17 +17,19 @@ namespace CarLocadora.Modelo.Models
 
         [StringLength(14,MinimumLength =14, ErrorMessage = "Este campo deve ter 14 caracteres")]
         [Required(ErrorMessage = "CPF do cliente é obrigatório.")]
+        [Display(Name = "CPF do cliente")]
         public string ClienteCPF { get; set; }
         public ClientesModel? Cliente { get; set; }
 
 
 
         [Required(ErrorMessage = "Forma de pagamento é obrigatório.")]
+        [Display(Name = "Forma de pagamento")]
         public int FormaPagamentoId { get; set; }
         public FormasDePagamentosModel? FormaPagamento { get; set; }
 
 
-
+        [Display(Name = "Categoria")]
         [Required(ErrorMessage = "categoria é obrigatório.")]
         public int CategoriaId { get; set; }
         public CategoriasModel? Categoria { get; set; }

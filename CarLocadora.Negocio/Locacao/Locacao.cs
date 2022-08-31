@@ -23,6 +23,7 @@ namespace CarLocadora.Negocio.Locacao
 
         public void AlterarLocacao(LocacoesModel locacoesModel)
         {
+            locacoesModel.DataAlteracao = DateTime.Now;
             _entityContext.Locacoes.Update(locacoesModel);
             _entityContext.SaveChanges();
         }
@@ -30,6 +31,7 @@ namespace CarLocadora.Negocio.Locacao
 
         public void IncluirLocacao(LocacoesModel locacoesModel)
         {
+            locacoesModel.DataInclusao = DateTime.Now;
             _entityContext.Locacoes.Add(locacoesModel);
             _entityContext.SaveChanges();
         }

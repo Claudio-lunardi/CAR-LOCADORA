@@ -45,7 +45,7 @@ namespace CarLocadora.Negocio.Categoria
 
         public void ExcluirCategoria(int valor)
         {
-            var id = _entityContext.Categorias.Single(id => id.Id.Equals(valor));
+            var id = _entityContext.Categorias.Single(x => x.Id.Equals(valor));
             _entityContext.Categorias.Remove(id);
             _entityContext.SaveChanges();
 

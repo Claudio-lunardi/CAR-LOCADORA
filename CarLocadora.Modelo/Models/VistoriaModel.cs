@@ -16,11 +16,13 @@ namespace CarLocadora.Negocio.Vistoria
         [Required]
         public int Id { get; set; }
 
+        [Display(Name = "Locações Id")]
         public int LocacoesId { get; set; }
         public LocacoesModel? Locacoes { get; set; }
 
-        [Required(ErrorMessage = "KM Saida é obrigatorio")]
+        
         [Display(Name = "KM de saida")]
+        [Required(ErrorMessage = "KM Saida é obrigatorio")]
         public long KmSaida { get; set; }
 
         [StringLength(50, ErrorMessage = "Este campo deve ter no maximo 50 caracteres")]

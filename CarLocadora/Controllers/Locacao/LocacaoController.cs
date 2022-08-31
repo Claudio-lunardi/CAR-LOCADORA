@@ -60,9 +60,25 @@ namespace CarLocadora.Controllers.Locacao
         #endregion
 
         // GET: LocacaoController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int valor)
         {
-            return View();
+            HttpClient Cliente = new HttpClient();
+            Cliente.DefaultRequestHeaders.Accept.Clear();
+            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+
+            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroLocacao/ObterUmalocacao?valor={valor}").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string conteudo = response.Content.ReadAsStringAsync().Result;
+                return View(JsonConvert.DeserializeObject<LocacoesModel>(conteudo));
+            }
+            else
+            {
+                throw new Exception("aaa");
+            }
         }
 
         // GET: LocacaoController/Create
@@ -102,6 +118,11 @@ namespace CarLocadora.Controllers.Locacao
                 }
                 else
                 {
+                    ViewBag.CarregarLocacao = CarregarLocacaoCPF();
+                    ViewBag.CarregarFormaPagamento = CarregarFormaPagamento();
+                    ViewBag.CarregarCategoria = CarregarCategoria();
+                    ViewBag.CarregarVeiculoPlaca = CarregarVeiculoPlaca();
+
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
                 }
@@ -130,6 +151,7 @@ namespace CarLocadora.Controllers.Locacao
                 ViewBag.CarregarFormaPagamento = CarregarFormaPagamento();
                 ViewBag.CarregarCategoria = CarregarCategoria();
                 ViewBag.CarregarVeiculoPlaca = CarregarVeiculoPlaca();
+
                 string conteudo = response.Content.ReadAsStringAsync().Result;
                 return View(JsonConvert.DeserializeObject<LocacoesModel>(conteudo));
             }
@@ -171,6 +193,11 @@ namespace CarLocadora.Controllers.Locacao
                 }
                 else
                 {
+                    ViewBag.CarregarLocacao = CarregarLocacaoCPF();
+                    ViewBag.CarregarFormaPagamento = CarregarFormaPagamento();
+                    ViewBag.CarregarCategoria = CarregarCategoria();
+                    ViewBag.CarregarVeiculoPlaca = CarregarVeiculoPlaca();
+
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
                 }
@@ -209,7 +236,7 @@ namespace CarLocadora.Controllers.Locacao
                     lista.Add(new SelectListItem()
                     {
                         Value = linha.CPF,
-                        Text = linha.CPF,
+                        Text =  linha.Nome +" - "+ linha.CPF,
                         Selected = false,
                     });
                 }

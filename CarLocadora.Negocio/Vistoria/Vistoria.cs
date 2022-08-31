@@ -18,12 +18,14 @@ namespace CarLocadora.Negocio.Vistoria
 
         public void AlterarLocacao(VistoriaModel vistoriaModel)
         {
+            vistoriaModel.DataAlteracao = DateTime.Now;
             _entityContext.Vistorias.Update(vistoriaModel);
             _entityContext.SaveChanges();
         }
 
         public void IncluirVistoria(VistoriaModel vistoriaModel)
         {
+            vistoriaModel.DataInclusao = DateTime.Now;
             _entityContext.Vistorias.Add(vistoriaModel);
             _entityContext.SaveChanges();
         }
