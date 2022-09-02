@@ -85,7 +85,7 @@ namespace CarLocadora.Controllers.Vistoria
         // GET: VistoriaController/Create
         public ActionResult Create()
         {
-            ViewBag.CarregarLocacao = CarregarLocacao();
+            ViewBag.locacoes = CarregarLocacao();
             return View();
         }
 
@@ -222,7 +222,7 @@ namespace CarLocadora.Controllers.Vistoria
                     lista.Add(new SelectListItem()
                     {
                         Value = linha.Id.ToString(),
-                        Text = linha.Id.ToString(),
+                        Text = linha.VeiculoPlaca + " - " + linha.ClienteCPF,
                         Selected = false,
                     });
                 }
@@ -237,7 +237,38 @@ namespace CarLocadora.Controllers.Vistoria
 
 
 
+        // private async Task<List<SelectListItem>> CarregarLocacoes()
+        //{
+        //    List<SelectListItem> lista = new List<SelectListItem>();
 
+        //    HttpClient client = new HttpClient();
+        //    client.DefaultRequestHeaders.Accept.Clear();
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
+
+        //    HttpResponseMessage response = await client.GetAsync($"{_dadosBase.Value.API_URL_BASE}Locacao");
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        List<Locacao> locacoes = JsonConvert.DeserializeObject<List<Locacao>>(await response.Content.ReadAsStringAsync());
+
+        //        foreach (var linha in locacoes)
+        //        {
+        //            lista.Add(new SelectListItem()
+        //            {
+        //                Value = linha.Id.ToString(),
+        //                Text = linha.VeiculoPlaca + " - " + linha.ClienteCPF,
+        //                Selected = false,
+        //            });
+        //        }
+
+        //        return lista;
+        //    }
+        //    else
+        //    {
+        //        throw new Exception(response.ReasonPhrase);
+        //    }
+        //}
 
 
 

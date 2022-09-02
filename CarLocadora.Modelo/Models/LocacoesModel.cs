@@ -26,11 +26,6 @@ namespace CarLocadora.Modelo.Models
         public int FormaPagamentoId { get; set; }
         public FormasDePagamentosModel? FormaPagamento { get; set; }
 
-        [Display(Name = "Categoria")]
-        [Required(ErrorMessage = "categoria é obrigatório.")]
-        public int CategoriaId { get; set; }
-        public CategoriasModel? Categoria { get; set; }
-
         [Display(Name = "Placa do veiculo")]
         public string? VeiculoPlaca { get; set; }
         public VeiculosModel? Veiculo { get; set; }

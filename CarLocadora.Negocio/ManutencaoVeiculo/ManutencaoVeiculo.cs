@@ -25,7 +25,8 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
 
         public void DeletarManutencaoVeiculo(int valor)
         {
-           var id = _entityContext.ManutencaoVeiculo.Single(x => x.Id.Equals(valor));
+     
+            var id = _entityContext.ManutencaoVeiculo.Single(x => x.Id.Equals(valor));
             _entityContext.ManutencaoVeiculo.Remove(id);
             _entityContext.SaveChanges();
 
@@ -35,6 +36,7 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
         {
              _entityContext.ManutencaoVeiculo.Add(manutencaoVeiculoModel);
             _entityContext.SaveChanges();
+
         }
 
         public List<ManutencaoVeiculoModel> ListaManutencaoVeiculo()

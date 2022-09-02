@@ -11,8 +11,6 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
     {
         List<ManutencaoVeiculoModel> ListaManutencaoVeiculo();
         ManutencaoVeiculoModel ObterUmManutencaoVeiculo(int valor);
-
-
         void DeletarManutencaoVeiculo(int valor);
         void IncluirManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel);
 

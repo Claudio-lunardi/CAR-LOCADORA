@@ -23,7 +23,7 @@ namespace CarLocadora.Modelo.Models
         [Display(Name = "Data Serviço")]
         public DateTime DataServico { get; set; }
 
-        [Display(Name = "Garantia (Meses)")]
+        [Display(Name = "Garantia")]
         [Required(ErrorMessage = "Informe o tempo de garantia em meses.")]
         public int Garantia { get; set; }
 

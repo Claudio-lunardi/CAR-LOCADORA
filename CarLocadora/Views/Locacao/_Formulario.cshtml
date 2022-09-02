@@ -6,8 +6,8 @@
     <div class="col-md-5">
         <div class="form-group">
             <label asp-for="ClienteCPF" class="control-label"></label>
-            <select asp-for="ClienteCPF" asp-items="ViewBag.CarregarLocacao" class="form-control text-uppercase">
-                <option selected ></option>
+            <select asp-for="ClienteCPF" asp-items="ViewBag.Clientes" class="form-control text-uppercase">
+                <option disabled selected ></option>
             </select>
             <span asp-validation-for="ClienteCPF" class="text-danger"></span>
 
@@ -16,27 +16,27 @@
 
 
 
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="form-group">
             <label asp-for="FormaPagamentoId" class="control-label"></label>
-            <select asp-for="FormaPagamentoId" asp-items="ViewBag.CarregarFormaPagamento" class="form-control text-uppercase">
-                <option selected ></option>
+            <select asp-for="FormaPagamentoId" asp-items="ViewBag.FormaPagamentos" class="form-control text-uppercase">
+                <option disabled selected ></option>
             </select>
              <span asp-validation-for="FormaPagamentoId" class="text-danger"></span>
         </div>
     </div>
 
 
-
-    <div class="col-md-3">
+     <div class="col-md-4">
         <div class="form-group">
-            <label asp-for="CategoriaId" class="control-label"></label>
-            <select asp-for="CategoriaId" asp-items="ViewBag.CarregarCategoria" class="form-control text-uppercase">
-        <option selected ></option>
+            <label asp-for="VeiculoPlaca" class="control-label"></label>
+            <select asp-for="VeiculoPlaca" asp-items="ViewBag.Veiculos" class="form-control text-uppercase">
+               <option disabled selected ></option>
             </select>
-             <span asp-validation-for="CategoriaId" class="text-danger"></span>
+             <span asp-validation-for="VeiculoPlaca" class="text-danger"></span>
         </div>
     </div>
+
 
 
 
@@ -66,14 +66,6 @@
             <span asp-validation-for="DataHoraDevolucaoPrevista" class="text-danger"></span>
         </div>
     </div>
-        <div class="col-md-3">
-        <div class="form-group">
-            <label asp-for="VeiculoPlaca" class="control-label"></label>
-            <select asp-for="VeiculoPlaca" asp-items="ViewBag.CarregarVeiculoPlaca" class="form-control text-uppercase">
-               <option selected ></option>
-            </select>
-             <span asp-validation-for="VeiculoPlaca" class="text-danger"></span>
-        </div>
-    </div>
+       
 
 </div>

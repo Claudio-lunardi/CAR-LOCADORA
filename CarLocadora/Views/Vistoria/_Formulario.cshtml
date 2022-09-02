@@ -7,7 +7,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="LocacoesId" class="control-label"></label>
-            <select asp-for="LocacoesId" asp-items="ViewBag.CarregarLocacao" class="form-control text-uppercase">
+            <select asp-for="LocacoesId" asp-items="ViewBag.locacoes" class="form-control text-uppercase">
             </select>
         </div>
     </div>
@@ -26,13 +26,7 @@
             <span asp-validation-for="CombustivelSaida" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label asp-for="ObservacaoSaida" class="control-label"></label>
-            <input asp-for="ObservacaoSaida" class="form-control" />
-            <span asp-validation-for="ObservacaoSaida" class="text-danger"></span>
-        </div>
-    </div>
+
     <div class="col-md-2">
         <div class="form-group">
             <label asp-for="DataHoraRetiradaPatio" class="control-label"></label>
@@ -57,13 +51,7 @@
             <span asp-validation-for="CombustivelEntrada" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            <label asp-for="ObservacaoEntrada" class="control-label"></label>
-            <input asp-for="ObservacaoEntrada" class="form-control" />
-            <span asp-validation-for="ObservacaoEntrada" class="text-danger"></span>
-        </div>
-    </div>
+ 
 
 <div class="col-md-2">
     <div class="form-group">
@@ -73,4 +61,18 @@
     </div>
 </div>
 </div>
+   <div class="col-md-12">
+        <div class="form-group">
+            <label asp-for="ObservacaoEntrada" class="control-label"></label>
+            <textarea placeholder="Observação" rows="3" asp-for="ObservacaoEntrada" class="form-control" ></textarea>
+            <span asp-validation-for="ObservacaoEntrada" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label asp-for="ObservacaoSaida" class="control-label"></label>
+            <textarea rows="3" asp-for="ObservacaoSaida" class="form-control" ></textarea>
+            <span asp-validation-for="ObservacaoSaida" class="text-danger"></span>
+        </div>
+    </div>
 
