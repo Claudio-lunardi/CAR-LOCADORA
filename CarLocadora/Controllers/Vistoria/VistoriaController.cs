@@ -117,7 +117,7 @@ namespace CarLocadora.Controllers.Vistoria
                 }
                 else
                 {
-                    ViewBag.CarregarLocacao = CarregarLocacao();
+                    ViewBag.locacoes = CarregarLocacao();
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
                 }
@@ -142,7 +142,7 @@ namespace CarLocadora.Controllers.Vistoria
 
             if (response.IsSuccessStatusCode)
             {
-                ViewBag.CarregarLocacao = CarregarLocacao();
+                ViewBag.locacoes = CarregarLocacao();
                 string conteudo = response.Content.ReadAsStringAsync().Result;
                 return View(JsonConvert.DeserializeObject<VistoriaModel>(conteudo));
             }
@@ -183,7 +183,7 @@ namespace CarLocadora.Controllers.Vistoria
                 }
                 else
                 {
-                    ViewBag.CarregarLocacao = CarregarLocacao();
+                    ViewBag.locacoes = CarregarLocacao();
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
                 }

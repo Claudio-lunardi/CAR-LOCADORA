@@ -3,49 +3,54 @@
 
 
 
-<div class="col-md-2">
+<div class="col-md-3">
     <div class="form-group">
         <label asp-for="Modelo" class="control-label"></label>
         <input asp-for="Modelo" class="form-control" />
         <span asp-validation-for="Modelo" class="text-danger"></span>
     </div>
 </div>
-<div class="col-md-2">
+<div class="col-md-3">
     <div class="form-group">
         <label asp-for="Marca" class="control-label"></label>
         <input asp-for="Marca" class="form-control" />
         <span asp-validation-for="Marca" class="text-danger"></span>
     </div>
 </div>
-<div class="col-md-1">
+<div class="col-md-2">
     <div class="form-group">
         <label asp-for="Cor" class="control-label"></label>
         <input asp-for="Cor" class="form-control" />
         <span asp-validation-for="Cor" class="text-danger"></span>
     </div>
 </div>
-<div class="col-md-1">
-    <div class="form-group">
-        <label asp-for="Combustivel" class="control-label"></label>
-        <input asp-for="Combustivel" class="form-control" />
-        <span asp-validation-for="Combustivel" class="text-danger"></span>
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="Combustivel" class="control-label"></label>
+            <input asp-for="Combustivel" class="form-control" />
+            <span asp-validation-for="Combustivel" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="Chassi" class="control-label"></label>
+            <input asp-for="Chassi" class="form-control" />
+            <span asp-validation-for="Chassi" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label asp-for="CategoriaId">Categoria do Veículo</label>
+            <select asp-for="CategoriaId" asp-items="ViewBag.CategoriasDeVeiculos" class="form-control text-uppercase">
+            </select>
+        </div>
     </div>
 </div>
-<div class="col-md-2">
-    <div class="form-group">
-        <label asp-for="Chassi" class="control-label"></label>
-        <input asp-for="Chassi" class="form-control" />
-        <span asp-validation-for="Chassi" class="text-danger"></span>
-    </div>
-</div>
-<div class="col-sm-2">
-    <div class="form-group">
-        <label asp-for="CategoriaId">Categoria do Veículo</label>
-        <select asp-for="CategoriaId" asp-items="ViewBag.CategoriasDeVeiculos" class="form-control text-uppercase">
-        </select>
-    </div>
-</div>
-</div>
+<hr />
 <div class="form-group">
     <label asp-for="Opcionais" class="control-label"></label>
     <textarea asp-for="Opcionais" class="form-control" rows="3"></textarea>

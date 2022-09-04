@@ -21,9 +21,6 @@ namespace CarLocadora.Controllers.Locacao
             _IApiToken = iApiToken;
         }
 
-
-
-
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
         {
@@ -58,8 +55,7 @@ namespace CarLocadora.Controllers.Locacao
             }
         }
         #endregion
-
-        // GET: LocacaoController/Details/5
+  
         public ActionResult Details(int valor)
         {
             HttpClient Cliente = new HttpClient();
@@ -80,8 +76,7 @@ namespace CarLocadora.Controllers.Locacao
                 throw new Exception("aaa");
             }
         }
-
-        // GET: LocacaoController/Create
+   
         public ActionResult Create()
         {
             //ViewBag.CarregarLocacao = CarregarLocacaoCPF();
@@ -122,10 +117,9 @@ namespace CarLocadora.Controllers.Locacao
                 }
                 else
                 {
-                    //ViewBag.CarregarLocacao = CarregarLocacaoCPF();
-                    //ViewBag.CarregarFormaPagamento = CarregarFormaPagamento();
-                  
-                    //ViewBag.CarregarVeiculoPlaca = CarregarVeiculoPlaca();
+                    ViewBag.Clientes = CarregarClientes().Result;
+                    ViewBag.FormaPagamentos = CarregarFormasDePagamento().Result;
+                    ViewBag.Veiculos = CarregarVeiculos().Result;
 
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
@@ -137,7 +131,6 @@ namespace CarLocadora.Controllers.Locacao
                 return View();
             }
         }
-
 
         public ActionResult Edit(int valor)
         {
@@ -151,9 +144,9 @@ namespace CarLocadora.Controllers.Locacao
 
             if (response.IsSuccessStatusCode)
             {
-                //ViewBag.CarregarLocacao = CarregarLocacaoCPF();
-                //ViewBag.CarregarFormaPagamento = CarregarFormaPagamento();      
-                //ViewBag.CarregarVeiculoPlaca = CarregarVeiculoPlaca();
+                ViewBag.Clientes = CarregarClientes().Result;
+                ViewBag.FormaPagamentos = CarregarFormasDePagamento().Result;
+                ViewBag.Veiculos = CarregarVeiculos().Result;
 
                 string conteudo = response.Content.ReadAsStringAsync().Result;
                 return View(JsonConvert.DeserializeObject<LocacoesModel>(conteudo));
@@ -163,9 +156,6 @@ namespace CarLocadora.Controllers.Locacao
                 throw new Exception("aaa");
             }
         }
-
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -196,9 +186,9 @@ namespace CarLocadora.Controllers.Locacao
                 }
                 else
                 {
-                    //ViewBag.CarregarLocacao = CarregarLocacaoCPF();
-                    //ViewBag.CarregarFormaPagamento = CarregarFormaPagamento();
-                    //ViewBag.CarregarVeiculoPlaca = CarregarVeiculoPlaca();
+                    ViewBag.Clientes = CarregarClientes().Result;
+                    ViewBag.FormaPagamentos = CarregarFormasDePagamento().Result;
+                    ViewBag.Veiculos = CarregarVeiculos().Result;
 
                     TempData["erro"] = "Algum campo deve estar faltando preenchimento";
                     return View();
@@ -210,10 +200,6 @@ namespace CarLocadora.Controllers.Locacao
                 return View();
             }
         }
-
-
-
-
 
         #region ViewBags
 
@@ -416,9 +402,6 @@ namespace CarLocadora.Controllers.Locacao
 
 
         #endregion
-
-
-
 
     }
 }
