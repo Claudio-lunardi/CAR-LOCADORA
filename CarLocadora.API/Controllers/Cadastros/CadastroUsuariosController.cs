@@ -8,7 +8,7 @@ namespace CarLocadora.API.Controllers.Cadastros
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CadastroUsuariosController : ControllerBase
     {
         #region Chamando Interface
@@ -22,25 +22,23 @@ namespace CarLocadora.API.Controllers.Cadastros
         [HttpGet()]
         public async Task<List<UsuariosModel>> ListaClientes()
         {
-            return _usuario.ListaUsuarios();
+            return await _usuario.ListaUsuarios();
         }
         [HttpGet("ObterUmUsuario")]
-        public UsuariosModel ListaUmUsuario([FromQuery] string cpf)
+        public async Task<UsuariosModel> ListaUmUsuario([FromQuery] string cpf)
         {
-
-            return _usuario.ListaUmUsuario(cpf);
-
+            return await _usuario.ListaUmUsuario(cpf);
         }
 
         [HttpPost()]
-        public void IncluirUsuario([FromBody] UsuariosModel clientesModel)
+        public async Task IncluirUsuario([FromBody] UsuariosModel clientesModel)
         {
-            _usuario.IncluirUsuario(clientesModel);
+            await _usuario.IncluirUsuario(clientesModel);
         }
         [HttpPut()]
-        public void AlterarUsuario([FromBody] UsuariosModel clientesModel)
+        public async Task AlterarUsuario([FromBody] UsuariosModel clientesModel)
         {
-            _usuario.AlterarUsuario(clientesModel);
+            await _usuario.AlterarUsuario(clientesModel);
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Infra.Entity;
 using CarLocadora.Modelo.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,29 +22,29 @@ namespace CarLocadora.Negocio.Locacao
 
         #endregion
 
-        public void AlterarLocacao(LocacoesModel locacoesModel)
+        public async Task AlterarLocacao(LocacoesModel locacoesModel)
         {
             locacoesModel.DataAlteracao = DateTime.Now;
             _entityContext.Locacoes.Update(locacoesModel);
-            _entityContext.SaveChanges();
+         await  _entityContext.SaveChangesAsync();
         }
 
 
-        public void IncluirLocacao(LocacoesModel locacoesModel)
+        public async Task IncluirLocacao(LocacoesModel locacoesModel)
         {
             locacoesModel.DataInclusao = DateTime.Now;
-            _entityContext.Locacoes.Add(locacoesModel);
-            _entityContext.SaveChanges();
+          await _entityContext.Locacoes.AddAsync(locacoesModel);
+          await _entityContext.SaveChangesAsync();
         }
 
-        public List<LocacoesModel> ListaLocacoes()
+        public  async Task<List<LocacoesModel>> ListaLocacoes()
         {
-          return _entityContext.Locacoes.ToList();
+          return await _entityContext.Locacoes.ToListAsync();
         }
 
-        public LocacoesModel ObterUmaLocacoes(int valor)
+        public async Task<LocacoesModel> ObterUmaLocacoes(int valor)
         {
-            return _entityContext.Locacoes.Single(x => x.Id.Equals(valor));
+            return await _entityContext.Locacoes.SingleAsync(x => x.Id.Equals(valor));
         }
     }
 }

@@ -34,7 +34,7 @@ namespace CarLocadora.Controllers.Cliente
 
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
                 HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente").Result;
 
                 if (response.IsSuccessStatusCode)
@@ -56,19 +56,19 @@ namespace CarLocadora.Controllers.Cliente
         #endregion
 
         #region Edit
-        public ActionResult Edit(string valor)
+        public async Task<ActionResult> Edit(string valor)
         {
             HttpClient Cliente = new HttpClient();
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
+            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
             HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente/ObterUmCliente?cpf={valor}").Result;
 
 
             if (response.IsSuccessStatusCode)
             {
 
-                string conteudo = response.Content.ReadAsStringAsync().Result;
+                string conteudo = await response.Content.ReadAsStringAsync();
                 return View(JsonConvert.DeserializeObject<ClientesModel>(conteudo));
             }
             else
@@ -85,18 +85,18 @@ namespace CarLocadora.Controllers.Cliente
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([FromForm] ClientesModel clientesModel)
+        public async Task<ActionResult> Edit([FromForm] ClientesModel clientesModel)
         {
             try
             {
-                
+
                 if (ModelState.IsValid)
                 {
-                    HttpClient Cliente = new HttpClient();
-                    Cliente.DefaultRequestHeaders.Accept.Clear();
-                    Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
-                    HttpResponseMessage response = Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel).Result;
+                    HttpClient Client = new HttpClient();
+                    Client.DefaultRequestHeaders.Accept.Clear();
+                    Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+                    HttpResponseMessage response = await Client.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -124,17 +124,17 @@ namespace CarLocadora.Controllers.Cliente
         #endregion
 
         #region Details
-        public ActionResult Details(string valor)
+        public async Task<ActionResult> Details(string valor)
         {
-            HttpClient Cliente = new HttpClient();
-            Cliente.DefaultRequestHeaders.Accept.Clear();
-            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
-            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente/ObterUmCliente?cpf={valor}").Result;
+            HttpClient Client = new HttpClient();
+            Client.DefaultRequestHeaders.Accept.Clear();
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+            HttpResponseMessage response = await Client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente/ObterUmCliente?cpf={valor}");
 
             if (response.IsSuccessStatusCode)
             {
-                string conteudo = response.Content.ReadAsStringAsync().Result;
+                string conteudo = await response.Content.ReadAsStringAsync();
                 return View(JsonConvert.DeserializeObject<ClientesModel>(conteudo));
             }
             else
@@ -152,7 +152,7 @@ namespace CarLocadora.Controllers.Cliente
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromForm] ClientesModel clientesModel)
+        public async Task<ActionResult> Create([FromForm] ClientesModel clientesModel)
         {
             try
             {
@@ -162,8 +162,8 @@ namespace CarLocadora.Controllers.Cliente
 
                     Cliente.DefaultRequestHeaders.Accept.Clear();
                     Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _IApiToken.Obter());
-                    HttpResponseMessage response = Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel).Result;
+                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+                    HttpResponseMessage response = await Cliente.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente", clientesModel);
 
 
                     if (response.IsSuccessStatusCode)

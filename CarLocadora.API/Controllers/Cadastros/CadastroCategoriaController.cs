@@ -20,31 +20,33 @@ namespace CarLocadora.API.Controllers.Cadastros
         #endregion
 
         [HttpGet()]
-        public List<CategoriasModel> ListaCategoria()
+        public async Task<List<CategoriasModel>> ListaCategoria()
         {
-            return _Categoria.ListaCategorias();
+            return await _Categoria.ListaCategorias();
         }
-        [HttpGet("ObterUmaCategoria")]
-        public CategoriasModel ListaUmaCategoria(int valor)
-        {
-            return _Categoria.ListaUmaCategoria(valor);
-        }
-        [HttpPost()]
 
-        public void IncluirCategoria([FromBody] CategoriasModel categoriasModel)
+        [HttpGet("ObterUmaCategoria")]
+        public async Task<CategoriasModel> ListaUmaCategoria(int valor)
         {
-            _Categoria.IncluirCategoria(categoriasModel);
+            return await _Categoria.ListaUmaCategoria(valor);
+        }
+
+        [HttpPost()]
+        public async Task IncluirCategoria([FromBody] CategoriasModel categoriasModel)
+        {
+          await _Categoria.IncluirCategoria(categoriasModel);
         }
 
         [HttpPut()]
-        public void AlterarCategoria([FromBody] CategoriasModel categoriasModel)
+        public async Task AlterarCategoria([FromBody] CategoriasModel categoriasModel)
         {
-            _Categoria.AlterarCategoria(categoriasModel);
+          await _Categoria.AlterarCategoria(categoriasModel);
         }
+
         [HttpDelete()]
-        public void DeletarCategoria(int valor)
+        public async Task DeletarCategoria(int valor)
         {
-            _Categoria.ExcluirCategoria(valor);
+          await _Categoria.ExcluirCategoria(valor);
         }
 
     }

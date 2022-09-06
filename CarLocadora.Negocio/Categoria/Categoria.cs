@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Infra.Entity;
 using CarLocadora.Modelo.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,34 +22,35 @@ namespace CarLocadora.Negocio.Categoria
         }
         #endregion
 
-        public List<CategoriasModel> ListaCategorias()
+        public async Task<List<CategoriasModel>> ListaCategorias()
         {
-            return _entityContext.Categorias.OrderBy(id => id.Id).ToList();
+            return await _entityContext.Categorias.OrderBy(id => id.Id).ToListAsync();
         }
-        public CategoriasModel ListaUmaCategoria(int valor)
+
+        public async Task<CategoriasModel> ListaUmaCategoria(int valor)
         {
-            return _entityContext.Categorias.Single(x => x.Id.Equals(valor));
-            
+            return await _entityContext.Categorias.SingleAsync(x => x.Id.Equals(valor));     
         }
-        public void AlterarCategoria(CategoriasModel categoriasModel)
+
+        public async Task AlterarCategoria(CategoriasModel categoriasModel)
         {
             categoriasModel.DataAlteracao = DateTime.Now;
             _entityContext.Categorias.Update(categoriasModel);
-            _entityContext.SaveChanges();
+          await  _entityContext.SaveChangesAsync();
         }
-        public void IncluirCategoria(CategoriasModel categoriasModel)
+
+        public async Task IncluirCategoria(CategoriasModel categoriasModel)
         {
             categoriasModel.DataInclusao = DateTime.Now;
-            _entityContext.Categorias.Add(categoriasModel);
-            _entityContext.SaveChanges();
+          await  _entityContext.Categorias.AddAsync(categoriasModel);
+          await _entityContext.SaveChangesAsync();
         }
 
-        public void ExcluirCategoria(int valor)
+        public async Task ExcluirCategoria(int valor)
         {
-            var id = _entityContext.Categorias.Single(x => x.Id.Equals(valor));
+            var id = await _entityContext.Categorias.SingleAsync(x => x.Id.Equals(valor));
             _entityContext.Categorias.Remove(id);
-            _entityContext.SaveChanges();
-
+           await _entityContext.SaveChangesAsync();
         }
     }
 }

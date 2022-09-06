@@ -16,7 +16,7 @@ namespace CarLocadora.Negocio.Vistoria
         [Required]
         public int Id { get; set; }
 
-        [Display(Name = "Locações Id")]
+        [Display(Name = "Locação")]
         public int LocacoesId { get; set; }
         public LocacoesModel? Locacoes { get; set; }
 

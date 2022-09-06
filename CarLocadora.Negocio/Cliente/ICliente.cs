@@ -9,9 +9,9 @@ namespace CarLocadora.Negocio.Cliente
 {
     public interface ICliente
     {
-        List<ClientesModel> ListaClientes();
-        ClientesModel ListaUmCliente(string cpf);
-        void IncluirCliente(ClientesModel clientesModel);
-        void AlterarCliente(ClientesModel clientesModel);
+        Task<List<ClientesModel>> ListaClientes();
+        Task<ClientesModel> ListaUmCliente(string cpf);
+        Task IncluirCliente(ClientesModel clientesModel);
+        Task AlterarCliente(ClientesModel clientesModel);
     }
 }

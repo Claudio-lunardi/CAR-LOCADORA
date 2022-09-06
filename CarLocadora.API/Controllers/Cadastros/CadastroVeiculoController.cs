@@ -23,13 +23,13 @@ namespace CarLocadora.API.Controllers.Cadastros
         [HttpGet()]
         public async Task<List<VeiculosModel>> ListaVeiculos()
         {
-            return _veiculo.ListaVeiculos();
+            return await _veiculo.ListaVeiculos();
         }
 
         [HttpGet("ObterUmVeiculo")]
-        public VeiculosModel ListaUmCliente([FromQuery] string valor)
+        public async Task<VeiculosModel> ListaUmCliente([FromQuery] string valor)
         {
-            return _veiculo.ListaUmVeiculo(valor);
+            return await _veiculo.ListaUmVeiculo(valor);
         }
 
         [HttpPost()]

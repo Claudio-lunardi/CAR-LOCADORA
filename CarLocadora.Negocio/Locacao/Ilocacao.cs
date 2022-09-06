@@ -9,14 +9,13 @@ namespace CarLocadora.Negocio.Locacao
 {
     public interface Ilocacao
     {
+        Task<List<LocacoesModel>> ListaLocacoes();
 
-        List<LocacoesModel> ListaLocacoes();
+        Task<LocacoesModel> ObterUmaLocacoes(int valor);
 
-        LocacoesModel ObterUmaLocacoes(int valor);
+        Task IncluirLocacao(LocacoesModel locacoesModel);
 
-        void IncluirLocacao(LocacoesModel locacoesModel);
-
-        void AlterarLocacao(LocacoesModel locacoesModel);
+        Task AlterarLocacao(LocacoesModel locacoesModel);
 
     }
 }

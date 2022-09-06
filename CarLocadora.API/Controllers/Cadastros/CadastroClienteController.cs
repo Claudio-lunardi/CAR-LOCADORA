@@ -23,25 +23,23 @@ namespace CarLocadora.API.Controllers.Cadastros
         [HttpGet()]
         public async Task<List<ClientesModel>> ListaClientes()
         {
-            return _cliente.ListaClientes();
+            return await _cliente.ListaClientes();
         }
         [HttpGet("ObterUmCliente")]
-        public ClientesModel ListaUmCliente([FromQuery] string cpf)
+        public async Task<ClientesModel> ListaUmCliente([FromQuery] string cpf)
         {
-
-            return _cliente.ListaUmCliente(cpf);
-
+            return await _cliente.ListaUmCliente(cpf);
         }
 
         [HttpPost()]
-        public void IncluirCliente([FromBody] ClientesModel clientesModel)
+        public async Task IncluirCliente([FromBody] ClientesModel clientesModel)
         {
-            _cliente.IncluirCliente(clientesModel);
+            await _cliente.IncluirCliente(clientesModel);
         }
         [HttpPut()]
-        public void AlterarCliente([FromBody] ClientesModel clientesModel)
+        public async Task AlterarCliente([FromBody] ClientesModel clientesModel)
         {
-            _cliente.AlterarCliente(clientesModel);
+            await _cliente.AlterarCliente(clientesModel);
         }
     }
 }

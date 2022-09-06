@@ -1,4 +1,5 @@
 ﻿using CarLocadora.Infra.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,28 +17,28 @@ namespace CarLocadora.Negocio.Vistoria
             _entityContext = entityContext;
         }
 
-        public void AlterarLocacao(VistoriaModel vistoriaModel)
+        public async Task AlterarLocacao(VistoriaModel vistoriaModel)
         {
             vistoriaModel.DataAlteracao = DateTime.Now;
             _entityContext.Vistorias.Update(vistoriaModel);
-            _entityContext.SaveChanges();
+            await _entityContext.SaveChangesAsync();
         }
 
-        public void IncluirVistoria(VistoriaModel vistoriaModel)
+        public async Task IncluirVistoria(VistoriaModel vistoriaModel)
         {
             vistoriaModel.DataInclusao = DateTime.Now;
-            _entityContext.Vistorias.Add(vistoriaModel);
-            _entityContext.SaveChanges();
+            await _entityContext.Vistorias.AddAsync(vistoriaModel);
+            await _entityContext.SaveChangesAsync();
         }
 
-        public List<VistoriaModel> ListaVistoriaModel()
+        public async Task<List<VistoriaModel>> ListaVistoriaModel()
         {
-            return _entityContext.Vistorias.ToList();
+            return await _entityContext.Vistorias.ToListAsync();
         }
 
-        public VistoriaModel ObterUmaVistoria(int valor)
+        public async Task<VistoriaModel> ObterUmaVistoria(int valor)
         {
-            return _entityContext.Vistorias.Single(x => x.Id.Equals(valor));
+            return await _entityContext.Vistorias.SingleAsync(x => x.Id.Equals(valor));
         }
     }
 }

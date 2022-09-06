@@ -20,7 +20,7 @@ namespace CarLocadora.Servico
         }
 
 
-        private void ObterToken()
+        private async Task ObterToken()
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
@@ -30,7 +30,7 @@ namespace CarLocadora.Servico
             loginRequisicaoModel.Usuario = "UsuarioDevPratica";
             loginRequisicaoModel.Senha = "SenhaDevPratica";
 
-            HttpResponseMessage response = client.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}Login", loginRequisicaoModel).Result;
+            HttpResponseMessage response = await client.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}Login", loginRequisicaoModel);
 
             if (response.IsSuccessStatusCode)
             {
@@ -53,17 +53,17 @@ namespace CarLocadora.Servico
             }
 
         }
-        public string Obter()
+        public async Task<string> Obter()
         {
             if (_LoginRespostaModel.Value.Autenticado == false)
             {
-                ObterToken();
+                await ObterToken();
             }
             else
             {
                 if (DateTime.Now >= _LoginRespostaModel.Value.DataExpiracao)
                 {
-                    ObterToken();
+                   await ObterToken();
                 }
             }
             return _LoginRespostaModel.Value.Token;

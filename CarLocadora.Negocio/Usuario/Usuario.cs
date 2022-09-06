@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Infra.Entity;
 using CarLocadora.Modelo.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,28 +18,28 @@ namespace CarLocadora.Negocio.Usuario
             _entityContext = entityContext;
         }
 
-        public void AlterarUsuario(UsuariosModel usuariosModel)
+        public async Task AlterarUsuario(UsuariosModel usuariosModel)
         {
             usuariosModel.DataAlteracao = DateTime.Now;
             _entityContext.Usuarios.Update(usuariosModel);
-            _entityContext.SaveChanges();
+           await _entityContext.SaveChangesAsync();
         }
 
-        public void IncluirUsuario(UsuariosModel usuariosModel)
+        public async Task IncluirUsuario(UsuariosModel usuariosModel)
         {
             usuariosModel.DataInclusao = DateTime.Now;
-            _entityContext.Usuarios.Add(usuariosModel);
-            _entityContext.SaveChanges();
+         await   _entityContext.Usuarios.AddAsync(usuariosModel);
+           await _entityContext.SaveChangesAsync();
         }
 
-        public UsuariosModel ListaUmUsuario(string cpf)
+        public async Task<UsuariosModel> ListaUmUsuario(string cpf)
         {
-            return _entityContext.Usuarios.Single(x => x.CPF.Equals(cpf));
+            return await _entityContext.Usuarios.SingleAsync(x => x.CPF.Equals(cpf));
         }
 
-        public List<UsuariosModel> ListaUsuarios()
+        public async Task< List<UsuariosModel>> ListaUsuarios()
         {
-            return _entityContext.Usuarios.ToList();
+            return await _entityContext.Usuarios.ToListAsync();
         }
     }
 }

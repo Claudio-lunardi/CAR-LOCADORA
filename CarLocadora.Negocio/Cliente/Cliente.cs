@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Infra.Entity;
 using CarLocadora.Modelo.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarLocadora.Negocio.Cliente
 {
@@ -15,27 +16,27 @@ namespace CarLocadora.Negocio.Cliente
         }
         #endregion
 
-        public void AlterarCliente(ClientesModel clientesModel)
+        public async Task AlterarCliente(ClientesModel clientesModel)
         {
             clientesModel.DataAlteracao = DateTime.Now;
             _entityContext.Clientes.Update(clientesModel);
-            _entityContext.SaveChanges();
+         await _entityContext.SaveChangesAsync();
         }
 
-        public void IncluirCliente(ClientesModel clientesModel)
+        public async Task IncluirCliente(ClientesModel clientesModel)
         {
             clientesModel.DataInclusao = DateTime.Now;
             _entityContext.Clientes.Add(clientesModel);
             _entityContext.SaveChanges();
         }  
-        public List<ClientesModel> ListaClientes()
+        public async Task<List<ClientesModel>> ListaClientes()
         {
-           return _entityContext.Clientes.OrderBy(nome => nome.Nome).ToList();
+           return await _entityContext.Clientes.OrderBy(nome => nome.Nome).ToListAsync();
         }
 
-        public ClientesModel ListaUmCliente(string cpf)
+        public async Task<ClientesModel> ListaUmCliente(string cpf)
         {
-            return _entityContext.Clientes.Single(x => x.CPF.Equals(cpf));
+            return await _entityContext.Clientes.SingleAsync(x => x.CPF.Equals(cpf));
         }
 
     }

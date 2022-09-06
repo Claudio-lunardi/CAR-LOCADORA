@@ -26,7 +26,7 @@ namespace CarLocadora.Modelo.Models
         public int FormaPagamentoId { get; set; }
         public FormasDePagamentosModel? FormaPagamento { get; set; }
 
-        [Display(Name = "Placa do veiculo")]
+        [Display(Name = "Placa")]
         public string? VeiculoPlaca { get; set; }
         public VeiculosModel? Veiculo { get; set; }
 

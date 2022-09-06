@@ -18,26 +18,26 @@ namespace CarLocadora.API.Controllers.Cadastros
         }
 
         [HttpGet]
-        public List<VistoriaModel> ListaVistoria()
+        public async Task<List<VistoriaModel>> ListaVistoria()
         {
-            return _vistoria.ListaVistoriaModel();
+            return await _vistoria.ListaVistoriaModel();
         }
         [HttpGet("ObterUmaVistoria")]
-        public VistoriaModel ObterUmaVistoria(int valor)
+        public async Task<VistoriaModel> ObterUmaVistoria(int valor)
         {
-            return _vistoria.ObterUmaVistoria(valor);
+            return await _vistoria.ObterUmaVistoria(valor);
         }
 
 
         [HttpPost]
-        public void IncluirVistoria([FromBody] VistoriaModel vistoriaModel)
+        public async Task IncluirVistoria([FromBody] VistoriaModel vistoriaModel)
         {
-            _vistoria.IncluirVistoria(vistoriaModel);
+            await _vistoria.IncluirVistoria(vistoriaModel);
         }
         [HttpPut]
-        public void AlterarVistoria([FromBody] VistoriaModel vistoriaModel)
+        public async Task AlterarVistoria([FromBody] VistoriaModel vistoriaModel)
         {
-            _vistoria.AlterarLocacao(vistoriaModel);
+            await _vistoria.AlterarLocacao(vistoriaModel);
         }
 
 

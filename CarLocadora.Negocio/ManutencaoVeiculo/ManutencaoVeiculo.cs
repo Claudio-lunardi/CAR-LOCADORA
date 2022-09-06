@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Infra.Entity;
 using CarLocadora.Modelo.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,37 +18,38 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
             _entityContext = entityContext;
         }
 
-        public void AlterarManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel)
+        public async Task AlterarManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel)
         {
+            manutencaoVeiculoModel.DataAlteracao = DateTime.Now;
             _entityContext.ManutencaoVeiculo.Update(manutencaoVeiculoModel);
-            _entityContext.SaveChanges();
+            await _entityContext.SaveChangesAsync();
         }
 
-        public void DeletarManutencaoVeiculo(int valor)
+        public async Task DeletarManutencaoVeiculo(int valor)
         {
-     
-            var id = _entityContext.ManutencaoVeiculo.Single(x => x.Id.Equals(valor));
+
+            var id = await _entityContext.ManutencaoVeiculo.SingleAsync(x => x.Id.Equals(valor));
             _entityContext.ManutencaoVeiculo.Remove(id);
-            _entityContext.SaveChanges();
+            await _entityContext.SaveChangesAsync();
 
         }
 
-        public void IncluirManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel)
+        public async Task IncluirManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel)
         {
-             _entityContext.ManutencaoVeiculo.Add(manutencaoVeiculoModel);
-            _entityContext.SaveChanges();
+            manutencaoVeiculoModel.DataInclusao = DateTime.Now;
+            await _entityContext.ManutencaoVeiculo.AddAsync(manutencaoVeiculoModel);
+            await _entityContext.SaveChangesAsync();
 
         }
 
-        public List<ManutencaoVeiculoModel> ListaManutencaoVeiculo()
+        public async Task<List<ManutencaoVeiculoModel>> ListaManutencaoVeiculo()
         {
-            return _entityContext.ManutencaoVeiculo.ToList();
+            return await _entityContext.ManutencaoVeiculo.ToListAsync();
         }
 
-        public ManutencaoVeiculoModel ObterUmManutencaoVeiculo(int valor)
+        public async Task<ManutencaoVeiculoModel> ObterUmManutencaoVeiculo(int valor)
         {
-            return _entityContext.ManutencaoVeiculo.Single(x => x.Id.Equals(valor));
-           
+            return await _entityContext.ManutencaoVeiculo.SingleAsync(x => x.Id.Equals(valor));
         }
 
 

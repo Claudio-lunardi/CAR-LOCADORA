@@ -9,11 +9,10 @@ namespace CarLocadora.Negocio.ManutencaoVeiculo
 {
     public interface IManutencaoVeiculo
     {
-        List<ManutencaoVeiculoModel> ListaManutencaoVeiculo();
-        ManutencaoVeiculoModel ObterUmManutencaoVeiculo(int valor);
-        void DeletarManutencaoVeiculo(int valor);
-        void IncluirManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel);
-
-        void AlterarManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel);
+        Task<List<ManutencaoVeiculoModel>> ListaManutencaoVeiculo();
+        Task<ManutencaoVeiculoModel> ObterUmManutencaoVeiculo(int valor);
+        Task DeletarManutencaoVeiculo(int valor);
+        Task IncluirManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel);
+        Task AlterarManutencaoVeiculo(ManutencaoVeiculoModel manutencaoVeiculoModel);
     }
 }

@@ -17,18 +17,18 @@ namespace CarLocadora.API.Controllers.Cadastros
         }
 
         [HttpGet]
-        public List<LocacoesModel> ListaLocacoes()
+        public async Task<List<LocacoesModel>> ListaLocacoes()
         {
 
-          return _locacao.ListaLocacoes();
+            return await _locacao.ListaLocacoes();
 
 
         }
         [HttpGet("ObterUmalocacao")]
-        public LocacoesModel ObterUmalocacao(int valor)
+        public async Task<LocacoesModel> ObterUmalocacao(int valor)
         {
 
-            return _locacao.ObterUmaLocacoes(valor);
+            return await _locacao.ObterUmaLocacoes(valor);
 
         }
 
@@ -36,16 +36,16 @@ namespace CarLocadora.API.Controllers.Cadastros
 
 
         [HttpPost]
-        public void IncluirLocacao([FromBody]LocacoesModel locacoesModel)
+        public async Task IncluirLocacao([FromBody] LocacoesModel locacoesModel)
         {
-            _locacao.IncluirLocacao(locacoesModel);
+            await _locacao.IncluirLocacao(locacoesModel);
 
         }
 
         [HttpPut]
-        public void Alterarlocacao([FromBody]LocacoesModel locacoesModel)
+        public async Task Alterarlocacao([FromBody] LocacoesModel locacoesModel)
         {
-            _locacao.AlterarLocacao(locacoesModel);
+            await _locacao.AlterarLocacao(locacoesModel);
         }
     }
 }

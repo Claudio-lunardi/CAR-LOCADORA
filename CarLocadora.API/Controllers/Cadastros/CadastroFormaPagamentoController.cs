@@ -18,31 +18,28 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
             _formaPagamento = formaPagamento;
         }
-
-
         #endregion
 
         [HttpGet()]
         public async Task<List<FormasDePagamentosModel>> ListaFormasDePagamentos()
         {
-            return _formaPagamento.ListaFormaPagamentos();
+            return await _formaPagamento.ListaFormaPagamentos();
         }
         [HttpGet("ObterUmaFormaPagamento")]
-        public FormasDePagamentosModel ListaFormasUmDePagamento([FromQuery] int valor)
+        public async Task<FormasDePagamentosModel> ListaFormasUmDePagamento([FromQuery] int valor)
         {
-
-            return _formaPagamento.ListaFormaUmPagamento(valor);
+            return await _formaPagamento.ListaFormaUmPagamento(valor);
         }
 
         [HttpPost()]
-        public void IncluirFormasDePagamento([FromBody] FormasDePagamentosModel formasDePagamentosModel)
+        public async Task IncluirFormasDePagamento([FromBody] FormasDePagamentosModel formasDePagamentosModel)
         {
-            _formaPagamento.IncluirFormaPagamento(formasDePagamentosModel);
+           await _formaPagamento.IncluirFormaPagamento(formasDePagamentosModel);
         }
         [HttpPut()]
-        public void AlterarFormasDePagamento([FromBody] FormasDePagamentosModel formasDePagamentosModel)
+        public async Task AlterarFormasDePagamento([FromBody] FormasDePagamentosModel formasDePagamentosModel)
         {
-            _formaPagamento.AlterarFormaPagamento(formasDePagamentosModel);
+           await  _formaPagamento.AlterarFormaPagamento(formasDePagamentosModel);
         }
 
 
