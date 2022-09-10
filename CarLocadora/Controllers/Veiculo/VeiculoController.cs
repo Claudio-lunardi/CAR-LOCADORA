@@ -20,7 +20,6 @@ namespace CarLocadora.Controllers.Veiculo
             _IApiToken = iApiToken;
         }
 
-
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
         {
@@ -82,9 +81,6 @@ namespace CarLocadora.Controllers.Veiculo
             return View();
         }
 
-
-
-        // POST: VeiculoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([FromForm] VeiculosModel veiculosModel)
@@ -133,11 +129,8 @@ namespace CarLocadora.Controllers.Veiculo
 
             if (response.IsSuccessStatusCode)
             {
-
-
-                string conteudo =await response.Content.ReadAsStringAsync();
-
-                ViewBag.CategoriasDeVeiculos = CarregarCategoriasDeVeiculos();
+                ViewBag.CategoriasDeVeiculos = await CarregarCategoriasDeVeiculos();
+                string conteudo =await response.Content.ReadAsStringAsync();                
                 return View(JsonConvert.DeserializeObject<VeiculosModel>(conteudo));
             }
             else
@@ -145,6 +138,7 @@ namespace CarLocadora.Controllers.Veiculo
                 throw new Exception("aaa");
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([FromForm] VeiculosModel veiculosModel)
@@ -182,9 +176,6 @@ namespace CarLocadora.Controllers.Veiculo
                 return View();
             }
         }
-
-
-
 
         private async Task<List<SelectListItem>> CarregarCategoriasDeVeiculos()
         {

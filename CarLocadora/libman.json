@@ -5,6 +5,10 @@
     {
       "library": "inputmask@4.0.9",
       "destination": "wwwroot/lib/inputmask/"
+    },
+    {
+      "library": "toastr.js@2.1.3",
+      "destination": "wwwroot/lib/toastr.js/"
     }
   ]
 }

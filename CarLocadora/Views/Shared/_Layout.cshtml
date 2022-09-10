@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CarLocadora.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.css">
+
 </head>
 <body>
     <header>
@@ -18,11 +20,11 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-
-
-
+                
+                <div class="navbar-collapse collapse d-sm-inline-flex">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">
+                       Login
+                    </a>
 
                     <div class="nav-item dropdown">
 
@@ -48,12 +50,12 @@
                             <li><hr class="dropdown-divider"></li>
                             <li class="nav-item">
                                 <a class="nav-link text-white:hover" asp-area="" asp-controller="Vistoria" asp-action="Index">
-                                      Vistoria
+                                    Vistoria
                                 </a>
                             </li>
-                             <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link text-white:hover" asp-area="" asp-controller="Locacao" asp-action="Index">
-                                      Locação
+                                    Locação
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -105,20 +107,8 @@
     </header>
 
 
-    <div class="alert alert-success alert-dismissible fade show" id="alertaSucesso">
-        <strong>Successo!</strong> @TempData["sucesso"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-    <div class="alert alert-danger alert-dismissible fade show" id="alertaErro">
-        <strong>Erro!</strong> @TempData["erro"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-
-
-
-
-
-
+    <div id="alertaSucesso" style="display:none;"></div>
+    <div id="alertaErro" style="display:none;"></div>
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -140,6 +130,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/inputmask/jquery.inputmask.bundle.min.js"> </script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
 
@@ -150,9 +142,11 @@
 
             if ("@TempData["sucesso"]") {
                 document.getElementById('alertaSucesso').style.display = 'block';
+                toastr.success("@TempData["sucesso"]");
             }
             else if ("@TempData["erro"]") {
                 document.getElementById('alertaErro').style.display = 'block';
+                toastr.error("@TempData["erro"]");
             };
         });
 

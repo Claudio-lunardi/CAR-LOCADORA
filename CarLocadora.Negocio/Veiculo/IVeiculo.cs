@@ -9,9 +9,9 @@ namespace CarLocadora.Negocio.Veiculo
 {
     public interface IVeiculo
     {
-        Task <List<VeiculosModel>> ListaVeiculos();
-        Task <VeiculosModel> ListaUmVeiculo(string valor);
-        Task  IncluirVeiculos(VeiculosModel veiculosModel);
+        Task<List<VeiculosModel>> ListaVeiculos();
+        Task<VeiculosModel> ListaUmVeiculo(string valor);
+        Task IncluirVeiculos(VeiculosModel veiculosModel);
         Task AlterarVeiculos(VeiculosModel veiculosModel);
     }
 }
