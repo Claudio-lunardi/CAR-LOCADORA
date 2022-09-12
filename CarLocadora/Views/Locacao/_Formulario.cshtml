@@ -7,7 +7,7 @@
         <div class="form-group">
             <label asp-for="ClienteCPF" class="control-label"></label>
             <select asp-for="ClienteCPF" asp-items="ViewBag.Clientes" class="form-select text-uppercase">
-                <option disabled selected ></option>
+                <option disabled selected>Selecione...</option>
             </select>
             <span asp-validation-for="ClienteCPF" class="text-danger"></span>
 
@@ -20,20 +20,20 @@
         <div class="form-group">
             <label asp-for="FormaPagamentoId" class="control-label"></label>
             <select asp-for="FormaPagamentoId" asp-items="ViewBag.FormaPagamentos" class="form-select text-uppercase">
-                <option disabled selected ></option>
+                <option disabled selected>Selecione...</option>
             </select>
-             <span asp-validation-for="FormaPagamentoId" class="text-danger"></span>
+            <span asp-validation-for="FormaPagamentoId" class="text-danger"></span>
         </div>
     </div>
 
 
-     <div class="col-md-4">
+    <div class="col-md-4">
         <div class="form-group">
             <label asp-for="VeiculoPlaca" class="control-label"></label>
             <select asp-for="VeiculoPlaca" asp-items="ViewBag.Veiculos" class="form-select text-uppercase">
-               <option disabled selected ></option>
+                <option disabled selected>Selecione...</option>
             </select>
-             <span asp-validation-for="VeiculoPlaca" class="text-danger"></span>
+            <span asp-validation-for="VeiculoPlaca" class="text-danger"></span>
         </div>
     </div>
 
@@ -66,6 +66,6 @@
             <span asp-validation-for="DataHoraDevolucaoPrevista" class="text-danger"></span>
         </div>
     </div>
-       
+
 
 </div>

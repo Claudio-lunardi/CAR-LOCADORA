@@ -35,7 +35,7 @@ namespace CarLocadora.Controllers.Cliente
                 Cliente.DefaultRequestHeaders.Accept.Clear();
                 Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
-                HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente").Result;
+                HttpResponseMessage response = await Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -62,7 +62,7 @@ namespace CarLocadora.Controllers.Cliente
             Cliente.DefaultRequestHeaders.Accept.Clear();
             Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
-            HttpResponseMessage response = Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente/ObterUmCliente?cpf={valor}").Result;
+            HttpResponseMessage response = await Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente/ObterUmCliente?cpf={valor}");
 
 
             if (response.IsSuccessStatusCode)
