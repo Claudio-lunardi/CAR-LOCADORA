@@ -17,6 +17,7 @@ namespace CarLocadora.Negocio.Vistoria
         public int Id { get; set; }
 
         [Display(Name = "Locação")]
+        [Required(ErrorMessage = "Locação é obrigatorio")]
         public int LocacoesId { get; set; }
         public LocacoesModel? Locacoes { get; set; }
 

@@ -24,14 +24,14 @@
     <div class="col-md-2">
         <div class="form-group">
             <label asp-for="Telefone" class="control-label"></label>
-            <input asp-for="Telefone" class="form-control maskTelefone" />
+            <input asp-for="Telefone" class="form-control maskTelefone" placeholder="(__) ____-_____ " />
             <span asp-validation-for="Telefone" class="text-danger"></span>
         </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
             <label asp-for="Celular" class="control-label"></label>
-            <input asp-for="Celular" class="form-control maskCelular" />
+            <input asp-for="Celular" class="form-control maskCelular" placeholder="(__) _____-____" />
             <span asp-validation-for="Celular" class="text-danger"></span>
         </div>
     </div>
@@ -55,7 +55,7 @@
             <span asp-validation-for="Logradouro" class="text-danger"></span>
         </div>
     </div>
-      <div class="col-md-1">
+      <div class="col-md-4">
         <div class="form-group">
             <label asp-for="Numero" class="control-label"></label>
             <input asp-for="Numero" class="form-control" />
@@ -85,7 +85,7 @@
         <div class="form-group">
             <label asp-for="Estado" class="control-label"></label>
              <select asp-for="Estado" class="form-select">
-                <option value="" disabled selected> </option>
+                <option value="" disabled selected>Selecione... </option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
                 <option value="AP">Amapá</option>
