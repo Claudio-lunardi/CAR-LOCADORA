@@ -11,15 +11,19 @@ namespace CarLocadora.Controllers.Categoria
 {
     public class CategoriaController : Controller
     {
-        private readonly IOptions<LoginRespostaModel> _loginRespostaModel;
+
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
+        private readonly HttpClient _httpClient;
 
-        public CategoriaController(IOptions<LoginRespostaModel> loginRespostaModel, IOptions<WebConfigUrl> urlApi, IApiToken iApiToken)
-        {
-            _loginRespostaModel = loginRespostaModel;
+        public CategoriaController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken, IHttpClientFactory httpClient)
+        {         
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
+
+            _httpClient = httpClient.CreateClient();
+            _httpClient.DefaultRequestHeaders.Accept.Clear();
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -29,14 +33,10 @@ namespace CarLocadora.Controllers.Categoria
             else
                 TempData["erro"] = mensagem;
             try
-            {
-                HttpClient Cliente = new HttpClient();
+            {             
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
 
-                Cliente.DefaultRequestHeaders.Accept.Clear();
-                Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
-
-                HttpResponseMessage response = await Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria");
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -55,17 +55,11 @@ namespace CarLocadora.Controllers.Categoria
             }
         }
 
-
-
         public async Task<ActionResult> Details(int valor)
         {
-            HttpClient Cliente = new HttpClient();
-            Cliente.DefaultRequestHeaders.Accept.Clear();
-            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
-
-            HttpResponseMessage response = await Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}");
+          
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -90,13 +84,9 @@ namespace CarLocadora.Controllers.Categoria
             try
             {
                 if (ModelState.IsValid)
-                {
-                    HttpClient Client = new HttpClient();
-
-                    Client.DefaultRequestHeaders.Accept.Clear();
-                    Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
-                    HttpResponseMessage response = await Client.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel);
+                {                   
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+                    HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -121,14 +111,9 @@ namespace CarLocadora.Controllers.Categoria
         }
 
         public async Task<ActionResult> Edit(int valor)
-        {
-            HttpClient Client = new HttpClient();
-            Client.DefaultRequestHeaders.Accept.Clear();
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
-
-            HttpResponseMessage response = await Client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}");
+        {        
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -148,14 +133,9 @@ namespace CarLocadora.Controllers.Categoria
             try
             {
                 if (ModelState.IsValid)
-                {
-                    HttpClient Cliente = new HttpClient();
-                    Cliente.DefaultRequestHeaders.Accept.Clear();
-                    Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
-
-                    HttpResponseMessage response = await Cliente.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel);
+                {                 
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+                    HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -179,18 +159,13 @@ namespace CarLocadora.Controllers.Categoria
             }
         }
 
-
         public async Task<ActionResult> Delete(int valor)
         {
             try
-            {
-                HttpClient Cliente = new HttpClient();
-                Cliente.DefaultRequestHeaders.Accept.Clear();
-                Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            {            
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
 
-                Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
-
-                HttpResponseMessage response = await Cliente.DeleteAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria?valor={valor}");
+                HttpResponseMessage response = await _httpClient.DeleteAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria?valor={valor}");
 
                 if (response.IsSuccessStatusCode)
                 {

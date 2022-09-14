@@ -13,13 +13,16 @@ namespace CarLocadora.Controllers.FormaPagamento
     {
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
+        private readonly HttpClient _httpClient;
 
-        public FormaPagamentoController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken)
+        public FormaPagamentoController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken, HttpClient httpClient)
         {
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
+            _httpClient = httpClient;
+            _httpClient.DefaultRequestHeaders.Accept.Clear();
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
 
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -33,10 +36,8 @@ namespace CarLocadora.Controllers.FormaPagamento
 
                 HttpClient Client = new HttpClient();
 
-                Client.DefaultRequestHeaders.Accept.Clear();
-                Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
-                HttpResponseMessage response =await Client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+                HttpResponseMessage response = await Client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -56,20 +57,17 @@ namespace CarLocadora.Controllers.FormaPagamento
         }
         #endregion
 
-        // GET: FormaPagamentoController/Details/5
         public async Task<ActionResult> Details(int valor)
         {
-            HttpClient Client = new HttpClient();
-            Client.DefaultRequestHeaders.Accept.Clear();
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
-            HttpResponseMessage response =await Client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}");
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}");
 
 
             if (response.IsSuccessStatusCode)
             {
 
-                string conteudo =await response.Content.ReadAsStringAsync();
+                string conteudo = await response.Content.ReadAsStringAsync();
                 return View(JsonConvert.DeserializeObject<FormasDePagamentosModel>(conteudo));
             }
             else
@@ -79,13 +77,11 @@ namespace CarLocadora.Controllers.FormaPagamento
             }
         }
 
-        // GET: FormaPagamentoController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: FormaPagamentoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([FromForm] FormasDePagamentosModel formasDePagamentosModel)
@@ -94,12 +90,9 @@ namespace CarLocadora.Controllers.FormaPagamento
             {
                 if (ModelState.IsValid)
                 {
-                    HttpClient Client = new HttpClient();
 
-                    Client.DefaultRequestHeaders.Accept.Clear();
-                    Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
-                    HttpResponseMessage response =await Client.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel);
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+                    HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel);
 
 
                     if (response.IsSuccessStatusCode)
@@ -128,21 +121,17 @@ namespace CarLocadora.Controllers.FormaPagamento
 
 
         }
-
-        // GET: FormaPagamentoController/Edit/5
         public async Task<ActionResult> Edit(int valor)
         {
-            HttpClient Client = new HttpClient();
-            Client.DefaultRequestHeaders.Accept.Clear();
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
-            HttpResponseMessage response =await Client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}");
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+            HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento/ObterUmaFormaPagamento?valor={valor}");
 
 
             if (response.IsSuccessStatusCode)
             {
 
-                string conteudo =await response.Content.ReadAsStringAsync();
+                string conteudo = await response.Content.ReadAsStringAsync();
                 return View(JsonConvert.DeserializeObject<FormasDePagamentosModel>(conteudo));
             }
             else
@@ -157,16 +146,11 @@ namespace CarLocadora.Controllers.FormaPagamento
         {
             try
             {
-
-                
                 if (ModelState.IsValid)
                 {
 
-                    HttpClient Client = new HttpClient();
-                    Client.DefaultRequestHeaders.Accept.Clear();
-                    Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
-                    HttpResponseMessage response =await Client.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel);
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
+                    HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento", formasDePagamentosModel);
 
                     if (response.IsSuccessStatusCode)
                     {

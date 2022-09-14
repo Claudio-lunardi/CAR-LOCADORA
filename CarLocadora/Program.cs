@@ -1,12 +1,13 @@
+using CarLocadora.Extensoes;
 using CarLocadora.Modelo.Models;
 using CarLocadora.Models;
 using CarLocadora.Servico;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IApiToken, ApiToken>();
+builder.Services.ConfigurarServicos();
+
 builder.Services.Configure<WebConfigUrl>(builder.Configuration.GetSection("WebConfigUrl"));
-builder.Services.AddSingleton<LoginRespostaModel>();
 
 
 // Add services to the container.

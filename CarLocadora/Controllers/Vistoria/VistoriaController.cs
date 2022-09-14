@@ -15,13 +15,16 @@ namespace CarLocadora.Controllers.Vistoria
     {
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
+        private readonly HttpClient _httpClient;
 
-        public VistoriaController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken)
+        public VistoriaController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken, HttpClient httpClient)
         {
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
+            _httpClient = httpClient;
+            _httpClient.DefaultRequestHeaders.Accept.Clear();
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
 
 
         #region Index
@@ -34,12 +37,10 @@ namespace CarLocadora.Controllers.Vistoria
                 else
                     TempData["erro"] = mensagem;
 
-                HttpClient Client = new HttpClient();
 
-                Client.DefaultRequestHeaders.Accept.Clear();
-                Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
-                HttpResponseMessage response =await Client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria");
+
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
+                HttpResponseMessage response =await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -62,13 +63,11 @@ namespace CarLocadora.Controllers.Vistoria
         // GET: VistoriaController/Details/5
         public async Task<ActionResult> Details(int valor)
         {
-            HttpClient Cliente = new HttpClient();
-            Cliente.DefaultRequestHeaders.Accept.Clear();
-            Cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            Cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
 
-            HttpResponseMessage response =await Cliente.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria/ObterUmaVistoria?valor={valor}");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
+
+            HttpResponseMessage response =await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria/ObterUmaVistoria?valor={valor}");
 
             if (response.IsSuccessStatusCode)
             {              
@@ -98,12 +97,9 @@ namespace CarLocadora.Controllers.Vistoria
             {
                 if (ModelState.IsValid)
                 {
-                    HttpClient Client = new HttpClient();
 
-                    Client.DefaultRequestHeaders.Accept.Clear();
-                    Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
-                    HttpResponseMessage response =await Client.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria", vistoriaModel);
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
+                    HttpResponseMessage response =await _httpClient.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria", vistoriaModel);
 
 
                     if (response.IsSuccessStatusCode)
@@ -132,13 +128,11 @@ namespace CarLocadora.Controllers.Vistoria
         // GET: VistoriaController/Edit/5
         public async Task<ActionResult> Edit(int valor)
         {
-            HttpClient Client = new HttpClient();
-            Client.DefaultRequestHeaders.Accept.Clear();
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
 
-            HttpResponseMessage response =await Client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria/ObterUmaVistoria?valor={valor}");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
+
+            HttpResponseMessage response =await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria/ObterUmaVistoria?valor={valor}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -164,13 +158,10 @@ namespace CarLocadora.Controllers.Vistoria
 
                 if (ModelState.IsValid)
                 {
-                    HttpClient Client = new HttpClient();
-                    Client.DefaultRequestHeaders.Accept.Clear();
-                    Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
 
-                    HttpResponseMessage response =await Client.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria", vistoriaModel);
+                    HttpResponseMessage response =await _httpClient.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroVistoria", vistoriaModel);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -196,21 +187,14 @@ namespace CarLocadora.Controllers.Vistoria
         }
 
 
-
-
-
-
-
         private async Task<List<SelectListItem>> CarregarLocacao()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
 
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
 
-            HttpResponseMessage response =await client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroLocacao");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",await _IApiToken.Obter());
+
+            HttpResponseMessage response =await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroLocacao");
 
             if (response.IsSuccessStatusCode)
             {
@@ -234,59 +218,6 @@ namespace CarLocadora.Controllers.Vistoria
                 throw new Exception(response.ReasonPhrase);
             }
         }
-
-
-
-        // private async Task<List<SelectListItem>> CarregarLocacoes()
-        //{
-        //    List<SelectListItem> lista = new List<SelectListItem>();
-
-        //    HttpClient client = new HttpClient();
-        //    client.DefaultRequestHeaders.Accept.Clear();
-        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
-
-        //    HttpResponseMessage response = await client.GetAsync($"{_dadosBase.Value.API_URL_BASE}Locacao");
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        List<Locacao> locacoes = JsonConvert.DeserializeObject<List<Locacao>>(await response.Content.ReadAsStringAsync());
-
-        //        foreach (var linha in locacoes)
-        //        {
-        //            lista.Add(new SelectListItem()
-        //            {
-        //                Value = linha.Id.ToString(),
-        //                Text = linha.VeiculoPlaca + " - " + linha.ClienteCPF,
-        //                Selected = false,
-        //            });
-        //        }
-
-        //        return lista;
-        //    }
-        //    else
-        //    {
-        //        throw new Exception(response.ReasonPhrase);
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

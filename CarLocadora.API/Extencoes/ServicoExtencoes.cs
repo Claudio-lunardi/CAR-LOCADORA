@@ -46,7 +46,6 @@ namespace CarLocadora.API.Extencoes
                 });
 
         }
-
         public static void ConfigureRateLimitingOptions(this IServiceCollection services)
         {
             var rateLimitRules = new List<RateLimitRule>
@@ -78,8 +77,6 @@ namespace CarLocadora.API.Extencoes
             services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
         }
-
-
         public static void ConfigurarSwagger(this IServiceCollection services) =>
              services.AddSwaggerGen(c =>
              {
@@ -117,6 +114,7 @@ namespace CarLocadora.API.Extencoes
         public static void ConfigurarServicos(this IServiceCollection services)
         {
             string connectionString = "Data Source=localhost,1434;User ID=sa;Password=senha@1234xxxY;Initial Catalog=DBCarLocadora;";
+            services.AddHttpClient();
 
             services.AddDbContext<EntityContext>(item => item.UseSqlServer(connectionString));
             services.AddScoped<ICliente, Cliente>();
