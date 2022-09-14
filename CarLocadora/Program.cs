@@ -7,9 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigurarServicos();
 
-builder.Services.Configure<WebConfigUrl>(builder.Configuration.GetSection("WebConfigUrl"));
-
-
+builder.Services.ConfiguraAPI(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

@@ -15,11 +15,11 @@ namespace CarLocadora.Controllers.Cliente
         private readonly HttpClient _httpClient;
 
 
-        public ClienteController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken, HttpClient httpClient)
+        public ClienteController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken, IHttpClientFactory httpClient)
         {
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
-            _httpClient = httpClient;
+            _httpClient = httpClient.CreateClient(); ;
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

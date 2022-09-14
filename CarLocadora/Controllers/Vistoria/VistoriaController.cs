@@ -17,11 +17,11 @@ namespace CarLocadora.Controllers.Vistoria
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
 
-        public VistoriaController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken, HttpClient httpClient)
+        public VistoriaController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken, IHttpClientFactory httpClient)
         {
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
-            _httpClient = httpClient;
+            _httpClient = httpClient.CreateClient();
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
