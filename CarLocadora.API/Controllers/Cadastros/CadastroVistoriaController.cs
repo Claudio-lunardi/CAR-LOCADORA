@@ -10,12 +10,11 @@ namespace CarLocadora.API.Controllers.Cadastros
     {
 
         private readonly IVistoria _vistoria;
-
-
         public CadastroVistoriaController(IVistoria vistoria)
         {
             _vistoria = vistoria;
         }
+
 
         [HttpGet]
         public async Task<List<VistoriaModel>> ListaVistoria()
@@ -27,7 +26,6 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
             return await _vistoria.ObterUmaVistoria(valor);
         }
-
 
         [HttpPost]
         public async Task IncluirVistoria([FromBody] VistoriaModel vistoriaModel)

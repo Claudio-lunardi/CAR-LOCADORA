@@ -29,7 +29,6 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
             return await _usuario.ListaUmUsuario(cpf);
         }
-
         [HttpPost()]
         public async Task IncluirUsuario([FromBody] UsuariosModel clientesModel)
         {

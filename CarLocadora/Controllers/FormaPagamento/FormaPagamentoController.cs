@@ -11,6 +11,8 @@ namespace CarLocadora.Controllers.FormaPagamento
 {
     public class FormaPagamentoController : Controller
     {
+
+        #region CONSTRUTORES
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
@@ -23,6 +25,7 @@ namespace CarLocadora.Controllers.FormaPagamento
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        #endregion
 
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -46,7 +49,7 @@ namespace CarLocadora.Controllers.FormaPagamento
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao tentar carregar forma de pagamento!");
                 }
             }
             catch (Exception)
@@ -57,6 +60,7 @@ namespace CarLocadora.Controllers.FormaPagamento
         }
         #endregion
 
+        #region GetSingle
         public async Task<ActionResult> Details(int valor)
         {
 
@@ -72,16 +76,18 @@ namespace CarLocadora.Controllers.FormaPagamento
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar forma de pagamento!");
 
             }
         }
+        #endregion
 
+        #region Post
         public ActionResult Create()
         {
             return View();
         }
-
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([FromForm] FormasDePagamentosModel formasDePagamentosModel)
@@ -101,7 +107,7 @@ namespace CarLocadora.Controllers.FormaPagamento
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar incluir uma nova forma de pagamento!");
                     }
                 }
                 else
@@ -121,6 +127,9 @@ namespace CarLocadora.Controllers.FormaPagamento
 
 
         }
+        #endregion
+
+        #region Put
         public async Task<ActionResult> Edit(int valor)
         {
 
@@ -136,7 +145,7 @@ namespace CarLocadora.Controllers.FormaPagamento
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar forma de pagamento!");
 
             }
         }
@@ -158,7 +167,7 @@ namespace CarLocadora.Controllers.FormaPagamento
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar editarforma de pagamento!");
                     }
                 }
                 else
@@ -174,5 +183,7 @@ namespace CarLocadora.Controllers.FormaPagamento
                 return View();
             }
         }
+        #endregion
+
     }
 }

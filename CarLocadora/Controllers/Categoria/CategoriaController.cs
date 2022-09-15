@@ -11,13 +11,13 @@ namespace CarLocadora.Controllers.Categoria
 {
     public class CategoriaController : Controller
     {
-
+        #region CONSTRUTORES
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
 
         public CategoriaController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken, IHttpClientFactory httpClient)
-        {         
+        {
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
 
@@ -25,7 +25,9 @@ namespace CarLocadora.Controllers.Categoria
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        #endregion
 
+        #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
         {
             if (sucesso)
@@ -33,7 +35,7 @@ namespace CarLocadora.Controllers.Categoria
             else
                 TempData["erro"] = mensagem;
             try
-            {             
+            {
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
 
                 HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria");
@@ -45,7 +47,7 @@ namespace CarLocadora.Controllers.Categoria
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao tentar mostrar Categoria!");
                 }
             }
             catch (Exception)
@@ -54,10 +56,11 @@ namespace CarLocadora.Controllers.Categoria
                 throw;
             }
         }
+        #endregion
 
+        #region GetSingle
         public async Task<ActionResult> Details(int valor)
         {
-          
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
             HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}");
 
@@ -68,11 +71,13 @@ namespace CarLocadora.Controllers.Categoria
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar mostrar Categoria!");
             }
         }
+        #endregion
 
-        public ActionResult Create()
+        #region Post
+        public async Task<ActionResult> Create()
         {
             return View();
         }
@@ -84,7 +89,7 @@ namespace CarLocadora.Controllers.Categoria
             try
             {
                 if (ModelState.IsValid)
-                {                   
+                {
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
                     HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel);
 
@@ -94,7 +99,7 @@ namespace CarLocadora.Controllers.Categoria
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar incluir uma nova Categoria!");
                     }
                 }
                 else
@@ -109,9 +114,11 @@ namespace CarLocadora.Controllers.Categoria
                 return View();
             }
         }
+        #endregion
 
+        #region Put
         public async Task<ActionResult> Edit(int valor)
-        {        
+        {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
             HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria/ObterUmaCategoria?valor={valor}");
 
@@ -122,7 +129,7 @@ namespace CarLocadora.Controllers.Categoria
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro Categoria!");
             }
         }
 
@@ -133,7 +140,7 @@ namespace CarLocadora.Controllers.Categoria
             try
             {
                 if (ModelState.IsValid)
-                {                 
+                {
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
                     HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria", categoriasModel);
 
@@ -143,7 +150,7 @@ namespace CarLocadora.Controllers.Categoria
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar editar uma nova Categoria!");
                     }
                 }
                 else
@@ -158,11 +165,13 @@ namespace CarLocadora.Controllers.Categoria
                 return View();
             }
         }
+        #endregion
 
+        #region Delete
         public async Task<ActionResult> Delete(int valor)
         {
             try
-            {            
+            {
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
 
                 HttpResponseMessage response = await _httpClient.DeleteAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCategoria?valor={valor}");
@@ -173,7 +182,7 @@ namespace CarLocadora.Controllers.Categoria
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao deletar Categoria!");
                 }
 
             }
@@ -182,5 +191,8 @@ namespace CarLocadora.Controllers.Categoria
                 return View();
             }
         }
+
+        #endregion
+
     }
 }

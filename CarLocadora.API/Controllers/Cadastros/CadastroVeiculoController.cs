@@ -20,6 +20,8 @@ namespace CarLocadora.API.Controllers.Cadastros
         }
 
         #endregion
+
+
         [HttpGet()]
         public async Task<List<VeiculosModel>> ListaVeiculos()
         {

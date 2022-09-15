@@ -11,11 +11,11 @@ namespace CarLocadora.API.Controllers.Cadastros
     public class CadastroManutencaoVeiculoController : ControllerBase
     {
         private readonly IManutencaoVeiculo _ManutencaoVeiculo;
-
         public CadastroManutencaoVeiculoController(IManutencaoVeiculo manutencaoVeiculo)
         {
             _ManutencaoVeiculo = manutencaoVeiculo;
         }
+
 
         [HttpGet]
         public async Task<List<ManutencaoVeiculoModel>> ListaManutencaoModels()

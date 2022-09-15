@@ -12,6 +12,7 @@ namespace CarLocadora.Controllers.Locacao
 {
     public class LocacaoController : Controller
     {
+        #region CONSTRUTURES
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
@@ -24,6 +25,7 @@ namespace CarLocadora.Controllers.Locacao
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        #endregion
 
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -47,7 +49,7 @@ namespace CarLocadora.Controllers.Locacao
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao tentar carregar locação!");
                 }
             }
             catch (Exception)
@@ -58,6 +60,7 @@ namespace CarLocadora.Controllers.Locacao
         }
         #endregion
 
+        #region GetSingle
         public async Task<ActionResult> Details(int valor)
         {
 
@@ -72,10 +75,12 @@ namespace CarLocadora.Controllers.Locacao
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar locação!");
             }
         }
+        #endregion
 
+        #region Post
         public async Task<ActionResult> Create()
         {
             ViewBag.Clientes = await CarregarClientes();
@@ -102,7 +107,7 @@ namespace CarLocadora.Controllers.Locacao
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar incluir locação!");
                     }
                 }
                 else
@@ -121,11 +126,11 @@ namespace CarLocadora.Controllers.Locacao
                 return View();
             }
         }
+        #endregion
 
+        #region Put
         public async Task<ActionResult> Edit(int valor)
         {
-
-
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
 
             HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroLocacao/ObterUmalocacao?valor={valor}");
@@ -141,7 +146,7 @@ namespace CarLocadora.Controllers.Locacao
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar locação!");
             }
         }
 
@@ -153,8 +158,6 @@ namespace CarLocadora.Controllers.Locacao
             {
                 if (ModelState.IsValid)
                 {
-
-
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
 
                     HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroLocacao", locacoesModel);
@@ -165,7 +168,7 @@ namespace CarLocadora.Controllers.Locacao
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar editar locação!");
                     }
                 }
                 else
@@ -184,6 +187,7 @@ namespace CarLocadora.Controllers.Locacao
                 return View();
             }
         }
+        #endregion
 
         #region ViewBags
 
@@ -277,6 +281,5 @@ namespace CarLocadora.Controllers.Locacao
         }
 
         #endregion
-
     }
 }

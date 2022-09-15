@@ -11,6 +11,7 @@ namespace CarLocadora.Controllers.Veiculo
 {
     public class VeiculoController : Controller
     {
+        #region CONSTRUTORES
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
@@ -24,6 +25,7 @@ namespace CarLocadora.Controllers.Veiculo
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        #endregion
 
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -46,7 +48,7 @@ namespace CarLocadora.Controllers.Veiculo
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao tentar carregar veiculo!");
                 }
             }
             catch (Exception)
@@ -57,6 +59,7 @@ namespace CarLocadora.Controllers.Veiculo
         }
         #endregion
 
+        #region GetSingle
         public async Task<ActionResult> Details(string valor)
         {
 
@@ -70,10 +73,12 @@ namespace CarLocadora.Controllers.Veiculo
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar veiculo!");
             }
         }
+        #endregion
 
+        #region Post
         public async Task<ActionResult> Create()
         {
             ViewBag.CategoriasDeVeiculos = await CarregarCategoriasDeVeiculos();
@@ -99,7 +104,7 @@ namespace CarLocadora.Controllers.Veiculo
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar incluir veiculo!");
                     }
                 }
                 else
@@ -117,6 +122,9 @@ namespace CarLocadora.Controllers.Veiculo
 
         }
 
+        #endregion
+
+        #region Put
         public async Task<ActionResult> Edit(string valor)
         {
 
@@ -131,7 +139,7 @@ namespace CarLocadora.Controllers.Veiculo
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar veiculo!");
             }
         }
 
@@ -154,7 +162,7 @@ namespace CarLocadora.Controllers.Veiculo
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar editar veiculo!");
                     }
                 }
                 else
@@ -171,6 +179,9 @@ namespace CarLocadora.Controllers.Veiculo
             }
         }
 
+        #endregion
+
+        #region ViesBags
         private async Task<List<SelectListItem>> CarregarCategoriasDeVeiculos()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
@@ -202,6 +213,6 @@ namespace CarLocadora.Controllers.Veiculo
                 throw new Exception(response.ReasonPhrase);
             }
         }
-
+        #endregion
     }
 }

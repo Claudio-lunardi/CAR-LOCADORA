@@ -32,9 +32,6 @@ namespace CarLocadora.API.Controllers.Cadastros
 
         }
 
-
-
-
         [HttpPost]
         public async Task IncluirLocacao([FromBody] LocacoesModel locacoesModel)
         {

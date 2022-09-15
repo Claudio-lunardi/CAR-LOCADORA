@@ -10,6 +10,7 @@ namespace CarLocadora.Controllers.Cliente
 {
     public class ClienteController : Controller
     {
+        #region CONSTRUTORES
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
@@ -23,6 +24,7 @@ namespace CarLocadora.Controllers.Cliente
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        #endregion
 
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -47,7 +49,7 @@ namespace CarLocadora.Controllers.Cliente
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao tentar mostrar cliente!");
                 }
             }
             catch (Exception)
@@ -74,7 +76,7 @@ namespace CarLocadora.Controllers.Cliente
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar mostrar cliente!");
 
             }
         }
@@ -99,7 +101,7 @@ namespace CarLocadora.Controllers.Cliente
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar editar um cliente!");
                     }
                 }
                 else
@@ -118,7 +120,7 @@ namespace CarLocadora.Controllers.Cliente
         }
         #endregion
 
-        #region Details
+        #region GetSingle
         public async Task<ActionResult> Details(string valor)
         {
 
@@ -132,13 +134,13 @@ namespace CarLocadora.Controllers.Cliente
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar mostrar um cliente!");
             }
         }
         #endregion
 
         #region Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             return View();
         }
@@ -162,7 +164,7 @@ namespace CarLocadora.Controllers.Cliente
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar incluir um cliente!");
                     }
                 }
                 else
@@ -178,5 +180,6 @@ namespace CarLocadora.Controllers.Cliente
             }
         }
         #endregion
+
     }
 }

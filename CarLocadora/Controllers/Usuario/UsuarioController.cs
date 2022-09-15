@@ -11,6 +11,7 @@ namespace CarLocadora.Controllers.Usuario
 {
     public class UsuarioController : Controller
     {
+        #region CONSTRUTORES
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
@@ -23,6 +24,7 @@ namespace CarLocadora.Controllers.Usuario
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        #endregion
 
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -44,7 +46,7 @@ namespace CarLocadora.Controllers.Usuario
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao tentar carregar usuário!");
                 }
             }
             catch (Exception)
@@ -54,6 +56,8 @@ namespace CarLocadora.Controllers.Usuario
             }
         }
         #endregion
+
+        #region GetSingle
         public async Task<ActionResult> Details(string valor)
         {
 
@@ -70,8 +74,10 @@ namespace CarLocadora.Controllers.Usuario
                 throw new Exception("aaa");
             }
         }
+        #endregion
 
-        public ActionResult Create()
+        #region Post
+        public async Task<ActionResult> Create()
         {
             return View();
         }
@@ -95,7 +101,7 @@ namespace CarLocadora.Controllers.Usuario
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar incluir usuário!");
                     }
                 }
                 else
@@ -114,6 +120,10 @@ namespace CarLocadora.Controllers.Usuario
 
 
         }
+
+        #endregion
+
+        #region Put
         public async Task<ActionResult> Edit(string valor)
         {
 
@@ -129,7 +139,7 @@ namespace CarLocadora.Controllers.Usuario
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar usuário!");
 
             }
         }
@@ -153,7 +163,7 @@ namespace CarLocadora.Controllers.Usuario
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar editar usuário!");
                     }
                 }
                 else
@@ -168,5 +178,6 @@ namespace CarLocadora.Controllers.Usuario
                 return View();
             }
         }
+        #endregion
     }
 }

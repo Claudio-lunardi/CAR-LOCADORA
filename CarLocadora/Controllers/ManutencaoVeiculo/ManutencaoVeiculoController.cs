@@ -11,6 +11,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
 {
     public class ManutencaoVeiculoController : Controller
     {
+        #region CONSTRUTORES
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
@@ -23,6 +24,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        #endregion
 
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -47,7 +49,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao tentar carregar manutenção veiculo!");
                 }
             }
             catch (Exception)
@@ -58,6 +60,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
         }
         #endregion
 
+        #region GetSingle
         public async Task<ActionResult> Details(int valor)
         {
 
@@ -73,11 +76,13 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar manutenção veiculo!");
 
             }
         }
+        #endregion
 
+        #region Post
         public async Task<IActionResult> Create()
         {
             ViewBag.Veiculos = await CarregarVeiculos();
@@ -103,7 +108,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar incluir manutenção veiculo!");
                     }
                 }
                 else
@@ -124,7 +129,9 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
 
 
         }
+        #endregion
 
+        #region Put
         public async Task<ActionResult> Edit(int valor)
         {
 
@@ -140,7 +147,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar manutenção veiculo!");
 
             }
         }
@@ -162,7 +169,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar editar umanutenção veiculo!");
                     }
                 }
                 else
@@ -179,7 +186,9 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                 return View();
             }
         }
+        #endregion
 
+        #region Delete
         public async Task<ActionResult> Delete(int valor)
         {
             try
@@ -196,7 +205,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao tentar deletar manutenção veiculo!");
                 }
 
             }
@@ -205,7 +214,9 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
                 return View();
             }
         }
+        #endregion
 
+        #region ViewBags
         private async Task<List<SelectListItem>> CarregarVeiculos()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
@@ -237,10 +248,7 @@ namespace CarLocadora.Controllers.ManutencaoVeiculo
             }
         }
 
-
-
-
-
+        #endregion
 
     }
 }

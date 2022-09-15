@@ -13,6 +13,7 @@ namespace CarLocadora.Controllers.Vistoria
 {
     public class VistoriaController : Controller
     {
+        #region CONSTRUTORES
         private readonly IOptions<WebConfigUrl> _UrlApi;
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
@@ -25,7 +26,7 @@ namespace CarLocadora.Controllers.Vistoria
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
+        #endregion
 
         #region Index
         public async Task<ActionResult> Index(string mensagem = null, bool sucesso = true)
@@ -49,7 +50,7 @@ namespace CarLocadora.Controllers.Vistoria
                 }
                 else
                 {
-                    throw new Exception("aaa");
+                    throw new Exception("Erro ao tentar carregar vistoria!");
                 }
             }
             catch (Exception)
@@ -60,7 +61,7 @@ namespace CarLocadora.Controllers.Vistoria
         }
         #endregion
 
-        // GET: VistoriaController/Details/5
+        #region GetSingle
         public async Task<ActionResult> Details(int valor)
         {
 
@@ -76,12 +77,14 @@ namespace CarLocadora.Controllers.Vistoria
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar vistoria");
             }
             
         }
 
-        // GET: VistoriaController/Create
+        #endregion
+
+        #region Post
         public async Task<ActionResult> Create()
         {
             ViewBag.locacoes = await CarregarLocacao();
@@ -108,7 +111,7 @@ namespace CarLocadora.Controllers.Vistoria
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar incluir vistoria!");
                     }
                 }
                 else
@@ -125,7 +128,9 @@ namespace CarLocadora.Controllers.Vistoria
             }
         }
 
-        // GET: VistoriaController/Edit/5
+        #endregion
+
+        #region Put
         public async Task<ActionResult> Edit(int valor)
         {
 
@@ -142,12 +147,10 @@ namespace CarLocadora.Controllers.Vistoria
             }
             else
             {
-                throw new Exception("aaa");
+                throw new Exception("Erro ao tentar carregar vistoria!");
             }
         }
 
-
-        // POST: VistoriaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([FromForm]VistoriaModel vistoriaModel)
@@ -169,7 +172,7 @@ namespace CarLocadora.Controllers.Vistoria
                     }
                     else
                     {
-                        throw new Exception("aaa");
+                        throw new Exception("Erro ao tentar editar vistoria!");
                     }
                 }
                 else
@@ -185,8 +188,9 @@ namespace CarLocadora.Controllers.Vistoria
                 return View();
             }
         }
+        #endregion
 
-
+        #region ViewBags
         private async Task<List<SelectListItem>> CarregarLocacao()
         {
             List<SelectListItem> lista = new List<SelectListItem>();
@@ -219,6 +223,6 @@ namespace CarLocadora.Controllers.Vistoria
             }
         }
 
-
+        #endregion
     }
 }
