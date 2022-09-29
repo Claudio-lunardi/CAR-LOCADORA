@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.API", "CarLocadora.API\CarLocadora.API.csproj", "{8C666DFF-DB0F-465B-87D9-9F18F1C8F8F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.API", "CarLocadora.API\CarLocadora.API.csproj", "{8C666DFF-DB0F-465B-87D9-9F18F1C8F8F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora", "CarLocadora\CarLocadora.csproj", "{95673C24-C1DE-4998-B5BD-01734167BF6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora", "CarLocadora\CarLocadora.csproj", "{95673C24-C1DE-4998-B5BD-01734167BF6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.Infra", "CarLocadora.Infra\CarLocadora.Infra.csproj", "{B9DB9FCB-B642-4533-84E5-EB31778439F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.Infra", "CarLocadora.Infra\CarLocadora.Infra.csproj", "{B9DB9FCB-B642-4533-84E5-EB31778439F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.Modelo", "CarLocadora.Modelo\CarLocadora.Modelo.csproj", "{B7CBD36D-B01D-4D8E-975B-8512BC065CFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.Modelo", "CarLocadora.Modelo\CarLocadora.Modelo.csproj", "{B7CBD36D-B01D-4D8E-975B-8512BC065CFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.Negocio", "CarLocadora.Negocio\CarLocadora.Negocio.csproj", "{2225FA24-044C-4C46-9CA9-EB1E1D7530D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.Negocio", "CarLocadora.Negocio\CarLocadora.Negocio.csproj", "{2225FA24-044C-4C46-9CA9-EB1E1D7530D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.EnviarEmail", "CarLocadora.EnviarEmail\CarLocadora.EnviarEmail.csproj", "{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{2225FA24-044C-4C46-9CA9-EB1E1D7530D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2225FA24-044C-4C46-9CA9-EB1E1D7530D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2225FA24-044C-4C46-9CA9-EB1E1D7530D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

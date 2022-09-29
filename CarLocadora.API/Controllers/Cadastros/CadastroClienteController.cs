@@ -41,5 +41,11 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
             await _cliente.AlterarCliente(clientesModel);
         }
+
+        [HttpGet("ObterListaEnviarEmail")]
+        public async Task<List<ClientesModel>> GetObterListaEmail()
+        {
+            return await _cliente.ObterListaEnviarEmail();
+        }
     }
 }

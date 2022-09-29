@@ -20,7 +20,7 @@ namespace CarLocadora.Negocio.Cliente
         {
             clientesModel.DataAlteracao = DateTime.Now;
             _entityContext.Clientes.Update(clientesModel);
-         await _entityContext.SaveChangesAsync();
+            await _entityContext.SaveChangesAsync();
         }
 
         public async Task IncluirCliente(ClientesModel clientesModel)
@@ -28,10 +28,10 @@ namespace CarLocadora.Negocio.Cliente
             clientesModel.DataInclusao = DateTime.Now;
             _entityContext.Clientes.Add(clientesModel);
             _entityContext.SaveChanges();
-        }  
+        }
         public async Task<List<ClientesModel>> ListaClientes()
         {
-           return await _entityContext.Clientes.OrderBy(nome => nome.Nome).ToListAsync();
+            return await _entityContext.Clientes.OrderBy(nome => nome.Nome).ToListAsync();
         }
 
         public async Task<ClientesModel> ListaUmCliente(string cpf)
@@ -39,5 +39,9 @@ namespace CarLocadora.Negocio.Cliente
             return await _entityContext.Clientes.SingleAsync(x => x.CPF.Equals(cpf));
         }
 
+        public async Task<List<ClientesModel>> ObterListaEnviarEmail()
+        {
+            return await _entityContext.Clientes.Where(x => x.Email != null && x.emailEnviado.Equals(false)).ToListAsync();
+        }
     }
 }
