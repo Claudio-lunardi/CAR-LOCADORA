@@ -1,6 +1,6 @@
-﻿using CarLocadora.Modelo.Models;
-using CarLocadora.Models;
-using CarLocadora.Servico;
+﻿using CarLocadora.Comum.Modelo;
+using CarLocadora.Comum.Servico;
+using CarLocadora.Modelo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -20,7 +20,7 @@ namespace CarLocadora.Controllers.Cliente
         {
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
-            _httpClient = httpClient.CreateClient(); ;
+            _httpClient = httpClient.CreateClient(); 
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -35,9 +35,6 @@ namespace CarLocadora.Controllers.Cliente
                     TempData["sucesso"] = mensagem;
                 else
                     TempData["erro"] = mensagem;
-
-
-
 
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
                 HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroCliente");

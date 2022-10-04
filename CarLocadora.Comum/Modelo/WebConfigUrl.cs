@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarLocadora.Models
+namespace CarLocadora.Comum.Modelo
 {
     public class WebConfigUrl
     {

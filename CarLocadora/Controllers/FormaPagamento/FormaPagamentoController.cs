@@ -1,7 +1,7 @@
-﻿using CarLocadora.Modelo.Models;
-using CarLocadora.Models;
-using CarLocadora.Servico;
-using Microsoft.AspNetCore.Http;
+﻿using CarLocadora.Comum.Modelo;
+using CarLocadora.Comum.Servico;
+using CarLocadora.Modelo.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -21,7 +21,7 @@ namespace CarLocadora.Controllers.FormaPagamento
         {
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
-            _httpClient = httpClient.CreateClient(); ;
+            _httpClient = httpClient.CreateClient(); 
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -37,10 +37,9 @@ namespace CarLocadora.Controllers.FormaPagamento
                 else
                     TempData["erro"] = mensagem;
 
-                HttpClient Client = new HttpClient();
-
+                
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _IApiToken.Obter());
-                HttpResponseMessage response = await Client.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento");
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroFormaPagamento");
 
                 if (response.IsSuccessStatusCode)
                 {

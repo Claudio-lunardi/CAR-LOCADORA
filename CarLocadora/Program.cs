@@ -1,7 +1,7 @@
 using CarLocadora.Extensoes;
 using CarLocadora.Modelo.Models;
 using CarLocadora.Models;
-using CarLocadora.Servico;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

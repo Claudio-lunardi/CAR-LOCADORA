@@ -1,4 +1,5 @@
 ﻿using CarLocadora.Negocio.Vistoria;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,7 @@ namespace CarLocadora.API.Controllers.Cadastros
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CadastroVistoriaController : ControllerBase
     {
 
@@ -14,7 +16,6 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
             _vistoria = vistoria;
         }
-
 
         [HttpGet]
         public async Task<List<VistoriaModel>> ListaVistoria()

@@ -1,14 +1,13 @@
 ﻿using CarLocadora.Modelo.Models;
 using CarLocadora.Negocio.Categoria;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarLocadora.API.Controllers.Cadastros
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CadastroCategoriaController : ControllerBase
     {
         #region Chamando Interface
@@ -34,19 +33,19 @@ namespace CarLocadora.API.Controllers.Cadastros
         [HttpPost()]
         public async Task IncluirCategoria([FromBody] CategoriasModel categoriasModel)
         {
-          await _Categoria.IncluirCategoria(categoriasModel);
+            await _Categoria.IncluirCategoria(categoriasModel);
         }
 
         [HttpPut()]
         public async Task AlterarCategoria([FromBody] CategoriasModel categoriasModel)
         {
-          await _Categoria.AlterarCategoria(categoriasModel);
+            await _Categoria.AlterarCategoria(categoriasModel);
         }
 
         [HttpDelete()]
         public async Task DeletarCategoria(int valor)
         {
-          await _Categoria.ExcluirCategoria(valor);
+            await _Categoria.ExcluirCategoria(valor);
         }
 
     }

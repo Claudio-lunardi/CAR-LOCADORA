@@ -1,12 +1,13 @@
-﻿using CarLocadora.Modelo.Models;
-using CarLocadora.Models;
-using CarLocadora.Servico;
-using Microsoft.AspNetCore.Http;
+﻿using CarLocadora.Comum.Modelo;
+using CarLocadora.Comum.Servico;
+using CarLocadora.Modelo.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+
 
 namespace CarLocadora.Controllers.Locacao
 {
@@ -17,11 +18,12 @@ namespace CarLocadora.Controllers.Locacao
         private readonly IApiToken _IApiToken;
         private readonly HttpClient _httpClient;
 
+
         public LocacaoController(IOptions<WebConfigUrl> urlApi, IApiToken iApiToken, IHttpClientFactory httpClient)
         {
             _UrlApi = urlApi;
             _IApiToken = iApiToken;
-            _httpClient = httpClient.CreateClient(); 
+            _httpClient = httpClient.CreateClient();
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

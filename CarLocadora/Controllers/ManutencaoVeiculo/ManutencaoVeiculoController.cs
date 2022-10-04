@@ -1,6 +1,6 @@
-﻿using CarLocadora.Modelo.Models;
-using CarLocadora.Models;
-using CarLocadora.Servico;
+﻿using CarLocadora.Comum.Modelo;
+using CarLocadora.Comum.Servico;
+using CarLocadora.Modelo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;

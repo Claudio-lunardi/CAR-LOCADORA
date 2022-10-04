@@ -16,7 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Descricao)
             </th>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.DataInclusao)
             </th>
@@ -31,13 +31,9 @@
     </thead>
     <tbody>
         @{
-            var linha = 0;
+
             foreach (var item in Model)
             {
-                linha++;
-              
-      if(linha <= ViewBag.QuantidadeMaximaLinhas)
-      {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
@@ -45,7 +41,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Descricao)
                     </td>
-                    
+
                     <td>
                         @Html.DisplayFor(modelItem => item.DataInclusao)
                     </td>
@@ -71,40 +67,17 @@
                         </div>
 
                     </td>
-                    </tr>
-                }
-                else
-                {
-                    break;
-                }
+                </tr>
+
+
             }
-           
+
         }
-         
+
 
     </tbody>
 </table>
 
-<div class="row">
-    <div class="col-md-12">
-
-        <nav aria-label="Navegação de página exemplo">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-    <li class="page-item active" ><a class="page-link" href="#">1</a></li>
-
-    @for (int i = 2; i <= ViewBag.QauntPaginas; i++){
-        <li class="page-item"><a class="page-link" href="#">@i</a></li>
-    }
-    <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
-  </ul>
-</nav>
-
-
-
-    </div>
-
-</div>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">

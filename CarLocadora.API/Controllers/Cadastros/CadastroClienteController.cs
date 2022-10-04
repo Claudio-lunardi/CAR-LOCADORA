@@ -1,14 +1,13 @@
 ﻿using CarLocadora.Modelo.Models;
 using CarLocadora.Negocio.Cliente;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarLocadora.API.Controllers.Cadastros
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CadastroClienteController : ControllerBase
     {
         #region Chamando Interface

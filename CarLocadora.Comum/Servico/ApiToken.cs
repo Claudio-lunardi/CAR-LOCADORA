@@ -1,11 +1,12 @@
 ﻿
+using CarLocadora.Comum.Modelo;
 using CarLocadora.Modelo.Models;
-using CarLocadora.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 
-namespace CarLocadora.Servico
+namespace CarLocadora.Comum.Servico
 {
     public class ApiToken : IApiToken
     {
@@ -18,7 +19,6 @@ namespace CarLocadora.Servico
             _UrlApi = urlApi;
             _LoginRespostaModel = loginRespostaModel;
         }
-
 
         private async Task ObterToken()
         {
@@ -63,7 +63,7 @@ namespace CarLocadora.Servico
             {
                 if (DateTime.Now >= _LoginRespostaModel.Value.DataExpiracao)
                 {
-                   await ObterToken();
+                    await ObterToken();
                 }
             }
             return _LoginRespostaModel.Value.Token;
