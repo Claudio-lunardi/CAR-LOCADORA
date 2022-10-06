@@ -43,5 +43,16 @@ namespace CarLocadora.Negocio.Cliente
         {
             return await _entityContext.Clientes.Where(x => x.Email != null && x.emailEnviado.Equals(false)).ToListAsync();
         }
+
+
+        public async Task AlterarEnvioDeEmail(string cpf)
+        {
+            var cliente = await _entityContext.Clientes.FirstAsync(x => x.CPF.Equals(cpf));
+            cliente.emailEnviado = true;
+
+            _entityContext.Clientes.Update(cliente);
+            await _entityContext.SaveChangesAsync();
+
+        }
     }
 }

@@ -35,6 +35,7 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
             await _cliente.IncluirCliente(clientesModel);
         }
+
         [HttpPut()]
         public async Task AlterarCliente([FromBody] ClientesModel clientesModel)
         {
@@ -45,6 +46,12 @@ namespace CarLocadora.API.Controllers.Cadastros
         public async Task<List<ClientesModel>> GetObterListaEmail()
         {
             return await _cliente.ObterListaEnviarEmail();
+        }
+
+        [HttpPut("AlterarEnvioDeEmail")]
+        public async Task AlterarEnvioDeEmail([FromBody] string cpf)
+        {
+            await _cliente.AlterarEnvioDeEmail(cpf);
         }
     }
 }

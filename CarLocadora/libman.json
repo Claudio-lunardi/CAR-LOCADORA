@@ -9,6 +9,11 @@
     {
       "library": "toastr.js@2.1.3",
       "destination": "wwwroot/lib/toastr.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "datatables.net@2.1.1",
+      "destination": "wwwroot/lib/datatables.net/"
     }
   ]
 }

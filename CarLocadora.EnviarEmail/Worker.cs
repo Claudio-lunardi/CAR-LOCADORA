@@ -1,8 +1,6 @@
 using CarLocadora.Comum.Modelo;
 using CarLocadora.Comum.Servico;
 using CarLocadora.Modelo.Models;
-using CarLocadora.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net;
@@ -20,49 +18,38 @@ namespace CarLocadora.EnviarEmail
         private readonly IApiToken _apiToken;
         private readonly IOptions<WebConfigUrl> _WebConfigUrl;
 
-        public Worker(ILogger<Worker> logger, HttpClient httpClient, IApiToken apiToken, IOptions<WebConfigUrl> WebConfigUrl)
+        public Worker(ILogger<Worker> logger, IHttpClientFactory httpClient, IApiToken apiToken, IOptions<WebConfigUrl> WebConfigUrl)
         {
             _logger = logger;
-            _httpClient = httpClient;
+            _httpClient = httpClient.CreateClient();
             _apiToken = apiToken;
             _WebConfigUrl = WebConfigUrl;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var EmailCliente = await BuscarEmailCliente();
-
             while (!stoppingToken.IsCancellationRequested)
             {
-
+                var EmailCliente = await BuscarEmailCliente();
                 foreach (var Cliente in EmailCliente)
                 {
                     try
                     {
                         await EnviarEmail(Cliente.Email, Cliente.Nome);
+                        await EditarCampoEmailEnviado(Cliente.CPF);
+
                     }
                     catch (Exception)
                     {
                         continue;
                     }
-                    finally
-                    {
-                        for (int i = 0; i < EmailCliente.Count; i++)
-                        {
-                            EditarCampoEmailEnviado(EmailCliente[i]);
-                        }
-                      
-                    }
-
-
-
                 }
 
                 await Task.Delay(35000, stoppingToken);
             }
         }
 
-
+        #region METODOS API
         private async Task<List<ClientesModel>> BuscarEmailCliente()
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
@@ -78,22 +65,22 @@ namespace CarLocadora.EnviarEmail
 
         }
 
-        private async Task EditarCampoEmailEnviado(ClientesModel clientesModel)
-        {   
-            try
-            {
-                clientesModel.emailEnviado = true;
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
-                HttpResponseMessage r = await _httpClient.PutAsJsonAsync($"{_WebConfigUrl.Value.API_WebConfig_URL}CadastroCliente", clientesModel);
 
-            }
-            catch (Exception)
+
+        private async Task EditarCampoEmailEnviado(string cpf)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
+            HttpResponseMessage r = await _httpClient.PutAsJsonAsync($"{_WebConfigUrl.Value.API_WebConfig_URL}CadastroCliente/AlterarEnvioDeEmail", cpf);
+
+            if (!r.IsSuccessStatusCode)
             {
-                throw;
+                throw new Exception(r.ReasonPhrase);
             }
         }
 
+        #endregion
 
+        #region GERAR EMAIL
         private async Task EnviarEmail(string Email, string nome)
         {
             MailMessage message = new MailMessage();
@@ -115,15 +102,18 @@ namespace CarLocadora.EnviarEmail
 
         private string EmailBoasVindas(string nome)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"<p>Parabéns <b>{nome},</b></p>");
-            sb.Append($"<p>Seja muito bem-vindo a <b>CAR-LOCADORA.</b></p>");
-            sb.Append($"<p>Estamos muito felizes de você fazer parte da <b>CAR-LOCADORA</b>.</p>");
-            sb.Append($"<br>");
-            sb.Append($"<p>Grande abraço</p>");
-            return sb.ToString();
+            StreamReader leitor = new StreamReader(@"C:\Users\Claud\Desktop\Template\index.html", Encoding.UTF8);
+            var conteudo = leitor.ReadToEnd();
+            var TemplateEmail = conteudo.Replace("Nome¢", nome);
+            //StringBuilder sb = new StringBuilder();
+            //sb.Append($"<p>Parabéns <b>{nome},</b></p>");
+            //sb.Append($"<p>Seja muito bem-vindo a <b>CAR-LOCADORA.</b></p>");
+            //sb.Append($"<p>Estamos muito felizes de você fazer parte da <b>CAR-LOCADORA</b>.</p>");
+            //sb.Append($"<br>");
+            //sb.Append($"<p>Grande abraço</p>");
+            return TemplateEmail;
         }
-
+        #endregion
 
 
 
