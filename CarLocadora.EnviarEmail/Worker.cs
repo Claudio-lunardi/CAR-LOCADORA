@@ -9,6 +9,8 @@ using System.Net.Http.Json;
 using System.Net.Mail;
 using System.Text;
 
+
+
 namespace CarLocadora.EnviarEmail
 {
     public class Worker : BackgroundService
@@ -102,9 +104,10 @@ namespace CarLocadora.EnviarEmail
 
         private string EmailBoasVindas(string nome)
         {
-            StreamReader leitor = new StreamReader(@"C:\Users\Claud\Desktop\Template\index.html", Encoding.UTF8);
+            StreamReader leitor = new StreamReader(@"C:\Users\Claud\source\repos\CAR-LOCADORA\CarLocadora.EnviarEmail\TemplateEmail\TemplateEmail.cshtml", Encoding.UTF8);
             var conteudo = leitor.ReadToEnd();
             var TemplateEmail = conteudo.Replace("Nome¢", nome);
+            
             //StringBuilder sb = new StringBuilder();
             //sb.Append($"<p>Parabéns <b>{nome},</b></p>");
             //sb.Append($"<p>Seja muito bem-vindo a <b>CAR-LOCADORA.</b></p>");
