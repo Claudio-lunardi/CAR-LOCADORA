@@ -114,6 +114,7 @@ namespace CarLocadora.EnviarEmail
             //sb.Append($"<p>Estamos muito felizes de você fazer parte da <b>CAR-LOCADORA</b>.</p>");
             //sb.Append($"<br>");
             //sb.Append($"<p>Grande abraço</p>");
+
             return TemplateEmail;
         }
         #endregion
