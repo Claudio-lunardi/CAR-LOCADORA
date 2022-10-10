@@ -8,13 +8,25 @@
 
     //CONFIGURAÇÃO GRID
     $('#myTable').DataTable({
-
         "language": {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
-        },    
+        },
         "lengthMenu": [10, 15, 20, 30, 100]
-        
-
     });
 
-})
+    var inicial = $("#Form").serialize();
+    $("#Form").on("submit", function (e) {
+
+        var atual = $("#Form").serialize();
+
+        if (atual !== inicial) {
+            $("#BtnEditar").addEventLitener("click", function () {
+                $("#FormGeral").submit();
+            })
+        }
+        else if ($("#alertaErro").is(":hidden")) {
+            e.preventDefault();
+            toastr.warning("Nenhum campo foi editado");
+        }
+    });
+});

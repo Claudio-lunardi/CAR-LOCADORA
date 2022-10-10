@@ -7,7 +7,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label asp-for="Nome" class="control-label"></label>
-            <input asp-for="Nome" class="form-control" placeholder="Maria..." />
+            <input id="NomeCliente" asp-for="Nome" class="form-control" placeholder="Maria..." />
             <span asp-validation-for="Nome" class="text-danger"></span>
         </div>
     </div>
@@ -16,14 +16,14 @@
     <div class="col-md-2">
         <div class="form-group">
             <label asp-for="Telefone" class="control-label"></label>
-            <input asp-for="Telefone" class="form-control maskTelefone" placeholder="(__) ____-_____" />
+            <input id="TelefoneCliente" asp-for="Telefone" class="form-control maskTelefone" placeholder="(__) ____-_____" />
             <span asp-validation-for="Telefone" class="text-danger"></span>
         </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
             <label asp-for="Celular" class="control-label"></label>
-            <input asp-for="Celular" class="form-control maskCelular" placeholder="(__) _____-____" />
+            <input id="CelularCliente" asp-for="Celular" class="form-control maskCelular" placeholder="(__) _____-____" />
             <span asp-validation-for="Celular" class="text-danger"></span>
         </div>
     </div>
@@ -33,7 +33,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="DataNascimento" class="control-label"></label>
-            <input asp-for="DataNascimento" class="form-control" />
+            <input id="DataNascimentoCliente" asp-for="DataNascimento" class="form-control" />
             <span asp-validation-for="DataNascimento" class="text-danger"></span>
         </div>
     </div>
@@ -41,7 +41,7 @@
     <div class="col-md-2">
         <div class="form-group">
             <label asp-for="CNH" class="control-label"></label>
-            <input asp-for="CNH" class="form-control" />
+            <input id="CNHCliente" asp-for="CNH" class="form-control" />
             <span asp-validation-for="CNH" class="text-danger"></span>
         </div>
     </div>
@@ -49,14 +49,14 @@
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="Logradouro" class="control-label"></label>
-            <input asp-for="Logradouro" class="form-control" />
+            <input id="LogradouroCliente" asp-for="Logradouro" class="form-control" />
             <span asp-validation-for="Logradouro" class="text-danger"></span>
         </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
             <label asp-for="Numero" class="control-label"></label>
-            <input asp-for="Numero" class="form-control" />
+            <input id="NumeroCliente" asp-for="Numero" class="form-control" />
             <span asp-validation-for="Numero" class="text-danger"></span>
         </div>
     </div>
@@ -66,21 +66,21 @@
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="Complemento" class="control-label"></label>
-            <input asp-for="Complemento" class="form-control" />
+            <input id="ComplementoCliente" asp-for="Complemento" class="form-control" />
             <span asp-validation-for="Complemento" class="text-danger"></span>
         </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
             <label asp-for="Cidade" class="control-label"></label>
-            <input type="" asp-for="Cidade" class="form-control" />
+            <input id="CidadeCliente"type="" asp-for="Cidade" class="form-control" />
             <span asp-validation-for="Cidade" class="text-danger"></span>
         </div>
     </div>
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="Estado" class="control-label"></label>
-            <select asp-for="Estado" class="form-select">
+            <select id="EstadoSelectCliente" asp-for="Estado" class="form-select">
                 <option value="" disabled selected>Selecione... </option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -117,7 +117,7 @@
         <div class="col-md-2">
         <div class="form-group">
             <label asp-for="Email" class="control-label"></label>
-            <input type="email" asp-for="Email" class="form-control"placeholder="Email" />
+            <input id="EmailCliente" type="email" asp-for="Email" class="form-control"placeholder="Email" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
