@@ -14,17 +14,20 @@
         "lengthMenu": [10, 15, 20, 30, 100]
     });
 
+
+    //VERIFICANDO SE O CAMPO FOI EDITADO
     var inicial = $("#Form").serialize();
     $("#Form").on("submit", function (e) {
 
         var atual = $("#Form").serialize();
-
-        if (atual !== inicial) {
+        if (atual !== inicial)
+        {
             $("#BtnEditar").addEventLitener("click", function () {
-                $("#FormGeral").submit();
+                $("#Form").submit();
             })
         }
-        else if ($("#alertaErro").is(":hidden")) {
+        else if ($("#alertaErro").is(":hidden"))
+        {
             e.preventDefault();
             toastr.warning("Nenhum campo foi editado");
         }
