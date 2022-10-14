@@ -1,4 +1,5 @@
 ﻿using AspNetCoreRateLimit;
+using CarLocadora.Comum.Modelo;
 using CarLocadora.Infra.Entity;
 using CarLocadora.Modelo.Models;
 using CarLocadora.Negocio.Categoria;
@@ -110,13 +111,10 @@ namespace CarLocadora.API.Extencoes
                     {securityScheme, Array.Empty<string>() }
                  });
              });
-        public static void ConfigurarServicos(this IServiceCollection services)
+        public static void ConfigurarServicos(this IServiceCollection services, IConfiguration configuration)
         {
-            //string connectionString = "Data Source=localhost,1434;User ID=sa;Password=senha@1234xxxY;Initial Catalog=DBCarLocadora;";
-            string connectionString = "Data Source=host.docker.internal,1434;User ID=sa;Password=senha@1234xxxY;Initial Catalog=DBCarLocadora;";
-            services.AddHttpClient();
-
-            services.AddDbContext<EntityContext>(item => item.UseSqlServer(connectionString));
+            string connection = configuration.GetConnectionString("WebConfigUrl");       
+            services.AddDbContext<EntityContext>(item => item.UseSqlServer(connection));
             services.AddScoped<ICliente, Cliente>();
             services.AddScoped<ICategoria, Categoria>();
             services.AddScoped<IVeiculo, Veiculo>();
@@ -124,8 +122,7 @@ namespace CarLocadora.API.Extencoes
             services.AddScoped<IUsuario, Usuario>();
             services.AddScoped<IManutencaoVeiculo, ManutencaoVeiculo>();
             services.AddScoped<Ilocacao, Locacao>();
-            services.AddScoped<IVistoria, Vistoria>();
-
+            services.AddScoped<IVistoria, Vistoria>();nameof   
         }
     }
 }

@@ -9,8 +9,6 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["CarLocadora.API/CarLocadora.API.csproj", "CarLocadora.API/"]
 COPY ["CarLocadora.Modelo/CarLocadora.Modelo.csproj", "CarLocadora.Modelo/"]
-COPY ["CarLocadora/CarLocadora.csproj", "CarLocadora/"]
-COPY ["CarLocadora.Comum/CarLocadora.Comum.csproj", "CarLocadora.Comum/"]
 COPY ["CarLocadora.Negocio/CarLocadora.Negocio.csproj", "CarLocadora.Negocio/"]
 COPY ["CarLocadora.Infra/CarLocadora.Infra.csproj", "CarLocadora.Infra/"]
 RUN dotnet restore "CarLocadora.API/CarLocadora.API.csproj"

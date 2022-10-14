@@ -1,4 +1,4 @@
-﻿using CarLocadora.Comum.Modelo;
+﻿ using CarLocadora.Comum.Modelo;
 using CarLocadora.Comum.Servico;
 using CarLocadora.Modelo.Models;
 
