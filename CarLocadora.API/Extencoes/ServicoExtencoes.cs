@@ -113,8 +113,7 @@ namespace CarLocadora.API.Extencoes
              });
         public static void ConfigurarServicos(this IServiceCollection services, IConfiguration configuration)
         {
-            string connection = configuration.GetConnectionString("WebConfigUrl");       
-            services.AddDbContext<EntityContext>(item => item.UseSqlServer(connection));
+            services.Configure<WebConfigUrl>(configuration.GetSection("WebConfigUrl"));
             services.AddScoped<ICliente, Cliente>();
             services.AddScoped<ICategoria, Categoria>();
             services.AddScoped<IVeiculo, Veiculo>();
