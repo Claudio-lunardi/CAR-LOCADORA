@@ -122,7 +122,7 @@ namespace CarLocadora.API.Extencoes
             services.AddScoped<IUsuario, Usuario>();
             services.AddScoped<IManutencaoVeiculo, ManutencaoVeiculo>();
             services.AddScoped<Ilocacao, Locacao>();
-            services.AddScoped<IVistoria, Vistoria>();nameof   
+            services.AddScoped<IVistoria, Vistoria>(); 
         }
     }
 }
