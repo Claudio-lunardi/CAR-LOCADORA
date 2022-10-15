@@ -3,7 +3,7 @@ using CarLocadora.API.Extencoes;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigurarServicos(builder.Configuration);
+builder.Services.ConfigurarServicos();
 builder.Services.ConfigurarJwt();
 builder.Services.ConfigurarSwagger();
 

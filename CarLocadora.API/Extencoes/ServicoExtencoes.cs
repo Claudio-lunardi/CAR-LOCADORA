@@ -111,9 +111,15 @@ namespace CarLocadora.API.Extencoes
                     {securityScheme, Array.Empty<string>() }
                  });
              });
-        public static void ConfigurarServicos(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigurarServicos(this IServiceCollection services)
         {
-            services.Configure<WebConfigUrl>(configuration.GetSection("WebConfigUrl"));
+            //string connectionString = "Data Source=localhost,1434;User ID=sa;Password=senha@1234xxxY;Initial Catalog=DBCarLocadora;";
+            string connectionString = "Data Source=host.docker.internal,1434;User ID=sa;Password=senha@1234xxxY;Initial Catalog=DBCarLocadora;";
+            services.AddHttpClient();
+
+            //string connection = configuration.GetConnectionString("WebConfigUrl");
+            services.AddDbContext<EntityContext>(item => item.UseSqlServer(connectionString));
+            
             services.AddScoped<ICliente, Cliente>();
             services.AddScoped<ICategoria, Categoria>();
             services.AddScoped<IVeiculo, Veiculo>();
