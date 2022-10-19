@@ -18,4 +18,8 @@
     <ProjectReference Include="..\CarLocadora.Modelo\CarLocadora.Modelo.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Img\CarLocadora.png" />
+  </ItemGroup>
+
 </Project>
