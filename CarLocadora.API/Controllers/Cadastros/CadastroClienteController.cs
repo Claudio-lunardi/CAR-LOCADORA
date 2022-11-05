@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Modelo.Models;
 using CarLocadora.Negocio.Cliente;
+using CarLocadora.Negocio.Rabbit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +12,14 @@ namespace CarLocadora.API.Controllers.Cadastros
     public class CadastroClienteController : ControllerBase
     {
         #region Chamando Interface
-        private readonly ICliente _cliente;
 
-        public CadastroClienteController(ICliente cliente)
+        private readonly ICliente _cliente;
+        private readonly IRabbitMQ _rabbitMQ;
+
+        public CadastroClienteController(ICliente cliente, IRabbitMQ rabbitMQ)
         {
             _cliente = cliente;
+            _rabbitMQ = rabbitMQ;
         }
         #endregion
 
@@ -33,7 +37,9 @@ namespace CarLocadora.API.Controllers.Cadastros
         [HttpPost()]
         public async Task IncluirCliente([FromBody] ClientesModel clientesModel)
         {
+
             await _cliente.IncluirCliente(clientesModel);
+            await _rabbitMQ.EnviarMensagemRabbit(clientesModel);
         }
 
         [HttpPut()]
@@ -52,6 +58,12 @@ namespace CarLocadora.API.Controllers.Cadastros
         public async Task AlterarEnvioDeEmail([FromBody] string cpf)
         {
             await _cliente.AlterarEnvioDeEmail(cpf);
+        }
+
+        [HttpGet("ObterMensagemRabbit")]
+        public async Task<ClienteModelRabbitMq> ObterMensagemRabbit()
+        {
+            return await _rabbitMQ.PegarMensagemRabbit();
         }
     }
 }

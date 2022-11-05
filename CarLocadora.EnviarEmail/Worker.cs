@@ -3,6 +3,7 @@ using CarLocadora.Comum.Servico;
 using CarLocadora.Modelo.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -15,6 +16,7 @@ namespace CarLocadora.EnviarEmail
 {
     public class Worker : BackgroundService
     {
+        private readonly ConnectionFactory _factory;
         private readonly ILogger<Worker> _logger;
         private readonly HttpClient _httpClient;
         private readonly IApiToken _apiToken;
@@ -22,6 +24,13 @@ namespace CarLocadora.EnviarEmail
 
         public Worker(ILogger<Worker> logger, IHttpClientFactory httpClient, IApiToken apiToken, IOptions<WebConfigUrl> WebConfigUrl)
         {
+            _factory = new ConnectionFactory
+            {
+                HostName = "localhost",
+                Port = 5672,
+                UserName = "guest",
+                Password = "guest"
+            };
             _logger = logger;
             _httpClient = httpClient.CreateClient();
             _apiToken = apiToken;
@@ -32,53 +41,102 @@ namespace CarLocadora.EnviarEmail
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var EmailCliente = await BuscarEmailCliente();
-                foreach (var Cliente in EmailCliente)
-                {
+                var ClienteModelRabbitMq = await ObterMensagemRabbit();        
                     try
                     {
-                        await EnviarEmail(Cliente.Email, Cliente.Nome);
-                        await EditarCampoEmailEnviado(Cliente.CPF);
+                        await EnviarEmail(ClienteModelRabbitMq.Email, ClienteModelRabbitMq.Nome);
 
                     }
                     catch (Exception)
                     {
                         continue;
                     }
-                }
+                
 
                 await Task.Delay(35000, stoppingToken);
             }
         }
 
+
+        private async Task<ClienteModelRabbitMq> ObterMensagemRabbit()
+        {
+            try
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
+                HttpResponseMessage r = await _httpClient.GetAsync($"{_WebConfigUrl.Value.API_WebConfig_URL}CadastroCliente/ObterMensagemRabbit");
+
+                if (r.IsSuccessStatusCode)
+                {
+                    return JsonConvert.DeserializeObject<ClienteModelRabbitMq>(await r.Content.ReadAsStringAsync());
+                }
+                else
+                {
+                    throw new Exception("Erro ao obter mensagem");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        //private ClienteModelRabbitMq PegarMensagem()
+        //{
+        //    var connectarRabbit = _factory.CreateConnection();
+        //    var canal = connectarRabbit.CreateModel();
+
+        //   var dados = new ClienteModelRabbitMq();
+
+        //    while (true)
+        //    {
+        //        BasicGetResult retorno = canal.BasicGet("cliente", false);
+        //        if (retorno == null)
+        //        {
+        //            break;
+
+        //        }
+        //        else
+        //        {
+        //             dados = JsonConvert.DeserializeObject<ClienteModelRabbitMq>(Encoding.UTF8.GetString(retorno.Body.ToArray()));
+
+        //            canal.BasicAck(retorno.DeliveryTag, true);
+
+
+        //        }
+
+        //    }
+
+        //    return dados;
+        //}
+
+
         #region METODOS API
-        private async Task<List<ClientesModel>> BuscarEmailCliente()
-        {
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
-            HttpResponseMessage r = await _httpClient.GetAsync($"{_WebConfigUrl.Value.API_WebConfig_URL}CadastroCliente/ObterListaEnviarEmail");
-            if (r.IsSuccessStatusCode)
-            {
-                return JsonConvert.DeserializeObject<List<ClientesModel>>(await r.Content.ReadAsStringAsync());
-            }
-            else
-            {
-                throw new Exception(r.ReasonPhrase);
-            }
+        //private async Task<List<ClientesModel>> BuscarEmailCliente()
+        //{
+        //    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
+        //    HttpResponseMessage r = await _httpClient.GetAsync($"{_WebConfigUrl.Value.API_WebConfig_URL}CadastroCliente/ObterListaEnviarEmail");
+        //    if (r.IsSuccessStatusCode)
+        //    {
+        //        return JsonConvert.DeserializeObject<List<ClientesModel>>(await r.Content.ReadAsStringAsync());
+        //    }
+        //    else
+        //    {
+        //        throw new Exception(r.ReasonPhrase);
+        //    }
 
-        }
+        //}
 
+        //private async Task EditarCampoEmailEnviado(string cpf)
+        //{
+        //    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
+        //    HttpResponseMessage r = await _httpClient.PutAsJsonAsync($"{_WebConfigUrl.Value.API_WebConfig_URL}CadastroCliente/AlterarEnvioDeEmail", cpf);
 
-
-        private async Task EditarCampoEmailEnviado(string cpf)
-        {
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
-            HttpResponseMessage r = await _httpClient.PutAsJsonAsync($"{_WebConfigUrl.Value.API_WebConfig_URL}CadastroCliente/AlterarEnvioDeEmail", cpf);
-
-            if (!r.IsSuccessStatusCode)
-            {
-                throw new Exception(r.ReasonPhrase);
-            }
-        }
+        //    if (!r.IsSuccessStatusCode)
+        //    {
+        //        throw new Exception(r.ReasonPhrase);
+        //    }
+        //}
 
         #endregion
 
@@ -104,7 +162,7 @@ namespace CarLocadora.EnviarEmail
 
         private string EmailBoasVindas(string nome)
         {
-            StreamReader leitor = new StreamReader(@"C:\Users\Claud\source\repos\CAR-LOCADORA\CarLocadora.EnviarEmail\TemplateEmail\TemplateEmail.cshtml", Encoding.UTF8);
+            StreamReader leitor = new StreamReader(@"C:\Users\Claud\source\repos\Claudio-lunardi\CAR-LOCADORA\CarLocadora.EnviarEmail\TemplateEmail\TemplateEmail.cshtml", Encoding.UTF8);
             var conteudo = leitor.ReadToEnd();
             var TemplateEmail = conteudo.Replace("Nome¢", nome);
             

@@ -1,12 +1,11 @@
 ﻿using AspNetCoreRateLimit;
-using CarLocadora.Comum.Modelo;
 using CarLocadora.Infra.Entity;
-using CarLocadora.Modelo.Models;
 using CarLocadora.Negocio.Categoria;
 using CarLocadora.Negocio.Cliente;
 using CarLocadora.Negocio.FormaDePagamento;
 using CarLocadora.Negocio.Locacao;
 using CarLocadora.Negocio.ManutencaoVeiculo;
+using CarLocadora.Negocio.Rabbit;
 using CarLocadora.Negocio.Usuario;
 using CarLocadora.Negocio.Veiculo;
 using CarLocadora.Negocio.Vistoria;
@@ -113,13 +112,13 @@ namespace CarLocadora.API.Extencoes
              });
         public static void ConfigurarServicos(this IServiceCollection services)
         {
-            //string connectionString = "Data Source=localhost,1434;User ID=sa;Password=senha@1234xxxY;Initial Catalog=DBCarLocadora;";
-            string connectionString = "Data Source=host.docker.internal,1434;User ID=sa;Password=senha@1234xxxY;Initial Catalog=DBCarLocadora;";
+            string connectionstring = "data source=localhost,1433;user id=SA;password=senha@1234;initial catalog=dbcarlocadora;";
+            //string connectionstring = "Data Source=host.docker.internal,1433;User ID=SA;Password=senha@1234;Initial Catalog=DBCarLocadora;";
             services.AddHttpClient();
 
             //string connection = configuration.GetConnectionString("WebConfigUrl");
-            services.AddDbContext<EntityContext>(item => item.UseSqlServer(connectionString));
-            
+            services.AddDbContext<EntityContext>(item => item.UseSqlServer(connectionstring));
+
             services.AddScoped<ICliente, Cliente>();
             services.AddScoped<ICategoria, Categoria>();
             services.AddScoped<IVeiculo, Veiculo>();
@@ -127,7 +126,8 @@ namespace CarLocadora.API.Extencoes
             services.AddScoped<IUsuario, Usuario>();
             services.AddScoped<IManutencaoVeiculo, ManutencaoVeiculo>();
             services.AddScoped<Ilocacao, Locacao>();
-            services.AddScoped<IVistoria, Vistoria>(); 
+            services.AddScoped<IVistoria, Vistoria>();
+            services.AddScoped<IRabbitMQ, RabbitMQ_>();
         }
     }
 }

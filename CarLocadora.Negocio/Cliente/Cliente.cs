@@ -1,6 +1,9 @@
 ﻿using CarLocadora.Infra.Entity;
 using CarLocadora.Modelo.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
+using System.Text;
 
 namespace CarLocadora.Negocio.Cliente
 {
@@ -9,11 +12,21 @@ namespace CarLocadora.Negocio.Cliente
 
         #region Chamando Interface
 
+        //private readonly ConnectionFactory _factory;
         private readonly EntityContext _entityContext;
         public Cliente(EntityContext entityContext)
         {
+            //_factory = new ConnectionFactory
+            //{
+            //    HostName = "localhost",
+            //    //Port = 5672,
+            //    //UserName = "guest",
+            //    //Password = "guest"
+            //};
             _entityContext = entityContext;
         }
+
+
         #endregion
 
         public async Task AlterarCliente(ClientesModel clientesModel)
@@ -21,13 +34,17 @@ namespace CarLocadora.Negocio.Cliente
             clientesModel.DataAlteracao = DateTime.Now;
             _entityContext.Clientes.Update(clientesModel);
             await _entityContext.SaveChangesAsync();
+
+
         }
 
         public async Task IncluirCliente(ClientesModel clientesModel)
         {
             clientesModel.DataInclusao = DateTime.Now;
             _entityContext.Clientes.Add(clientesModel);
-            _entityContext.SaveChanges();
+            await _entityContext.SaveChangesAsync();
+
+            //Publicar(clientesModel);
         }
         public async Task<List<ClientesModel>> ListaClientes()
         {
@@ -54,5 +71,24 @@ namespace CarLocadora.Negocio.Cliente
             await _entityContext.SaveChangesAsync();
 
         }
+
+        //private void Publicar(ClientesModel clientesModel)
+        //{
+        //    ClienteModelRabbitMq clienteModelRabbitMq = new ClienteModelRabbitMq();
+        //    clienteModelRabbitMq.Nome = clientesModel.Nome;
+        //    clienteModelRabbitMq.Email = clientesModel.Email;
+        //    clienteModelRabbitMq.CPF = clientesModel.CPF;
+
+        //    var connectarRabbit = _factory.CreateConnection();
+        //    var canal = connectarRabbit.CreateModel();
+        //    IBasicProperties ibasicProperties = canal.CreateBasicProperties();
+
+        //    var corpoMensagem = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clienteModelRabbitMq));
+
+        //    //publicar na exchenge
+        //    canal.BasicPublish(exchange: "emails", routingKey: "", basicProperties: ibasicProperties, body: corpoMensagem);
+
+        //}
+
     }
 }
