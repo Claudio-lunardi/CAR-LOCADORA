@@ -15,22 +15,13 @@ using System.Text;
 namespace CarLocadora.EnviarEmail
 {
     public class Worker : BackgroundService
-    {
-        private readonly ConnectionFactory _factory;
+    {       
         private readonly ILogger<Worker> _logger;
         private readonly HttpClient _httpClient;
         private readonly IApiToken _apiToken;
         private readonly IOptions<WebConfigUrl> _WebConfigUrl;
-
         public Worker(ILogger<Worker> logger, IHttpClientFactory httpClient, IApiToken apiToken, IOptions<WebConfigUrl> WebConfigUrl)
         {
-            _factory = new ConnectionFactory
-            {
-                HostName = "localhost",
-                Port = 5672,
-                UserName = "guest",
-                Password = "guest"
-            };
             _logger = logger;
             _httpClient = httpClient.CreateClient();
             _apiToken = apiToken;
