@@ -32,10 +32,14 @@ namespace CarLocadora.EnviarEmail
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var ClienteModelRabbitMq = await ObterMensagemRabbit();       
                 try
                 {
-                    await EnviarEmail(ClienteModelRabbitMq.Email, ClienteModelRabbitMq.Nome);
+                    var ClienteModelRabbitMq = await ObterMensagemRabbit();
+                    if (ClienteModelRabbitMq != null)
+                    {
+                        await EnviarEmail(ClienteModelRabbitMq.Email, ClienteModelRabbitMq.Nome);
+                    }
+
                 }
                 catch (Exception)
                 {
