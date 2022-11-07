@@ -15,7 +15,7 @@ using System.Text;
 namespace CarLocadora.EnviarEmail
 {
     public class Worker : BackgroundService
-    {       
+    {
         private readonly ILogger<Worker> _logger;
         private readonly HttpClient _httpClient;
         private readonly IApiToken _apiToken;
@@ -32,19 +32,16 @@ namespace CarLocadora.EnviarEmail
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var ClienteModelRabbitMq = await ObterMensagemRabbit();        
-                    try
-                    {
-                        await EnviarEmail(ClienteModelRabbitMq.Email, ClienteModelRabbitMq.Nome);
-
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-                
-
-                await Task.Delay(35000, stoppingToken);
+                var ClienteModelRabbitMq = await ObterMensagemRabbit();       
+                try
+                {
+                    await EnviarEmail(ClienteModelRabbitMq.Email, ClienteModelRabbitMq.Nome);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+                await Task.Delay(5000, stoppingToken);
             }
         }
 
@@ -156,7 +153,7 @@ namespace CarLocadora.EnviarEmail
             StreamReader leitor = new StreamReader(@"C:\Users\Claud\source\repos\Claudio-lunardi\CAR-LOCADORA\CarLocadora.EnviarEmail\TemplateEmail\TemplateEmail.cshtml", Encoding.UTF8);
             var conteudo = leitor.ReadToEnd();
             var TemplateEmail = conteudo.Replace("Nome¢", nome);
-            
+
             //StringBuilder sb = new StringBuilder();
             //sb.Append($"<p>Parabéns <b>{nome},</b></p>");
             //sb.Append($"<p>Seja muito bem-vindo a <b>CAR-LOCADORA.</b></p>");

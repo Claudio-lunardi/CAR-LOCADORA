@@ -41,27 +41,15 @@ namespace CarLocadora.Negocio.Rabbit
         {
             var connectarRabbit = _factory.CreateConnection();
             var canal = connectarRabbit.CreateModel();
-            var dados = new ClienteModelRabbitMq();
 
-            while (true)
+            BasicGetResult retorno = canal.BasicGet("cliente", false);
+            if (retorno != null)
             {
-                BasicGetResult retorno = canal.BasicGet("cliente", false);
-                if (retorno == null)
-                {
-                    break;
-
-                }
-                else
-                {
-                    dados = JsonConvert.DeserializeObject<ClienteModelRabbitMq>(Encoding.UTF8.GetString(retorno.Body.ToArray()));
-
-                    canal.BasicAck(retorno.DeliveryTag, true);
-
-
-                }
+                canal.BasicAck(retorno.DeliveryTag, true);
+                return JsonConvert.DeserializeObject<ClienteModelRabbitMq>(Encoding.UTF8.GetString(retorno.Body.ToArray()));     
             }
 
-            return dados;
+            return null;
         }
 
 
