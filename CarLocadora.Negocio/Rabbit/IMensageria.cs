@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace CarLocadora.Negocio.Rabbit
 {
-    public interface IRabbitMQ
+    public interface IMensageria
     {
 
-        Task EnviarMensagemRabbit(ClientesModel clientesModel);
+        void EnviarMensagemRabbit(object conteudo, string exchange = "", string fila = "");
 
-        Task<ClienteModelRabbitMq> PegarMensagemRabbit();
+
+
     }
 }

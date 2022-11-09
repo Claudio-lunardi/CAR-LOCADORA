@@ -14,9 +14,9 @@ namespace CarLocadora.API.Controllers.Cadastros
         #region Chamando Interface
 
         private readonly ICliente _cliente;
-        private readonly IRabbitMQ _rabbitMQ;
+        private readonly IMensageria _rabbitMQ;
 
-        public CadastroClienteController(ICliente cliente, IRabbitMQ rabbitMQ)
+        public CadastroClienteController(ICliente cliente, IMensageria rabbitMQ)
         {
             _cliente = cliente;
             _rabbitMQ = rabbitMQ;
@@ -39,7 +39,6 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
 
             await _cliente.IncluirCliente(clientesModel);
-            await _rabbitMQ.EnviarMensagemRabbit(clientesModel);
         }
 
         [HttpPut()]
@@ -60,10 +59,5 @@ namespace CarLocadora.API.Controllers.Cadastros
             await _cliente.AlterarEnvioDeEmail(cpf);
         }
 
-        [HttpGet("ObterMensagemRabbit")]
-        public async Task<ClienteModelRabbitMq> ObterMensagemRabbit()
-        {
-            return await _rabbitMQ.PegarMensagemRabbit();
-        }
     }
 }

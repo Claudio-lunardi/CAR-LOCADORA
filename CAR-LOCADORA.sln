@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.Modelo", "CarLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.Negocio", "CarLocadora.Negocio\CarLocadora.Negocio.csproj", "{2225FA24-044C-4C46-9CA9-EB1E1D7530D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.EnviarEmail", "CarLocadora.EnviarEmail\CarLocadora.EnviarEmail.csproj", "{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.Comum", "CarLocadora.Comum\CarLocadora.Comum.csproj", "{13CBB350-C420-4323-9223-2E19FDC91547}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.Comum", "CarLocadora.Comum\CarLocadora.Comum.csproj", "{13CBB350-C420-4323-9223-2E19FDC91547}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.GerarArquivo", "CarLocadora.GerarArquivo\CarLocadora.GerarArquivo.csproj", "{91E96E49-105F-462D-8F87-8EA02269020D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.EnviarEmailService", "CarLocadora.EnviarEmailService\CarLocadora.EnviarEmailService.csproj", "{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +45,18 @@ Global
 		{2225FA24-044C-4C46-9CA9-EB1E1D7530D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2225FA24-044C-4C46-9CA9-EB1E1D7530D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2225FA24-044C-4C46-9CA9-EB1E1D7530D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A74148D2-C5A6-4BCF-A88A-9D9D5D96EE92}.Release|Any CPU.Build.0 = Release|Any CPU
 		{13CBB350-C420-4323-9223-2E19FDC91547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13CBB350-C420-4323-9223-2E19FDC91547}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13CBB350-C420-4323-9223-2E19FDC91547}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13CBB350-C420-4323-9223-2E19FDC91547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91E96E49-105F-462D-8F87-8EA02269020D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91E96E49-105F-462D-8F87-8EA02269020D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91E96E49-105F-462D-8F87-8EA02269020D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91E96E49-105F-462D-8F87-8EA02269020D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

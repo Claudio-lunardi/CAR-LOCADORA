@@ -1,5 +1,6 @@
 ﻿using CarLocadora.Infra.Entity;
 using CarLocadora.Modelo.Models;
+using CarLocadora.Negocio.Rabbit;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,22 +14,26 @@ namespace CarLocadora.Negocio.Veiculo
     {
         private readonly EntityContext _entityContext;
 
-        public Veiculo(EntityContext entityContext)
+        private readonly IMensageria _rabbitMQ;
+
+        public Veiculo(EntityContext entityContext, IMensageria rabbitMQ)
         {
             _entityContext = entityContext;
-        }
-
-        public async Task AlterarVeiculos(VeiculosModel veiculosModel)
-        {
-            veiculosModel.DataAlteracao = DateTime.Now;
-            _entityContext.Veiculos.Update(veiculosModel);
-            await _entityContext.SaveChangesAsync();
+            _rabbitMQ = rabbitMQ;
         }
 
         public async Task IncluirVeiculos(VeiculosModel veiculosModel)
         {
             veiculosModel.DataInclusao = DateTime.Now;
-            await _entityContext.Veiculos.AddAsync(veiculosModel);
+            await _entityContext.AddAsync(veiculosModel);
+            await _entityContext.SaveChangesAsync();
+            _rabbitMQ.EnviarMensagemRabbit(veiculosModel, "gerarArquivo", "");
+        }
+
+        public async Task AlterarVeiculos(VeiculosModel veiculosModel)
+        {
+            veiculosModel.DataAlteracao = DateTime.Now;
+            _entityContext.Update(veiculosModel);
             await _entityContext.SaveChangesAsync();
         }
 

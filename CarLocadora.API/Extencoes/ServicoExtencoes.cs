@@ -1,5 +1,7 @@
 ﻿using AspNetCoreRateLimit;
+using CarLocadora.Comum.Modelo;
 using CarLocadora.Infra.Entity;
+using CarLocadora.Infra.RabbitMQ;
 using CarLocadora.Negocio.Categoria;
 using CarLocadora.Negocio.Cliente;
 using CarLocadora.Negocio.FormaDePagamento;
@@ -110,14 +112,9 @@ namespace CarLocadora.API.Extencoes
                     {securityScheme, Array.Empty<string>() }
                  });
              });
-        public static void ConfigurarServicos(this IServiceCollection services)
+        public static void ConfigurarServicos(this IServiceCollection services, IConfiguration configuration)
         {
-            string connectionstring = "data source=localhost,1433;user id=SA;password=senha@1234;initial catalog=dbcarlocadora;";
-            //string connectionstring = "Data Source=host.docker.internal,1433;User ID=SA;Password=senha@1234;Initial Catalog=DBCarLocadora;";
-            services.AddHttpClient();
-
-            //string connection = configuration.GetConnectionString("WebConfigUrl");
-            services.AddDbContext<EntityContext>(item => item.UseSqlServer(connectionstring));
+            services.AddDbContext<EntityContext>(item => item.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<ICliente, Cliente>();
             services.AddScoped<ICategoria, Categoria>();
@@ -127,7 +124,16 @@ namespace CarLocadora.API.Extencoes
             services.AddScoped<IManutencaoVeiculo, ManutencaoVeiculo>();
             services.AddScoped<Ilocacao, Locacao>();
             services.AddScoped<IVistoria, Vistoria>();
-            services.AddScoped<IRabbitMQ, RabbitMQ_>();
+           
+
+            #region RabbitMQ
+            services.Configure<DadosBaseRabbitMQ>(configuration.GetSection("DadosBaseRabbitMQ"));
+            services.AddScoped<IMensageria, Mensageria>();
+            services.AddSingleton<RabbitMQFactory>();
+            #endregion
+
+
+
         }
     }
 }

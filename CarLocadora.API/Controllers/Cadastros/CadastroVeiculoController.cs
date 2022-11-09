@@ -34,15 +34,15 @@ namespace CarLocadora.API.Controllers.Cadastros
         }
 
         [HttpPost()]
-        public void IncluirVeiculo([FromBody] VeiculosModel veiculosModel)
+        public async Task IncluirVeiculo([FromBody] VeiculosModel veiculosModel)
         {
-            _veiculo.IncluirVeiculos(veiculosModel);
+            await _veiculo.IncluirVeiculos(veiculosModel);
         }
 
         [HttpPut()]
-        public void AlterarVeiculo([FromBody] VeiculosModel veiculosModel)
+        public async Task AlterarVeiculo([FromBody] VeiculosModel veiculosModel)
         {
-            _veiculo.AlterarVeiculos(veiculosModel);
+            await _veiculo.AlterarVeiculos(veiculosModel);
         }
 
 
