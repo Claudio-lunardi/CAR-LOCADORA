@@ -1,5 +1,7 @@
 ﻿using CarLocadora.Modelo.Models;
+using CarLocadora.Modelo.Models.SeguroModel;
 using CarLocadora.Negocio.Locacao;
+using CarLocadora.Negocio.Seguradora;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +14,12 @@ namespace CarLocadora.API.Controllers.Cadastros
     public class CadastroLocacaoController : ControllerBase
     {
         private readonly Ilocacao _locacao;
+        private readonly ISeguradora _seguradora;
 
-        public CadastroLocacaoController(Ilocacao locacao)
+        public CadastroLocacaoController(Ilocacao locacao, ISeguradora seguradora)
         {
             _locacao = locacao;
+            _seguradora = seguradora;
         }
 
         [HttpGet]
@@ -46,5 +50,13 @@ namespace CarLocadora.API.Controllers.Cadastros
         {
             await _locacao.AlterarLocacao(locacoesModel);
         }
+
+        [HttpPut("AtualizarCamposSeguradora")]
+        public async Task AtualizarCamposSeguradora([FromBody] RetornoModel retornoModel)
+        {
+          await _seguradora.SalvarDadosSeguradora(retornoModel);
+        }
+
+
     }
 }

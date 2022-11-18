@@ -32,6 +32,11 @@ namespace CarLocadora.EnviarEmailService
                     await EnviarEmail(dados.Email, dados.Nome);
                     canal.BasicAck(retorno.DeliveryTag, true);
                 }
+                else
+                {
+                    canal.BasicAck(retorno.DeliveryTag, false);
+                }
+              
 
                 await Task.Delay(5000, stoppingToken);
             }

@@ -1,25 +1,25 @@
 using CarLocadora.Comum.Modelo;
-using CarLocadora.EnviarEmailService;
+using CarLocadora.Comum.Servico.APItokenSeguradora;
 using CarLocadora.Infra.RabbitMQ;
+using CarLocadora.Negocio.Rabbit;
+using CarLocadora.ObterDadosSeguradora;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
-        //services.AddHttpClient();
-        //services.AddSingleton<IApiToken, ApiToken>();
-        //services.AddSingleton<LoginRespostaModel>();
-        //services.Configure<WebConfigUrl>(hostContext.Configuration.GetSection("WebConfigUrl"));
+        services.AddHostedService<Worker>();
+
+        services.AddHttpClient();
+        services.AddSingleton<IApiTokenSeguro, ApiTokenSeguro>();
+        services.AddSingleton<LoginRespostaSeguradora>();
 
         #region RabbitMQ
+
         services.Configure<DadosBaseRabbitMQ>(hostContext.Configuration.GetSection("DadosBaseRabbitMQ"));
         services.AddSingleton<RabbitMQFactory>();
+        services.AddSingleton<IMensageria, Mensageria>();
         #endregion
-
-
-
-        services.AddHostedService<Worker>();
     })
     .Build();
 
 await host.RunAsync();
-

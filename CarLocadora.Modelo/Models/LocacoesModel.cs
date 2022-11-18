@@ -15,7 +15,7 @@ namespace CarLocadora.Modelo.Models
         [Required]
         public int Id { get; set; }
 
-        [StringLength(14,MinimumLength =14, ErrorMessage = "Este campo deve ter 14 caracteres")]
+        [StringLength(14, MinimumLength = 14, ErrorMessage = "Este campo deve ter 14 caracteres")]
         [Required(ErrorMessage = "CPF do cliente é obrigatório.")]
         [Display(Name = "CPF do cliente")]
         public string ClienteCPF { get; set; }
@@ -47,5 +47,29 @@ namespace CarLocadora.Modelo.Models
 
         [Display(Name = "Data Alteração")]
         public DateTime? DataAlteracao { get; set; }
+
+
+        #region Referente Seguro
+
+        [Display(Name = "Seguro Apólice")]
+        public Guid? SeguroApolice { get; set; }
+
+        [Display(Name = "Seguro Aprovado")]
+        public bool? SeguroAprovado { get; set; }
+
+        [Display(Name = "Seguro Observação")]
+        [StringLength(1000, ErrorMessage = "Este campo deve ter máximo 1000 caracteres.")]
+        public string? SeguroObservacao { get; set; } = "";
+        #endregion
+
+
+
+
+
+
+
+
+
+
     }
 }

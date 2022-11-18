@@ -8,6 +8,7 @@ using CarLocadora.Negocio.FormaDePagamento;
 using CarLocadora.Negocio.Locacao;
 using CarLocadora.Negocio.ManutencaoVeiculo;
 using CarLocadora.Negocio.Rabbit;
+using CarLocadora.Negocio.Seguradora;
 using CarLocadora.Negocio.Usuario;
 using CarLocadora.Negocio.Veiculo;
 using CarLocadora.Negocio.Vistoria;
@@ -124,7 +125,8 @@ namespace CarLocadora.API.Extencoes
             services.AddScoped<IManutencaoVeiculo, ManutencaoVeiculo>();
             services.AddScoped<Ilocacao, Locacao>();
             services.AddScoped<IVistoria, Vistoria>();
-           
+            services.AddScoped<ISeguradora, Seguradora>();
+
 
             #region RabbitMQ
             services.Configure<DadosBaseRabbitMQ>(configuration.GetSection("DadosBaseRabbitMQ"));

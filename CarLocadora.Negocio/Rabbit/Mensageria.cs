@@ -1,6 +1,10 @@
-﻿using CarLocadora.Infra.RabbitMQ;
+﻿using CarLocadora.Infra.Entity;
+using CarLocadora.Infra.RabbitMQ;
+using CarLocadora.Modelo.Models.SeguroModel;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace CarLocadora.Negocio.Rabbit
@@ -8,10 +12,11 @@ namespace CarLocadora.Negocio.Rabbit
     public class Mensageria : IMensageria
     {
         private readonly RabbitMQFactory _rabbitMQFactory;
+       
 
         public Mensageria(RabbitMQFactory rabbitMQFactory)
         {
-            _rabbitMQFactory = rabbitMQFactory;
+            _rabbitMQFactory = rabbitMQFactory;       
         }
 
         public void EnviarMensagemRabbit(object conteudo, string exchange, string fila)
@@ -23,5 +28,6 @@ namespace CarLocadora.Negocio.Rabbit
             canal.BasicPublish(exchange: exchange, routingKey: fila, basicProperties: ibasicProperties, body: corpoMensagem);
         }
 
+       
     }
 }

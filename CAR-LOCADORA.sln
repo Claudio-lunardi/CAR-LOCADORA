@@ -17,7 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.Comum", "CarLoc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.GerarArquivo", "CarLocadora.GerarArquivo\CarLocadora.GerarArquivo.csproj", "{91E96E49-105F-462D-8F87-8EA02269020D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.EnviarEmailService", "CarLocadora.EnviarEmailService\CarLocadora.EnviarEmailService.csproj", "{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarLocadora.EnviarEmailService", "CarLocadora.EnviarEmailService\CarLocadora.EnviarEmailService.csproj", "{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.EnviarDadosSeguradora", "CarLocadora.EnviarDadosSeguradora\CarLocadora.EnviarDadosSeguradora.csproj", "{E4437DE1-16E6-4902-ACBD-AE3DF43BB3C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.ObterDadosSeguradora", "CarLocadora.ObterDadosSeguradora\CarLocadora.ObterDadosSeguradora.csproj", "{845F62B4-FD54-42D2-B359-9091D2E32FAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLocadora.AtualizarDadosLocacaoSeguradora", "CarLocadora.AtualizarDadosLocacaoSeguradora\CarLocadora.AtualizarDadosLocacaoSeguradora.csproj", "{9F070969-4D02-43A7-8B96-43A3FBBC7FFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,18 @@ Global
 		{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A559F916-6EA3-4DCC-9C2E-4913ECA9C630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4437DE1-16E6-4902-ACBD-AE3DF43BB3C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4437DE1-16E6-4902-ACBD-AE3DF43BB3C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4437DE1-16E6-4902-ACBD-AE3DF43BB3C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4437DE1-16E6-4902-ACBD-AE3DF43BB3C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{845F62B4-FD54-42D2-B359-9091D2E32FAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{845F62B4-FD54-42D2-B359-9091D2E32FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{845F62B4-FD54-42D2-B359-9091D2E32FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{845F62B4-FD54-42D2-B359-9091D2E32FAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F070969-4D02-43A7-8B96-43A3FBBC7FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F070969-4D02-43A7-8B96-43A3FBBC7FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F070969-4D02-43A7-8B96-43A3FBBC7FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F070969-4D02-43A7-8B96-43A3FBBC7FFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

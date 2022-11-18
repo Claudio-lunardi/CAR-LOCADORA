@@ -1,6 +1,7 @@
 ﻿
 
 using CarLocadora.API.Login;
+using CarLocadora.Comum.Modelo;
 using CarLocadora.Modelo.Models;
 
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +13,7 @@ namespace CarLocadora.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-     public class LoginController : ControllerBase
+    public class LoginController : ControllerBase
     {
 
         [HttpPost]
@@ -22,5 +23,11 @@ namespace CarLocadora.API.Controllers
             return Ok(await new LoginServico().Login(loginRequisicaoModel));
         }
 
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public async Task<ActionResult<LoginRespostaSeguradora>> LoginSeguradora([FromBody] LoginRequisicaoSeguradora loginRequisicaoModel)
+        //{
+        //    return Ok(await new LoginServico().LoginSeguro(loginRequisicaoModel));
+        //}
     }
 }

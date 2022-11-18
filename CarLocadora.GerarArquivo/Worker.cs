@@ -21,41 +21,41 @@ namespace CarLocadora.GerarArquivo
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-
                 var canal = _rabbitMQFactory.GetChannel();
                 BasicGetResult retorno = canal.BasicGet("veiculo", false);
+
                 if (retorno != null)
                 {
-
                     var dados = JsonConvert.DeserializeObject<VeiculosModel>(Encoding.UTF8.GetString(retorno.Body.ToArray()));
 
-                    using (StreamWriter sw = new StreamWriter($@"C:\Teste\{dados.Placa}" + ".txt"))
-                    {
-                        sw.WriteLine(dados.Placa);
-                        sw.WriteLine(dados.Chassi);
-                        sw.WriteLine(dados.Marca);
-                        sw.WriteLine(dados.Modelo);
-                        sw.WriteLine(dados.Combustivel);
-                        sw.WriteLine(dados.Cor);
-                        sw.WriteLine(dados.Opcionais);
-                        sw.WriteLine(dados.Ativo.ToString());
-                        sw.WriteLine(dados.DataInclusao.ToString());
-                        sw.WriteLine(dados.DataAlteracao.ToString());
-                        sw.WriteLine(dados.CategoriaId.ToString());
-                  
-                    }
+                    GerarArquivo(dados);
 
-
-
-
-
-
-
-
+                    canal.BasicAck(retorno.DeliveryTag, true);
                 }
 
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(5000, stoppingToken);
 
+            }
+        }
+
+
+
+        private void GerarArquivo(VeiculosModel veiculosModel)
+        {
+            using (StreamWriter sw = new StreamWriter($@"C:\Teste\{veiculosModel.Placa}" + ".txt"))
+            {
+                sw.WriteLine(veiculosModel.Placa);
+                sw.WriteLine(veiculosModel?.Opcionais);
+                sw.WriteLine(veiculosModel?.Chassi);
+                sw.WriteLine(veiculosModel.Marca);
+                sw.WriteLine(veiculosModel.Combustivel);
+                sw.WriteLine(veiculosModel.Modelo);            
+                sw.WriteLine(veiculosModel.Cor);              
+                sw.WriteLine(veiculosModel.Ativo.ToString());
+                sw.WriteLine(veiculosModel.DataInclusao.ToString());
+                sw.WriteLine(veiculosModel?.DataAlteracao.ToString());
+                sw.WriteLine(veiculosModel?.CategoriaId.ToString());
+               
             }
         }
     }
