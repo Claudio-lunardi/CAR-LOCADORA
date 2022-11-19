@@ -46,10 +46,7 @@ namespace CarLocadora.EnviarDadosSeguradora
 
                     _mensageria.EnviarMensagemRabbit(retornoProtocolo, "", "seguro-protocolo");
                     canal.BasicAck(retorno.DeliveryTag, true);
-                }
-                canal.Close();
-
-
+                }               
                 await Task.Delay(5000, stoppingToken);
             }
         }

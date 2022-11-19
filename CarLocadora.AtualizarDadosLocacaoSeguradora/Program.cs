@@ -24,7 +24,6 @@ IHost host = Host.CreateDefaultBuilder(args)
         #region RabbitMQ
         services.Configure<DadosBaseRabbitMQ>(hostContext.Configuration.GetSection("DadosBaseRabbitMQ"));
         services.AddSingleton<RabbitMQFactory>();
-        services.AddSingleton<IMensageria, Mensageria>();
         #endregion
     })
     .Build();

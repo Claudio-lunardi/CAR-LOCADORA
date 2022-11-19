@@ -46,7 +46,6 @@ namespace CarLocadora.ObterDadosSeguradora
                         var Getprotocolo = JsonConvert.DeserializeObject<RetornoModel>(await response.Content.ReadAsStringAsync());
                         Getprotocolo.IdLocacao = protocolo.IdLocacao;
 
-
                         if (Getprotocolo.status == "processando")
                         {
                             canal.BasicNack(retorno.DeliveryTag, false, true);

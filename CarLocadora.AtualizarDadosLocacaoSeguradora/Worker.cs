@@ -19,8 +19,6 @@ namespace CarLocadora.AtualizarDadosLocacaoSeguradora
         private readonly IApiToken _apiToken;
         private readonly IOptions<WebConfigUrl> _UrlApi;
 
-
-
         public Worker(ILogger<Worker> logger, RabbitMQFactory rabbitMQFactory, IHttpClientFactory httpClient, IApiToken apiToken, IOptions<WebConfigUrl> urlApi)
         {
             _logger = logger;
@@ -43,7 +41,7 @@ namespace CarLocadora.AtualizarDadosLocacaoSeguradora
                 {
                     RetornoModel protocolo = JsonConvert.DeserializeObject<RetornoModel>(Encoding.UTF8.GetString(retorno.Body.ToArray()));
 
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());             
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _apiToken.Obter());
                     HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"{_UrlApi.Value.API_WebConfig_URL}CadastroLocacao/AtualizarCamposSeguradora", protocolo);
 
                     if (response.IsSuccessStatusCode)
@@ -52,9 +50,8 @@ namespace CarLocadora.AtualizarDadosLocacaoSeguradora
                     }
                     else
                     {
-                        canal.BasicAck(retorno.DeliveryTag, false);
+                        canal.BasicNack(retorno.DeliveryTag, false, true);
                     }
-
                 }
                 await Task.Delay(1000, stoppingToken);
             }
