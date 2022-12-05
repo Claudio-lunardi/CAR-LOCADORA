@@ -35,9 +35,12 @@ namespace CarLocadora.Modelo.Models
         [Required(ErrorMessage = "Celular é obrigatório!")]
         [StringLength(15, MinimumLength = 15, ErrorMessage = "Este campo deve ter no mínimo 15 caracteres.")]
         public string Celular { get; set; }
+
         public bool Ativo { get; set; }
+
         [Display(Name = "Data Inclusão")]
         public DateTime DataInclusao { get; set; }
+
         [Display(Name = "Data Alteração")]
         public DateTime? DataAlteracao { get; set; }
 

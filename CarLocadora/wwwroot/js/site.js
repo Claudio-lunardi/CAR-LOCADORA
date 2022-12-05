@@ -16,6 +16,7 @@
 
     //NÃO ALTERAR SE NÃO OUVER EDIÇÃO
     var inicial = $("#Form").serialize();
+
     $("#Form").on("submit", function (e) {
         var atual = $("#Form").serialize();
 
@@ -29,4 +30,8 @@
             toastr.warning("Nenhum campo foi editado");
         }
     });
+
+    var BoolValor = $("#SeguroAprovado").val()
+
+
 });

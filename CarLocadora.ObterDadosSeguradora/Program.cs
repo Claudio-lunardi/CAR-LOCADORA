@@ -5,6 +5,7 @@ using CarLocadora.Negocio.Rabbit;
 using CarLocadora.ObterDadosSeguradora;
 
 IHost host = Host.CreateDefaultBuilder(args)
+    .UseWindowsService()
     .ConfigureServices((hostContext, services) =>
     {
         services.AddHostedService<Worker>();
@@ -14,10 +15,9 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<LoginRespostaSeguradora>();
 
         #region RabbitMQ
-
         services.Configure<DadosBaseRabbitMQ>(hostContext.Configuration.GetSection("DadosBaseRabbitMQ"));
         services.AddSingleton<RabbitMQFactory>();
-        services.AddSingleton<IMensageria, Mensageria>();
+        services.AddScoped<IMensageria, Mensageria>();
         #endregion
     })
     .Build();

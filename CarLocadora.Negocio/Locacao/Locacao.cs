@@ -39,26 +39,10 @@ namespace CarLocadora.Negocio.Locacao
             await _entityContext.Locacoes.AddAsync(locacoesModel);
             await _entityContext.SaveChangesAsync();
 
-            var cliente = _entityContext.Clientes.SingleOrDefault(x => x.CPF == locacoesModel.ClienteCPF);
-            var veiculo = _entityContext.Veiculos.SingleOrDefault(x => x.Placa == locacoesModel.VeiculoPlaca);
+            locacoesModel.Cliente = await _entityContext.Clientes.SingleAsync(x => x.CPF == locacoesModel.ClienteCPF);
+            locacoesModel.Veiculo = await _entityContext.Veiculos.SingleAsync(x => x.Placa == locacoesModel.VeiculoPlaca);
 
-            var seguroModel = new SeguroModel()
-            {
-                locacaoId = locacoesModel.Id,
-                cpf = locacoesModel.ClienteCPF,
-                nome = cliente.Nome,
-                placa = locacoesModel.VeiculoPlaca,
-                cnh = cliente.CNH,
-                dataNascimento = cliente.DataNascimento,
-                telefone = cliente.Telefone,
-                marca = veiculo.Marca,
-                modelo = veiculo.Modelo,
-                combustivel = veiculo.Combustivel,
-                dataHoraRetiradaPrevista = locacoesModel.DataHoraRetiradaPrevista,
-                dataHoraDevolucaoPrevista = locacoesModel.DataHoraDevolucaoPrevista
-            };
-
-            _mensageria.EnviarMensagemRabbit(seguroModel, "", "seguro");
+            _mensageria.EnviarMensagemRabbit(locacoesModel, "", "seguro");
         }
 
         public async Task<List<LocacoesModel>> ListaLocacoes()

@@ -10,32 +10,39 @@ namespace CarLocadora.Modelo.Models
 {
     public class VeiculosModel
     {
-        [Key]     
+        [Key]
         [Required(ErrorMessage = "Placa é obrigatório!")]
         [StringLength(8, MinimumLength = 7, ErrorMessage = "Este campo deve ter no mínimo 7 a 8 caracteres.")]
         public string Placa { get; set; }
 
         [StringLength(100)]
         public string? Chassi { get; set; }
-        [StringLength(100)]
+
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "Este campo deve ter no mínimo 4 a 100 caracteres.")]
         [Required(ErrorMessage = "Marca é obrigatório!")]
         public string Marca { get; set; }
-        [StringLength(150)]
+
+        [StringLength(150, MinimumLength = 4, ErrorMessage = "Este campo deve ter no mínimo 4 a 150 caracteres.")]
         [Required(ErrorMessage = "Modelo é obrigatório!")]
         public string Modelo { get; set; }
-        [StringLength(100)]
+
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Este campo deve ter no mínimo 3 a 100 caracteres.")]
         [Required(ErrorMessage = "Combustivel é obrigatório!")]
         public string Combustivel { get; set; }
+
         [StringLength(100)]
         [Required(ErrorMessage = "Cor é obrigatório!")]
         public string Cor { get; set; }
+
         [StringLength(2000)]
         public string? Opcionais { get; set; }
+
         [Required(ErrorMessage = "Ativo é obrigatório!")]
         public bool Ativo { get; set; }
 
         [Display(Name = "Data Inclusão")]
-        public DateTime DataInclusao { get; set; } 
+        public DateTime DataInclusao { get; set; }
+
         [Display(Name = "Data Alteração")]
         public DateTime? DataAlteracao { get; set; }
 

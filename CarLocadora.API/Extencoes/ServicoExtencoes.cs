@@ -128,6 +128,8 @@ namespace CarLocadora.API.Extencoes
             services.AddScoped<ISeguradora, Seguradora>();
 
 
+       
+
             #region RabbitMQ
             services.Configure<DadosBaseRabbitMQ>(configuration.GetSection("DadosBaseRabbitMQ"));
             services.AddScoped<IMensageria, Mensageria>();

@@ -27,6 +27,7 @@ namespace CarLocadora.Modelo.Models
         public FormasDePagamentosModel? FormaPagamento { get; set; }
 
         [Display(Name = "Placa")]
+        [StringLength(8, MinimumLength = 7, ErrorMessage = "Este campo deve ter no mínimo 7 a 8 caracteres.")]
         public string? VeiculoPlaca { get; set; }
         public VeiculosModel? Veiculo { get; set; }
 

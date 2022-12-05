@@ -12,12 +12,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 IHost host = Host.CreateDefaultBuilder(args)
+        .UseWindowsService()
     .ConfigureServices((hostContext, services) =>
     {
         services.AddHostedService<Worker>();
-        services.AddHttpClient();
+        //services.AddHttpClient();
+
         services.AddSingleton<IApiToken, ApiToken>();
         services.AddSingleton<LoginRespostaModel>();
+
+        services.AddHttpClient("").ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+        {
+            
+            ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+        });
 
         services.Configure<WebConfigUrl>(hostContext.Configuration.GetSection("WebConfigUrl"));
 

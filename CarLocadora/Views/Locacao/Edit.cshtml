@@ -18,7 +18,33 @@
             <input asp-for="DataAlteracao" type="hidden" class="form-control" />
 
             <partial name="_Formulario" />
-
+            <hr />
+            <div class="row"> 
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="SeguroApolice" class="control-label"></label>
+                    <input asp-for="SeguroApolice" class="form-control" readonly />
+                    <span asp-validation-for="SeguroApolice" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="SeguroAprovado" class="control-label"></label>
+                    <select asp-for="SeguroAprovado" class="form-control text-uppercase" disabled>
+                        <option value="False">Não</option>
+                        <option value="True">Sim</option>
+                    </select>
+                    <span asp-validation-for="SeguroAprovado" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="SeguroObservacao" class="control-label"></label>
+                    <input asp-for="SeguroObservacao" class="form-control" readonly />
+                    <span asp-validation-for="SeguroObservacao" class="text-danger"></span>
+                </div>
+            </div>
+            </div>
             <hr />
             <div class="form-group">
                 <button type="button" class="btn btn-primary">
