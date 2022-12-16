@@ -1,6 +1,7 @@
 ﻿using CarLocadora.Comum.Modelo;
 using CarLocadora.Comum.Servico;
 using CarLocadora.Modelo.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -8,6 +9,7 @@ using System.Net.Http.Headers;
 
 namespace CarLocadora.Controllers.Cliente
 {
+    [Authorize]
     public class ClienteController : Controller
     {
         #region CONSTRUTORES

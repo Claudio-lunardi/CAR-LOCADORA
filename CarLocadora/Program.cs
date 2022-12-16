@@ -7,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigurarServicos();
 
+builder.Services.ConfigurarCookiePolicy();
+builder.Services.ConfigurarAuthentication();
+
 builder.Services.ConfiguraAPI(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -25,6 +28,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseCookiePolicy();
+app.UseAuthentication();
 
 app.UseRouting();
 

@@ -17,10 +17,7 @@ namespace CarLocadora.Infra.RabbitMQ
                 UserName = dadosBaseRabbitMQ.Value.UserName,
                 Password = dadosBaseRabbitMQ.Value.Password,
                 Port = dadosBaseRabbitMQ.Value.Port,
-                //HostName = "localhost",
-                //UserName = "guest",
-                //Password = "guest",
-                //Port = 5672,
+
             };
 
             _iconnection = connectionFactory.CreateConnection();

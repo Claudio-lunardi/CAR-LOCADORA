@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
@@ -64,7 +65,11 @@
                                     Locação
                                 </a>
                             </li>
-                            <li class="nav-item">
+
+                            @if (User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).FirstOrDefault() == "administrador")
+                            {
+
+                                   <li class="nav-item">
                                 <a class="nav-link text-white:hover" asp-area="" asp-controller="Categoria" asp-action="Index">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
                                         <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z" />
@@ -72,6 +77,11 @@
                                     </svg>  Categoria
                                 </a>
                             </li>
+
+                            }
+                         
+
+
                             <li class="nav-item">
                                 <a class="nav-link text-white:hover" asp-area="" asp-controller="ManutencaoVeiculo" asp-action="Index">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">

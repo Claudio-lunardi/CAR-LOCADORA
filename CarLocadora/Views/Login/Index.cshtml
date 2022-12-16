@@ -1,0 +1,100 @@
+﻿@model CarLocadora.Modelo.Models.LoginRequisicaoModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Car Locadora | Log in</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css">
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="bg-secondary">
+
+    <input type="hidden" id="success"
+		   value="@TempData["success"]" />
+    <input type="hidden" id="info"
+		   value="@TempData["info"]" />
+    <input type="hidden" id="warning"
+		   value="@TempData["warning"]" />
+    <input type="hidden" id="error"
+		   value="@TempData["error"]" />
+
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto my-4">
+                <div class="card border-0 shadow rounded-3 my-1">
+                    <div class="card-body p-4 p-sm-5">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <form asp-action="Index">
+                            <div class="form-floating mb-3">
+                                <input type="email" asp-for="Usuario" class="form-control" />
+                                <label asp-for="Usuario"></label>
+                                <span asp-validation-for="Usuario" class="text-danger"></span>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" asp-for="Senha" class="form-control" />
+                                <label asp-for="Senha"></label>
+                                <span asp-validation-for="Senha" class="text-danger"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-bold text-center">
+                                    <span class="text-danger" id="erroLogin">@TempData["erroLogin"]</span>
+                                </div>
+                            </div>
+                            <div class="d-grid my-4">
+                                <button type="button" id="btnEntrar" class="btn btn-primary btn-block" onclick="entrar()">Entrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/plugins/inputmask/jquery.inputmask.js"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        function entrar() {
+            document.getElementById("btnEntrar").classList.add("disabled");
+            document.getElementById("erroLogin").textContent = "";
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Entrar")',
+                data: {
+                    'usuario': document.getElementById("Usuario").value,
+                    'senha': document.getElementById("Senha").value
+                },
+                success: function(data) {
+                    if (data == "OK") {
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    }
+                    else {
+                        document.getElementById("erroLogin").textContent = data;
+                        toastr.error(data);
+                    }
+                },
+                error: function(req, status, error) {
+                    document.getElementById("erroLogin").textContent = error;
+                    toastr.error(error);
+                }
+            });
+
+            document.getElementById("btnEntrar").classList.remove("disabled");
+        }
+    </script>
+</body>
+</html>
